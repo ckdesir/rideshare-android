@@ -13,7 +13,6 @@ private val Roboto = FontFamily(
     Font(R.font.roboto_light, FontWeight.Light),
     Font(R.font.roboto_bold, FontWeight.Bold),
     Font(R.font.roboto_medium, FontWeight.Medium),
-    Font(R.font.roboto_bold, FontWeight.Bold),
     Font(R.font.roboto_black, FontWeight.Black)
 )
 
