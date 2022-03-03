@@ -3,6 +3,7 @@ package com.cornellappdev.scoop
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -44,7 +45,7 @@ fun ScoopApp() {
         val (showBottomBar, setShowBottomBar) = rememberSaveable { mutableStateOf(true) }
         Scaffold(
             bottomBar = {
-                if (showBottomBar) {
+                AnimatedVisibility(visible = showBottomBar) {
                     ScoopTabRow(
                         allScreens = allScreens,
                         onTabSelected = { screen -> navController.navigate(screen.name) },
@@ -66,28 +67,34 @@ fun ScoopApp() {
 fun RallyNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    hideBottomBar: (Boolean) -> Unit
+    setShowBottomBar: (Boolean) -> Unit
 ) {
     NavHost(
         navController = navController,
-        startDestination = ScoopScreen.Home.name,
+        startDestination = Routes.Home.route,
         modifier = modifier
     ) {
         composable(Routes.Home.route) {
-            HomeBody(
-                onTripClick = { identifier ->
-                    navigateToTrip(navController, identifier)
+            CreateHomeBody(navController)
+        }
+        composable(
+            "${Routes.Home.route}/{show_trip_posted}",
+            arguments = listOf(
+                navArgument("show_trip_posted") {
+                    type = NavType.BoolType; defaultValue = false
                 },
-                onPostNewRide = {
-                    // Could require information about user
-                    navigateToPostFlow(navController)
-                }
             )
+        ) { entry ->
+            setShowBottomBar(true)
+            val showTripPosted = entry.arguments?.getBoolean("show_trip_posted")
+            CreateHomeBody(navController, showTripPosted!!)
         }
         composable(Routes.Search.route) {
+            setShowBottomBar(true)
             SearchBody()
         }
         composable(Routes.Profile.route) {
+            setShowBottomBar(true)
             ProfileBody()
         }
         val viewTrip = Routes.View.route
@@ -95,10 +102,10 @@ fun RallyNavHost(
             "$viewTrip/{trip_identifier}",
             arguments = listOf(
                 navArgument("trip_identifier") {
-                    type = NavType.StringType // TBD
+                    type = NavType.StringType
                 },
             ),
-            // Adds deep linking in case we want to add sharing and pulling up a ride
+            // Adds deep linking in case we want to add sharing and pulling up a ride automatically
             deepLinks = listOf(navDeepLink {
                 uriPattern = "rally/$viewTrip/{trip_identifier}"
             }),
@@ -107,9 +114,15 @@ fun RallyNavHost(
             // Retrieve trip information
             // Build composable for displaying trip
         }
-        val postNewTrip = Routes.Post.route
         composable(Routes.Post.route) {
-            // Initiate posting new trip body
+            setShowBottomBar(false)
+//            PostBody(
+//                onPostTrip = { trip ->
+//                    // Post to backend
+//                    // Return home - navController.navigate("{Routes.Home.route}/${result}")
+//                }
+//            )
+
         }
     }
 }
@@ -127,3 +140,16 @@ private fun navigateToPostFlow(
     navController.navigate(Routes.Post.route)
 }
 
+@Composable
+private fun CreateHomeBody(navController: NavHostController, showTripPosted: Boolean = false) {
+    HomeBody(
+        onTripClick = { identifier ->
+            navigateToTrip(navController, identifier)
+        },
+        onPostNewRide = {
+            // Could require information about user
+            navigateToPostFlow(navController)
+        },
+        showTripPosted
+    )
+}
