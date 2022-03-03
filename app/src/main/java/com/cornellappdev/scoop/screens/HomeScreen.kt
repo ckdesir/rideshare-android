@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
@@ -74,25 +75,25 @@ fun TripPostedConfirmation(showTripPosted: Boolean) {
         ) {
             Column(
                 modifier = Modifier
-                    .width(120.dp)
-                    .height(180.dp),
+                    .wrapContentSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Card(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.wrapContentSize(),
                     shape = RoundedCornerShape(20.dp),
                     backgroundColor = DarkGray,
                     elevation = 4.dp
                 ) {
                     Column(
+                        modifier = Modifier.padding(horizontal = 15.dp, vertical = 45.dp),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Image(
                             modifier = Modifier
-                                .width(58.dp)
-                                .height(58.dp),
+                                .width(80.dp)
+                                .height(80.dp),
                             painter = painterResource(R.drawable.ic_check_circle),
                             contentDescription = "Trip posted confirmation"
                         )
@@ -100,6 +101,7 @@ fun TripPostedConfirmation(showTripPosted: Boolean) {
                             text = stringResource(R.string.trip_posted), // Could maybe alternate to trip hasn't been posted if failure
                             fontSize = 16.sp,
                             modifier = Modifier.padding(16.dp),
+                            maxLines = 2,
                             textAlign = TextAlign.Center
                         )
                     }

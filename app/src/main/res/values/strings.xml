@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Scoop</string>
-    <string name="trip_posted">Your trip has been posted!</string>
+    <string name="trip_posted">Your trip has\nbeen posted!</string>
 </resources>
