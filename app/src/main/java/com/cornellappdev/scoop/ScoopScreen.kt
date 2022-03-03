@@ -22,7 +22,7 @@ enum class ScoopScreen(
                 Home.name -> Home
                 Search.name -> Search
                 Profile.name -> Profile
-                null -> Home
+                null, in Routes.NON_TAB_ROUTES -> Home
                 else -> throw IllegalArgumentException("Route $route is not recognized.")
             }
     }
@@ -35,5 +35,10 @@ enum class Routes(
     Search(ScoopScreen.Search.name),
     Profile(ScoopScreen.Profile.name),
     Post("POST"),
-    View("VIEW")
+    View("VIEW");
+
+    companion object {
+        val TAB_ROUTES = listOf(Home.route, Search.route, Profile.route)
+        val NON_TAB_ROUTES = listOf(Post.route, View.route)
+    }
 }
