@@ -63,6 +63,9 @@ fun ScoopApp() {
     }
 }
 
+/**
+ * Maps the NavHost routes to various screens in the app.
+ */
 @Composable
 fun RallyNavHost(
     navController: NavHostController,
@@ -105,13 +108,14 @@ fun RallyNavHost(
                     type = NavType.StringType
                 },
             ),
-            // Adds deep linking in case we want to add sharing and pulling up a ride automatically
+            // Adds deep linking in case we want to add sharing and pulling up a ride automatically.
             deepLinks = listOf(navDeepLink {
                 uriPattern = "rally/$viewTrip/{trip_identifier}"
             }),
         ) { entry ->
-            val tripIdentifier = entry.arguments?.getString("trip_identifier")
-            // Retrieve trip information
+            // Placeholder for eventual retrieving trip logic
+            // val tripIdentifier = entry.arguments?.getString("trip_identifier")
+            // Retrieve trip information using whatever identifier
             // Build composable for displaying trip
         }
         composable(Routes.Post.route) {
@@ -147,7 +151,6 @@ private fun CreateHomeBody(navController: NavHostController, showTripPosted: Boo
             navigateToTrip(navController, identifier)
         },
         onPostNewRide = {
-            // Could require information about user
             navigateToPostFlow(navController)
         },
         showTripPosted

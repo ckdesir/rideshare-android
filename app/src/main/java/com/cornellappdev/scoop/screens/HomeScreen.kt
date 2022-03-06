@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
@@ -30,7 +29,7 @@ fun HomeBody(
 ) {
     var tripPostedMessageShown by rememberSaveable { mutableStateOf(showTripPosted) }
 
-    // Shows the message about edit feature.
+    // Shows the message about the trip being posted successfully.
     suspend fun showTripPosted() {
         if (tripPostedMessageShown) {
             delay(3000L)
@@ -62,6 +61,9 @@ fun HomeBody(
     }
 }
 
+/**
+ * Builds composable to display the result of if a trip is posted.
+ */
 @Composable
 fun TripPostedConfirmation(showTripPosted: Boolean) {
     AnimatedVisibility(
