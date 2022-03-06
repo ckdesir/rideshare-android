@@ -1,7 +1,7 @@
 package com.cornellappdev.scoop
 
 /**
- * Screen metadata for Scoop.
+ * Main screen metadata for Scoop.
  */
 enum class ScoopScreen(
     val icon: Int
@@ -28,6 +28,9 @@ enum class ScoopScreen(
     }
 }
 
+/**
+ * Route metadata for Scoop/Navigation system.
+ */
 enum class Routes(
     val route: String
 ) {
