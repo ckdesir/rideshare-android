@@ -1,4 +1,4 @@
-package com.cornellappdev.rideshare
+package com.cornellappdev.scoop
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.cornellappdev.rideshare.ui.theme.RideshareTheme
+import com.cornellappdev.scoop.ui.theme.RideshareTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

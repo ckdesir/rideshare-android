@@ -1,4 +1,4 @@
-package com.cornellappdev.rideshare.ui.theme
+package com.cornellappdev.scoop.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
