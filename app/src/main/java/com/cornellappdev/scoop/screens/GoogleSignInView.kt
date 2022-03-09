@@ -3,7 +3,6 @@ package com.cornellappdev.rideshare
 import android.app.Application
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -13,18 +12,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.cornellappdev.rideshare.components.SignInButton
-import com.cornellappdev.rideshare.google.GoogleSignInAPI
-import com.cornellappdev.rideshare.google.GoogleUserModel
-import com.cornellappdev.rideshare.google.SignInGoogleViewModelFactory
-import com.cornellappdev.rideshare.google.SignInViewModel
+import com.cornellappdev.scoop.google.GoogleSignInAPI
+import com.cornellappdev.scoop.google.GoogleUserModel
+import com.cornellappdev.scoop.google.SignInGoogleViewModelFactory
+import com.cornellappdev.scoop.google.SignInViewModel
 import com.google.android.gms.common.api.ApiException
 import com.squareup.moshi.Moshi
 

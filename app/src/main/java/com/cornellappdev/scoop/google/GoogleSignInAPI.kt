@@ -1,12 +1,11 @@
-package com.cornellappdev.rideshare.google
+package com.cornellappdev.scoop.google
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContract
-import com.cornellappdev.rideshare.BuildConfig
-import com.cornellappdev.rideshare.R
+import com.cornellappdev.scoop.BuildConfig
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

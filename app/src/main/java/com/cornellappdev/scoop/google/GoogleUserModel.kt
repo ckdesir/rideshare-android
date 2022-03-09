@@ -1,4 +1,4 @@
-package com.cornellappdev.rideshare.google
+package com.cornellappdev.scoop.google
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

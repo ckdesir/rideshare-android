@@ -1,4 +1,4 @@
-package com.cornellappdev.rideshare
+package com.cornellappdev.scoop
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.cornellappdev.rideshare.google
+package com.cornellappdev.scoop.google
 
 import android.app.Application
 import android.content.Context
@@ -58,10 +58,11 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
     }
 }
 
+
 class SignInGoogleViewModelFactory(
     private val application: Application
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+) : ViewModelProvider.Factory{
+    override fun <T: ViewModel?> create(modelClass: Class<T>): T{
         @Suppress("UNCHECKED_CAST")
         if (modelClass.isAssignableFrom(SignInViewModel::class.java)) {
             return SignInViewModel(application) as T
@@ -69,3 +70,15 @@ class SignInGoogleViewModelFactory(
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
+
+//class SignInGoogleViewModelFactory(
+//    private val application: Application
+//) : ViewModelProvider.Factory {
+//    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//        @Suppress("UNCHECKED_CAST")
+//        if (modelClass.isAssignableFrom(SignInViewModel::class.java)) {
+//            return SignInViewModel(application) as T
+//        }
+//        throw IllegalArgumentException("Unknown ViewModel class")
+//    }
+//}

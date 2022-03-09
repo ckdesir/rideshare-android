@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Rideshare</string>
-    <string name="google_cloud_server_client_id" translatable="false">84938395481-2b7ek22ab6smlpdtmi68hef4hepe1ahr.apps.googleusercontent.com</string>
+    <string name="app_name">Scoop</string>
+    <string name="trip_posted">Your trip has\nbeen posted!</string>
 </resources>
