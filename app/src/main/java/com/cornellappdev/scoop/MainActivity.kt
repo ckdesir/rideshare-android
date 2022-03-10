@@ -18,6 +18,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import com.cornellappdev.rideshare.GoogleSignInView
 import com.cornellappdev.scoop.components.ScoopTabRow
 import com.cornellappdev.scoop.screens.HomeBody
 import com.cornellappdev.scoop.screens.ProfileBody
@@ -74,9 +75,13 @@ fun RallyNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Routes.Home.route,
+        startDestination = Routes.SignIn.route,
         modifier = modifier
     ) {
+        composable(Routes.SignIn.route) {
+            setShowBottomBar(false)
+            GoogleSignInView(navController = navController)
+        }
         composable(Routes.Home.route) {
             CreateHomeBody(navController)
         }

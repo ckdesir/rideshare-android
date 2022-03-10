@@ -62,7 +62,7 @@ class SignInViewModel(application: Application) : AndroidViewModel(application) 
 class SignInGoogleViewModelFactory(
     private val application: Application
 ) : ViewModelProvider.Factory{
-    override fun <T: ViewModel?> create(modelClass: Class<T>): T{
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
         if (modelClass.isAssignableFrom(SignInViewModel::class.java)) {
             return SignInViewModel(application) as T

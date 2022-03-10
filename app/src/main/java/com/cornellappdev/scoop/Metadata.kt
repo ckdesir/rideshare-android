@@ -43,6 +43,6 @@ enum class Routes(
 
     companion object {
         val TAB_ROUTES = listOf(Home.route, Search.route, Profile.route)
-        val NON_TAB_ROUTES = listOf(Post.route, View.route)
+        val NON_TAB_ROUTES = listOf(Post.route, View.route, SignIn.route)
     }
 }

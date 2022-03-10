@@ -68,8 +68,6 @@ fun GoogleSignInView(
         val moshi = Moshi.Builder().build()
         val jsonAdapter = moshi.adapter(GoogleUserModel::class.java).lenient()
         val userJson = jsonAdapter.toJson(user)
-
-        navController.navigate(Destinations.Home.replace("{user}", userJson))
     }
 
 
