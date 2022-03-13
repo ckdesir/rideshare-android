@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -149,6 +150,7 @@ fun NumberPicker(
 private fun Label(text: String, modifier: Modifier) {
     Text(
         text = text,
+        style = TextStyle(fontSize = 22.sp),
         modifier = modifier.pointerInput(Unit) {
             detectTapGestures(onLongPress = {})
         }
