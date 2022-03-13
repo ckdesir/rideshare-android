@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -20,11 +21,17 @@ import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.cornellappdev.scoop.components.ScoopTabRow
 import com.cornellappdev.scoop.screens.HomeBody
+import com.cornellappdev.scoop.screens.PostBody
 import com.cornellappdev.scoop.screens.ProfileBody
 import com.cornellappdev.scoop.screens.SearchBody
 import com.cornellappdev.scoop.ui.theme.ScoopTheme
+import com.google.accompanist.pager.ExperimentalPagerApi
 
 class MainActivity : ComponentActivity() {
+
+    @OptIn(
+        ExperimentalAnimationApi::class, ExperimentalPagerApi::class
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -33,6 +40,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(
+    ExperimentalAnimationApi::class, ExperimentalPagerApi::class
+)
 @Composable
 fun ScoopApp() {
     ScoopTheme {
@@ -66,6 +76,9 @@ fun ScoopApp() {
 /**
  * Maps the NavHost routes to various screens in the app.
  */
+@OptIn(
+    ExperimentalAnimationApi::class, ExperimentalPagerApi::class
+)
 @Composable
 fun RallyNavHost(
     navController: NavHostController,
@@ -78,6 +91,7 @@ fun RallyNavHost(
         modifier = modifier
     ) {
         composable(Routes.Home.route) {
+            setShowBottomBar(true)
             CreateHomeBody(navController)
         }
         composable(
@@ -120,13 +134,7 @@ fun RallyNavHost(
         }
         composable(Routes.Post.route) {
             setShowBottomBar(false)
-//            PostBody(
-//                onPostTrip = { trip ->
-//                    // Post to backend
-//                    // Return home - navController.navigate("{Routes.Home.route}/${result}")
-//                }
-//            )
-
+            PostBody(onPostNewTrip = {})
         }
     }
 }
