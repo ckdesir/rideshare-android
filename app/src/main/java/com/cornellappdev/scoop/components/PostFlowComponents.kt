@@ -38,7 +38,7 @@ import java.util.*
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SecondPage(onProceedClicked: Unit) {
+fun SecondPage(onProceedClicked: () -> Unit) {
     val (detailsText, setDetailsText) = rememberSaveable { mutableStateOf("") }
     val lowerRangeNumTravelers = rememberSaveable { mutableStateOf(1) }
     val higherRangeNumTravelers = rememberSaveable { mutableStateOf(1) }
@@ -69,7 +69,7 @@ fun SecondPage(onProceedClicked: Unit) {
                     modifier = Modifier
                         .size(56.dp),
                     shape = RoundedCornerShape(30.dp),
-                    onClick = {},
+                    onClick = onProceedClicked,
                     contentPadding = PaddingValues(10.dp),
                     colors = buttonColors(backgroundColor = Gray)
                 ) {
