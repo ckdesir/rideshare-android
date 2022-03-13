@@ -5,6 +5,8 @@ import androidx.compose.ui.graphics.Color
 
 val Gray = Color(0xFFE8E8E8)
 val DarkGray = Color(0xFFAFACAC)
+val LightGray = Color(0xFFECECEC)
+val PlaceholderGray = Color(0xFFC4C4C4)
 
 val ColorPalette = lightColors(
     background = Color.White,
