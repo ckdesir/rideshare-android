@@ -4,21 +4,31 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.toLowerCase
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.ui.theme.DarkGray
 import com.cornellappdev.scoop.ui.theme.Gray
+import com.cornellappdev.scoop.ui.theme.Typography
 import kotlinx.coroutines.delay
 
 @Composable
@@ -41,7 +51,7 @@ fun HomeBody(
         floatingActionButton = {
             FloatingActionButton(
                 modifier = Modifier
-                    .padding(18.dp)
+                    .padding(horizontal = 18.dp)
                     .size(70.dp),
                 onClick = onPostNewRide,
                 backgroundColor = Gray,
@@ -58,6 +68,171 @@ fun HomeBody(
         LaunchedEffect(key1 = Unit, block = {
             showTripPosted()
         })
+        Column (
+            modifier = Modifier
+                .background(Color.White)
+                .padding(top = 20.dp)
+                .padding(horizontal = 10.dp)
+        ) {
+            Title()
+            Spacer(modifier = Modifier.padding(20.dp))
+            ActiveTrips()
+            Spacer(modifier = Modifier.padding(10.dp))
+            PendingTrips()
+        }
+    }
+}
+
+@Composable
+fun Title() {
+    Row {
+        ScoopIcon()
+        Text(
+            text = stringResource(id = R.string.app_name).lowercase(),
+            fontSize = 30.sp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+                .align(Alignment.CenterVertically)
+        )
+    }
+}
+
+@Composable
+fun BottomBar() {
+    Row (
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Button(
+            onClick = { /* TODO */ },
+            modifier = Modifier.fillMaxWidth(1/3F),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.White
+            )
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Home,
+                contentDescription = "Home Icon"
+            )
+        }
+        Button(
+            onClick = { /* TODO */ },
+            modifier = Modifier.fillMaxWidth(1/2F),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.White
+            )
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Search,
+                contentDescription = "Search Icon"
+            )
+        }
+        Button(
+            onClick = { /* TODO */ },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.White
+            )
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Person,
+                contentDescription = "Profile Icon"
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun MyApp() {
+    Scaffold (
+        scaffoldState = rememberScaffoldState(),
+        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButton = { FloatingActionButton(onClick = {}) {
+            Icon(
+                imageVector = Icons.Filled.Add,
+                contentDescription = "Add Ride Icon",
+                modifier = Modifier.size(20.dp)
+            )
+        } },
+        content = {
+            Column (
+                modifier = Modifier
+                    .background(Color.White)
+                    .padding(top = 20.dp)
+                    .padding(horizontal = 18.dp)
+            ) {
+                Title()
+                Spacer(modifier = Modifier.padding(20.dp))
+                ActiveTrips()
+                Spacer(modifier = Modifier.padding(10.dp))
+                PendingTrips()
+            }
+        },
+        bottomBar = { BottomAppBar(backgroundColor = Color.White)
+        { BottomBar() }}
+    )
+}
+
+@Composable
+fun ScoopIcon() {
+    Icon(
+        imageVector = Icons.Filled.ShoppingCart,
+        contentDescription = "Scoop Icon",
+        modifier = Modifier.size(80.dp)
+    )
+}
+
+@Composable
+fun ActiveTrip() {
+    Box (
+        modifier = Modifier
+            .padding(vertical = 10.dp)
+            .fillMaxWidth()
+            .height(108.dp)
+            .background(LightGray, RoundedCornerShape(20.dp))
+    )
+}
+
+@Composable
+fun ActiveTrips() {
+    Column () {
+        Text(
+            text = "Active trips"
+        )
+        LazyColumn () {
+            item {
+                ActiveTrip()
+            }
+            item {
+                ActiveTrip()
+            }
+        }
+    }
+}
+
+@Composable
+fun PendingTrip() {
+    Box (
+        modifier = Modifier
+            .padding(vertical = 10.dp)
+            .fillMaxWidth()
+            .height(108.dp)
+            .background(LightGray, RoundedCornerShape(20.dp))
+    )
+}
+
+@Composable
+fun PendingTrips() {
+    Column () {
+        Text(
+            text = "Pending trips"
+        )
+        LazyColumn () {
+            item {
+                PendingTrip()
+            }
+        }
     }
 }
 
