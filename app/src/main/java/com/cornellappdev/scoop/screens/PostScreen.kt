@@ -11,7 +11,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,19 +22,21 @@ import com.cornellappdev.scoop.components.SecondPage
 import com.cornellappdev.scoop.ui.theme.DarkGray
 import com.cornellappdev.scoop.ui.theme.LightGray
 import com.google.accompanist.pager.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @OptIn(
     ExperimentalAnimationApi::class, ExperimentalPagerApi::class
 )
 @Composable
 fun PostBody(onPostNewTrip: () -> Unit) {
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(1)
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         HorizontalPager(
             count = 3, state = pagerState,
             modifier = Modifier
@@ -42,17 +44,9 @@ fun PostBody(onPostNewTrip: () -> Unit) {
                 .weight(1f), userScrollEnabled = false
         ) { page ->
             when (page) {
-                1 -> SecondPage(GoToNext(page + 1, pagerState))
+                1 -> SecondPage(proceedToPageIndex(coroutineScope, page + 1, pagerState))
             }
         }
-
-        HorizontalPagerIndicator(
-            pagerState = pagerState,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(bottom = 40.dp),
-            activeColor = DarkGray
-        )
 
         AnimatedVisibility(visible = pagerState.currentPage == 2) {
             Button(
@@ -68,15 +62,31 @@ fun PostBody(onPostNewTrip: () -> Unit) {
                 Text(text = stringResource(R.string.post_trip))
             }
         }
+
+        HorizontalPagerIndicator(
+            pagerState = pagerState,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(bottom = 40.dp),
+            activeColor = DarkGray
+        )
     }
 }
 
-@ExperimentalPagerApi
-@Composable
-fun GoToNext(pageIndex: Int, pagerState: PagerState) {
-    LaunchedEffect(key1 = Unit, block = {
-        pagerState.scrollToPage(pageIndex)
-    })
+/**
+ * Proceeds to the specified pageIndex
+ */
+@OptIn(ExperimentalPagerApi::class)
+fun proceedToPageIndex(
+    coroutineScope: CoroutineScope,
+    pageIndex: Int,
+    pagerState: PagerState
+): () -> Unit {
+    return {
+        coroutineScope.launch {
+            pagerState.scrollToPage(pageIndex)
+        }
+    }
 }
 
 
