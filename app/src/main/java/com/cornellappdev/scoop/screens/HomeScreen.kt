@@ -29,8 +29,8 @@ fun HomeBody(
 ) {
     var tripPostedMessageShown by rememberSaveable { mutableStateOf(showTripPosted) }
 
-    // Shows the message about the trip being posted successfully.
-    suspend fun showTripPosted() {
+    // Stops displaying the given trip posted message to the user after a delay.
+    suspend fun stopDisplayingTripPosted() {
         if (tripPostedMessageShown) {
             delay(3000L)
             tripPostedMessageShown = false
@@ -56,7 +56,7 @@ fun HomeBody(
     ) {
         TripPostedConfirmation(showTripPosted = tripPostedMessageShown)
         LaunchedEffect(key1 = Unit, block = {
-            showTripPosted()
+            stopDisplayingTripPosted()
         })
     }
 }

@@ -5,6 +5,9 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.widget.DatePicker
 import android.widget.TimePicker
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -14,9 +17,7 @@ import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.Schedule
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,13 +26,18 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
+import com.cornellappdev.scoop.ui.theme.DarkGray
 import com.cornellappdev.scoop.ui.theme.Gray
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone.Companion.currentSystemDefault
 import kotlinx.datetime.toLocalDateTime
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,9 +45,37 @@ import java.util.*
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SecondPage(onProceedClicked: () -> Unit) {
+    val dateFormatter = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
+    val timeFormatter = SimpleDateFormat("h:mm aa", Locale.getDefault())
     val (detailsText, setDetailsText) = rememberSaveable { mutableStateOf("") }
     val lowerRangeNumTravelers = rememberSaveable { mutableStateOf(1) }
     val higherRangeNumTravelers = rememberSaveable { mutableStateOf(1) }
+    val (dateText, setDateText) = rememberSaveable { mutableStateOf("") }
+    val (timeText, setTimeText) = rememberSaveable { mutableStateOf("") }
+    var showInvalidRangeMessage by rememberSaveable { mutableStateOf(false) }
+    var showInvalidDateMessage by rememberSaveable { mutableStateOf(false) }
+    var showInvalidTimeMessage by rememberSaveable { mutableStateOf(false) }
+    var proceedEnabled by rememberSaveable { mutableStateOf(true) }
+    val coroutineScope = rememberCoroutineScope()
+
+    // Stops displaying the given message to the user after a delay.
+    suspend fun disableMessage() {
+        delay(3000L)
+        when {
+            showInvalidRangeMessage -> {
+                showInvalidRangeMessage = false
+                proceedEnabled = true
+            }
+            showInvalidDateMessage -> {
+                showInvalidDateMessage = false
+                proceedEnabled = true
+            }
+            showInvalidTimeMessage -> {
+                showInvalidTimeMessage = false
+                proceedEnabled = true
+            }
+        }
+    }
 
     Column(
         modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
@@ -55,8 +89,8 @@ fun SecondPage(onProceedClicked: () -> Unit) {
         ) {
 
             NumberOfTravelersSection(lowerRangeNumTravelers, higherRangeNumTravelers)
-            DateOfTripSection()
-            TimeOfTripSection()
+            DateOfTripSection(dateText, setDateText, dateFormatter)
+            TimeOfTripSection(timeText, setTimeText, timeFormatter)
             OtherDetailsSection(detailsText, setDetailsText)
 
             Column(
@@ -69,7 +103,35 @@ fun SecondPage(onProceedClicked: () -> Unit) {
                     modifier = Modifier
                         .size(56.dp),
                     shape = RoundedCornerShape(30.dp),
-                    onClick = onProceedClicked,
+                    enabled = proceedEnabled,
+                    onClick = {
+                        when {
+                            lowerRangeNumTravelers.value > higherRangeNumTravelers.value -> {
+                                showInvalidRangeMessage = true
+                                proceedEnabled = false
+                                coroutineScope.launch {
+                                    disableMessage()
+                                }
+                            }
+                            dateText.isEmpty() -> {
+                                showInvalidDateMessage = true
+                                proceedEnabled = false
+                                coroutineScope.launch {
+                                    disableMessage()
+                                }
+                            }
+                            timeText.isEmpty() || timeFormatter.format(Date()) > timeText -> {
+                                showInvalidTimeMessage = true
+                                proceedEnabled = false
+                                coroutineScope.launch {
+                                    disableMessage()
+                                }
+                            }
+                            else -> {
+                                onProceedClicked()
+                            }
+                        }
+                    },
                     contentPadding = PaddingValues(10.dp),
                     colors = buttonColors(backgroundColor = Gray)
                 ) {
@@ -81,6 +143,10 @@ fun SecondPage(onProceedClicked: () -> Unit) {
             }
         }
     }
+
+    BuildMessage(showInvalidRangeMessage, "Please check the range on the number of travelers!")
+    BuildMessage(showInvalidDateMessage, "Please enter a valid date!")
+    BuildMessage(showInvalidTimeMessage, "Please pick a time in the future!")
 }
 
 @Composable
@@ -124,12 +190,15 @@ fun NumberOfTravelersSection(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun DateOfTripSection() {
-    val (dateText, setDateText) = rememberSaveable { mutableStateOf("") }
-    val datePickerDialog = createDatePickerDialog(LocalContext.current, setDateText)
+fun DateOfTripSection(
+    dateText: String,
+    setDateText: (String) -> Unit,
+    dateFormatter: SimpleDateFormat
+) {
+    val datePickerDialog = createDatePickerDialog(LocalContext.current, setDateText, dateFormatter)
     Column(
         modifier = Modifier
-            .width(182.dp)
+            .width(200.dp)
             .padding(top = 30.dp)
     ) {
         Text(
@@ -176,13 +245,16 @@ fun DateOfTripSection() {
 }
 
 @Composable
-fun TimeOfTripSection() {
-    val (timeText, setTimeText) = rememberSaveable { mutableStateOf("") }
-    val timePickerDialog = createTimePickerDialog(LocalContext.current, setTimeText)
+fun TimeOfTripSection(
+    timeText: String,
+    setTimeText: (String) -> Unit,
+    timeFormatter: SimpleDateFormat
+) {
+    val timePickerDialog = createTimePickerDialog(LocalContext.current, setTimeText, timeFormatter)
 
     Column(
         modifier = Modifier
-            .width(182.dp)
+            .width(200.dp)
             .padding(top = 30.dp)
     ) {
         Text(
@@ -265,12 +337,14 @@ fun OtherDetailsSection(
     }
 }
 
-fun createDatePickerDialog(context: Context, setDateText: (String) -> Unit): DatePickerDialog {
-    val pattern = "MM/dd/yyyy"
-    val simpleDateFormat = SimpleDateFormat(pattern, Locale.getDefault())
+fun createDatePickerDialog(
+    context: Context,
+    setDateText: (String) -> Unit,
+    dateFormatter: SimpleDateFormat
+): DatePickerDialog {
     val currentMoment = Clock.System.now()
     val date: LocalDateTime =
-        currentMoment.toLocalDateTime(kotlinx.datetime.TimeZone.Companion.currentSystemDefault())
+        currentMoment.toLocalDateTime(currentSystemDefault())
 
     val datePickerDialog = DatePickerDialog(
         context,
@@ -278,19 +352,21 @@ fun createDatePickerDialog(context: Context, setDateText: (String) -> Unit): Dat
         { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
             val cal = Calendar.getInstance()
             cal.set(year, month, dayOfMonth)
-            setDateText(simpleDateFormat.format(cal.time))
+            setDateText(dateFormatter.format(cal.time))
         }, date.year, date.monthNumber, date.dayOfMonth
     )
     datePickerDialog.datePicker.minDate = currentMoment.toEpochMilliseconds()
     return datePickerDialog
 }
 
-fun createTimePickerDialog(context: Context, setTimeText: (String) -> Unit): TimePickerDialog {
-    val pattern = "h:mm aa"
-    val simpleDateFormat = SimpleDateFormat(pattern, Locale.getDefault())
+fun createTimePickerDialog(
+    context: Context,
+    setTimeText: (String) -> Unit,
+    timeFormatter: SimpleDateFormat
+): TimePickerDialog {
     val currentMoment = Clock.System.now()
     val date: LocalDateTime =
-        currentMoment.toLocalDateTime(kotlinx.datetime.TimeZone.Companion.currentSystemDefault())
+        currentMoment.toLocalDateTime(currentSystemDefault())
 
     val timePickerDialog = TimePickerDialog(
         context,
@@ -299,8 +375,52 @@ fun createTimePickerDialog(context: Context, setTimeText: (String) -> Unit): Tim
             val cal = Calendar.getInstance()
             cal[Calendar.HOUR_OF_DAY] = hourOfDay
             cal[Calendar.MINUTE] = minute
-            setTimeText(simpleDateFormat.format(cal.time))
+            setTimeText(timeFormatter.format(cal.time))
         }, date.hour, date.minute, false
     )
     return timePickerDialog
+}
+
+/**
+ * Builds composable to display the given message to the user.
+ */
+@Composable
+fun BuildMessage(showMessage: Boolean, message: String) {
+    AnimatedVisibility(
+        visible = showMessage,
+        enter = fadeIn(),
+        exit = fadeOut()
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Column(
+                modifier = Modifier
+                    .wrapContentSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Card(
+                    modifier = Modifier.wrapContentSize(),
+                    shape = RoundedCornerShape(20.dp),
+                    backgroundColor = DarkGray,
+                    elevation = 4.dp
+                ) {
+                    Column(
+                        modifier = Modifier.padding(horizontal = 15.dp, vertical = 45.dp),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = message,
+                            style = TextStyle(color = Color.Black, fontSize = 22.sp),
+                            modifier = Modifier.padding(16.dp),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
+            }
+        }
+    }
 }
