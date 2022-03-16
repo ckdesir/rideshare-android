@@ -29,7 +29,7 @@ class GoogleSignInAPI : ActivityResultContract<Int, Task<GoogleSignInAccount>?>(
             }
 
             else -> {
-                Log.d("Sign In", resultCode.toString())
+                Log.d("Sign In Result Code", resultCode.toString())
                 null
             }
         }

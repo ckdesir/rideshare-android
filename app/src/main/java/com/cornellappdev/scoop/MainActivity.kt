@@ -83,6 +83,7 @@ fun RallyNavHost(
             GoogleSignInView(navController = navController)
         }
         composable(Routes.Home.route) {
+            setShowBottomBar(true)
             CreateHomeBody(navController)
         }
         composable(

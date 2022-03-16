@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.cornellappdev.rideshare.components.SignInButton
+import com.cornellappdev.scoop.Routes
 import com.cornellappdev.scoop.google.GoogleSignInAPI
 import com.cornellappdev.scoop.google.GoogleUserModel
 import com.cornellappdev.scoop.google.SignInGoogleViewModelFactory
@@ -43,12 +44,9 @@ fun GoogleSignInView(
             task ->
                 try{
                     val gsa = task?.getResult(ApiException::class.java)
-
                     if (gsa != null) {
-                        Log.d("Sign In", gsa.toString())
                         signInViewModel.fetchSignInUser(gsa.email, gsa.displayName)
                     } else {
-                        Log.d("Sign In Failed", gsa.toString())
                         isError.value = true
                     }
                 } catch (e: ApiException) {
@@ -68,9 +66,12 @@ fun GoogleSignInView(
         val moshi = Moshi.Builder().build()
         val jsonAdapter = moshi.adapter(GoogleUserModel::class.java).lenient()
         val userJson = jsonAdapter.toJson(user)
+
+        Log.d("Sign In User: ", userJson.toString())
+
+        navController.navigate(Routes.Home.route)
+
     }
-
-
 
 }
 
