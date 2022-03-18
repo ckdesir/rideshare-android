@@ -2,6 +2,7 @@ package com.cornellappdev.scoop.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.TextFieldDefaults.indicatorLine
 import androidx.compose.foundation.text.BasicTextField
@@ -47,7 +48,8 @@ fun DenseTextField(
                 focusedIndicatorLineThickness = 2.dp,
                 unfocusedIndicatorLineThickness = 2.dp
             )
-            .height(32.dp),
+            .height(32.dp)
+            .fillMaxWidth(),
         textStyle = TextStyle(color = Color.Black, fontSize = 22.sp),
         onValueChange = setValue,
         interactionSource = interactionSource,
