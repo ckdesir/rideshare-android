@@ -34,20 +34,12 @@ import kotlinx.coroutines.launch
     ExperimentalAnimationApi::class, ExperimentalPagerApi::class
 )
 @Composable
-fun PostBody(goBack: () -> Unit, onPostNewTrip: (Trip) -> Unit) {
+fun PostScreen(onPostNewTrip: (Trip) -> Unit) {
     val pagerState = rememberPagerState(1)
     val coroutineScope = rememberCoroutineScope()
     val tripState = remember {
         mutableStateOf(
-            Trip(
-                "Driving",
-                "Ithaca, NY",
-                "New York, NY",
-                1,
-                3,
-                "3/20/2022",
-                "12:20 PM"
-            )
+            Trip()
         )
     }
 
@@ -128,7 +120,6 @@ fun PostBody(goBack: () -> Unit, onPostNewTrip: (Trip) -> Unit) {
 
     BackHandler(enabled = pagerState.currentPage == 1 || pagerState.currentPage == 2) {
         when (pagerState.currentPage) {
-            0 -> goBack()
             1 -> proceedToPageIndex(
                 coroutineScope,
                 pagerState.currentPage - 1,
@@ -158,6 +149,3 @@ fun proceedToPageIndex(
         }
     }
 }
-
-
-

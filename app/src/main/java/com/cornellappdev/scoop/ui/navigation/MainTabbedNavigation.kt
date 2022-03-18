@@ -22,7 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.cornellappdev.scoop.ui.screens.HomeScreen
-import com.cornellappdev.scoop.ui.screens.PostBody
+import com.cornellappdev.scoop.ui.screens.PostScreen
 import com.cornellappdev.scoop.ui.screens.ProfileScreen
 import com.cornellappdev.scoop.ui.screens.SearchScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -155,7 +155,7 @@ fun MainScreenNavigationConfigurations(
         }
         composable(Routes.Post.route) {
             setShowBottomBar(false)
-            PostBody({ navController.navigate(Routes.Home.route) },
+            PostScreen(
                 onPostNewTrip = {
                     Log.d("Trip", it.arrivalLocation!!)
                 })
