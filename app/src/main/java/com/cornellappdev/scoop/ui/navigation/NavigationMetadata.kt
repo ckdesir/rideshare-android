@@ -13,8 +13,8 @@ interface NavUnit {
 /**
  * Data class to represent each tab.
  *
- * The route is needed to match the tab to the correct screen
- * The iconId is the resource id number for the drawable for the icon of the tab
+ * The route is needed to match the tab to the correct screen.
+ * The iconId is the resource id number for the drawable for the icon of the tab.
  */
 data class BottomNavTab(override var route: String, val iconId: Int, val contentDescription: String) :
     NavUnit {
@@ -28,7 +28,8 @@ data class BottomNavTab(override var route: String, val iconId: Int, val content
 }
 
 /**
- * Contains information about all known routes.
+ * Contains information about all known routes. These should correspond to routes in our
+ * NavHost/new routes should be added here.
  */
 enum class Routes(override var route: String) : NavUnit
 {
