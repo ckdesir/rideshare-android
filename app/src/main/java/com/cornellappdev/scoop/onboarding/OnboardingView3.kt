@@ -33,12 +33,12 @@ fun OnboardingView3 (){
             methodButtons()
             Box(
                 modifier = Modifier.align(Alignment.End)
+                    .padding(end = 30.dp)
+
             ){
                 RightArrow()
             }
-            Spacer(modifier = Modifier.weight(1F)
-                .padding(
-                    end = 20.dp
+            Spacer(modifier = Modifier.weight(1F).padding(
 
             ))
 
