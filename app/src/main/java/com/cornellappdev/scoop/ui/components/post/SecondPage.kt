@@ -1,17 +1,8 @@
-package com.cornellappdev.scoop.components
+package com.cornellappdev.scoop.ui.components.post
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
-import android.content.Context
-import android.widget.DatePicker
-import android.widget.TimePicker
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.ButtonDefaults.buttonColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.CalendarToday
@@ -26,32 +17,33 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
-import com.cornellappdev.scoop.ui.theme.DarkGray
+import com.cornellappdev.scoop.models.Trip
+import com.cornellappdev.scoop.ui.components.general.BuildMessage
+import com.cornellappdev.scoop.ui.components.general.DenseTextField
 import com.cornellappdev.scoop.ui.theme.Gray
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone.Companion.currentSystemDefault
-import kotlinx.datetime.toLocalDateTime
 import java.text.SimpleDateFormat
 import java.util.*
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SecondPage(onProceedClicked: () -> Unit) {
-    val dateFormatter = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
-    val timeFormatter = SimpleDateFormat("h:mm aa", Locale.getDefault())
-    val (detailsText, setDetailsText) = rememberSaveable { mutableStateOf("") }
-    val lowerRangeNumTravelers = rememberSaveable { mutableStateOf(1) }
-    val higherRangeNumTravelers = rememberSaveable { mutableStateOf(1) }
-    val (dateText, setDateText) = rememberSaveable { mutableStateOf("") }
-    val (timeText, setTimeText) = rememberSaveable { mutableStateOf("") }
+fun SecondPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
+    val dateFormatter = SimpleDateFormat(stringResource(R.string.date_format), Locale.getDefault())
+    val timeFormatter = SimpleDateFormat(stringResource(R.string.time_format), Locale.getDefault())
+    val dateAndTimeFormatter =
+        SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
+    val (detailsText, setDetailsText) = rememberSaveable { mutableStateOf(tripState.value.otherDetails.orEmpty()) }
+    val lowerRangeNumTravelers =
+        rememberSaveable { mutableStateOf((tripState.value.lowerRangeNumTravelers ?: 1)) }
+    val higherRangeNumTravelers =
+        rememberSaveable { mutableStateOf((tripState.value.higherRangeNumTravelers ?: 1)) }
+    val (dateText, setDateText) = rememberSaveable { mutableStateOf(tripState.value.dateOfTrip.orEmpty()) }
+    val (timeText, setTimeText) = rememberSaveable { mutableStateOf(tripState.value.timeOfTrip.orEmpty()) }
     var showInvalidRangeMessage by rememberSaveable { mutableStateOf(false) }
     var showInvalidDateMessage by rememberSaveable { mutableStateOf(false) }
     var showInvalidTimeMessage by rememberSaveable { mutableStateOf(false) }
@@ -77,12 +69,12 @@ fun SecondPage(onProceedClicked: () -> Unit) {
         }
     }
 
-    Column(
-        modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        modifier = Modifier.fillMaxSize(),
     ) {
         Column(
             modifier = Modifier
+                .align(Alignment.Center)
                 .wrapContentHeight()
                 .fillMaxWidth()
                 .padding(horizontal = 37.dp)
@@ -120,7 +112,9 @@ fun SecondPage(onProceedClicked: () -> Unit) {
                                     disableMessage()
                                 }
                             }
-                            timeText.isEmpty() || timeFormatter.format(Date()) > timeText -> {
+                            timeText.isEmpty() || dateAndTimeFormatter.parse("$dateText $timeText")
+                                ?.before(Date()) == true
+                            -> {
                                 showInvalidTimeMessage = true
                                 proceedEnabled = false
                                 coroutineScope.launch {
@@ -128,12 +122,19 @@ fun SecondPage(onProceedClicked: () -> Unit) {
                                 }
                             }
                             else -> {
+                                val trip = tripState.value
+                                trip.lowerRangeNumTravelers = lowerRangeNumTravelers.value
+                                trip.higherRangeNumTravelers = higherRangeNumTravelers.value
+                                trip.dateOfTrip = dateText
+                                trip.timeOfTrip = timeText
+                                trip.otherDetails = detailsText
+                                tripState.value = trip
                                 onProceedClicked()
                             }
                         }
                     },
                     contentPadding = PaddingValues(10.dp),
-                    colors = buttonColors(backgroundColor = Gray)
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Gray)
                 ) {
                     Icon(
                         Icons.Outlined.ArrowForward,
@@ -142,11 +143,16 @@ fun SecondPage(onProceedClicked: () -> Unit) {
                 }
             }
         }
-    }
 
-    BuildMessage(showInvalidRangeMessage, "Please check the range on the number of travelers!")
-    BuildMessage(showInvalidDateMessage, "Please enter a valid date!")
-    BuildMessage(showInvalidTimeMessage, "Please pick a time in the future!")
+        Box {
+            BuildMessage(
+                showInvalidRangeMessage,
+                stringResource(R.string.invalid_range)
+            )
+            BuildMessage(showInvalidDateMessage, stringResource(R.string.invalid_date))
+            BuildMessage(showInvalidTimeMessage, stringResource(R.string.invalid_time))
+        }
+    }
 }
 
 @Composable
@@ -333,94 +339,6 @@ fun OtherDetailsSection(
                     .align(Alignment.Bottom)
                     .fillMaxWidth()
             )
-        }
-    }
-}
-
-fun createDatePickerDialog(
-    context: Context,
-    setDateText: (String) -> Unit,
-    dateFormatter: SimpleDateFormat
-): DatePickerDialog {
-    val currentMoment = Clock.System.now()
-    val date: LocalDateTime =
-        currentMoment.toLocalDateTime(currentSystemDefault())
-
-    val datePickerDialog = DatePickerDialog(
-        context,
-        android.R.style.Theme_DeviceDefault_Dialog_Alert,
-        { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
-            val cal = Calendar.getInstance()
-            cal.set(year, month, dayOfMonth)
-            setDateText(dateFormatter.format(cal.time))
-        }, date.year, date.monthNumber, date.dayOfMonth
-    )
-    datePickerDialog.datePicker.minDate = currentMoment.toEpochMilliseconds()
-    return datePickerDialog
-}
-
-fun createTimePickerDialog(
-    context: Context,
-    setTimeText: (String) -> Unit,
-    timeFormatter: SimpleDateFormat
-): TimePickerDialog {
-    val currentMoment = Clock.System.now()
-    val date: LocalDateTime =
-        currentMoment.toLocalDateTime(currentSystemDefault())
-
-    val timePickerDialog = TimePickerDialog(
-        context,
-        android.R.style.Theme_DeviceDefault_Dialog_Alert,
-        { _: TimePicker, hourOfDay: Int, minute: Int ->
-            val cal = Calendar.getInstance()
-            cal[Calendar.HOUR_OF_DAY] = hourOfDay
-            cal[Calendar.MINUTE] = minute
-            setTimeText(timeFormatter.format(cal.time))
-        }, date.hour, date.minute, false
-    )
-    return timePickerDialog
-}
-
-/**
- * Builds composable to display the given message to the user.
- */
-@Composable
-fun BuildMessage(showMessage: Boolean, message: String) {
-    AnimatedVisibility(
-        visible = showMessage,
-        enter = fadeIn(),
-        exit = fadeOut()
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Column(
-                modifier = Modifier
-                    .wrapContentSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Card(
-                    modifier = Modifier.wrapContentSize(),
-                    shape = RoundedCornerShape(20.dp),
-                    backgroundColor = DarkGray,
-                    elevation = 4.dp
-                ) {
-                    Column(
-                        modifier = Modifier.padding(horizontal = 15.dp, vertical = 45.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = message,
-                            style = TextStyle(color = Color.Black, fontSize = 22.sp),
-                            modifier = Modifier.padding(16.dp),
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                }
-            }
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.cornellappdev.scoop.components
+package com.cornellappdev.scoop.ui.components.general
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,7 +15,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
-
 
 /**
  * Creates a Dense TextField, e.g. a TextField with no internal padding.

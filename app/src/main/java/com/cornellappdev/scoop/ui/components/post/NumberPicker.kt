@@ -1,4 +1,4 @@
-package com.cornellappdev.scoop.components
+package com.cornellappdev.scoop.ui.components.post
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.gestures.Orientation
