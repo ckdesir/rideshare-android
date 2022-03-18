@@ -122,6 +122,7 @@ fun SecondPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
                                 }
                             }
                             else -> {
+                                // Updates trip state with details collected on SecondPage
                                 val trip = tripState.value
                                 trip.lowerRangeNumTravelers = lowerRangeNumTravelers.value
                                 trip.higherRangeNumTravelers = higherRangeNumTravelers.value
