@@ -7,6 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,6 +42,7 @@ fun OnboardingView2(){
                 Column(Modifier.fillMaxWidth(),) {
                     Text(
                         fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Default,
                         text = "Name",
                         fontSize = 20.sp,
                         modifier = Modifier.padding(
@@ -56,6 +58,7 @@ fun OnboardingView2(){
                 Column() {
                     Text(
                         fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Default,
                         text = "Pronouns",
                         fontSize = 20.sp,
                         modifier = Modifier.padding(
@@ -72,6 +75,7 @@ fun OnboardingView2(){
                 Column() {
                     Text(
                         fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Default,
                         text = "Name",
                         fontSize = 20.sp,
                         modifier = Modifier.padding(
@@ -87,6 +91,7 @@ fun OnboardingView2(){
                 Column() {
                     Text(
                         fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Default,
                         text = "Class Year",
                         fontSize = 20.sp,
                         modifier = Modifier.padding(
