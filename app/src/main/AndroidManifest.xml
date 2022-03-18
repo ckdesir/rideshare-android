@@ -12,6 +12,7 @@
         android:theme="@style/Theme.Scoop" >
         <activity
             android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true"
             android:theme="@style/Theme.Scoop">
             <intent-filter>
@@ -25,6 +26,7 @@
                 <data android:scheme="scoop" android:host="view" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

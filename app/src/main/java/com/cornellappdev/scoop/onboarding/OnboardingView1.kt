@@ -20,7 +20,7 @@ import com.cornellappdev.scoop.components.RightArrow
 
 
 @Composable
-fun Onboarding1Body(
+fun OnboardingView1(
 ) {
     Scaffold {
         Column(
@@ -123,5 +123,5 @@ fun WelcomeText(
 @Preview
 @Composable
 fun previewText(){
-    Onboarding1Body()
+    OnboardingView1()
 }
