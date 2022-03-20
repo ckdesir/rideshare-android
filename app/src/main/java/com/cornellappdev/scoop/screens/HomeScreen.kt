@@ -19,16 +19,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.ui.theme.DarkGray
 import com.cornellappdev.scoop.ui.theme.Gray
-import com.cornellappdev.scoop.ui.theme.Typography
 import kotlinx.coroutines.delay
 
 @Composable
@@ -229,6 +226,9 @@ fun PendingTrips() {
             text = "Pending trips"
         )
         LazyColumn () {
+            item {
+                PendingTrip()
+            }
             item {
                 PendingTrip()
             }
