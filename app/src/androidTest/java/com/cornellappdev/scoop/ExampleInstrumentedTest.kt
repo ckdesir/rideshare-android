@@ -1,4 +1,4 @@
-package com.cornellappdev.rideshare
+package com.cornellappdev.scoop
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

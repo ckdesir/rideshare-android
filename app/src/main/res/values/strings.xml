@@ -1,3 +1,25 @@
 <resources>
-    <string name="app_name">Rideshare</string>
+    <string name="app_name">Scoop</string>
+    <string name="trip_posted">Your trip has\nbeen posted!</string>
+    <string name="post_trip">Post trip</string>
+    <string name="num_of_travelers">Number of travelers</string>
+    <string name="to">to</string>
+    <string name="date_of_trip">Date of trip</string>
+    <string name="time_of_trip">Time of trip</string>
+    <string name="other_details">Other details</string>
+    <string name="details_icon_description">Details icon</string>
+    <string name="enter_details">enter details…</string>
+    <string name="date_template">mm/dd/yyyy</string>
+    <string name="time_template">1:33 AM</string>
+    <string name="clock_icon_description">Clock icon</string>
+    <string name="calendar_icon_descrption">Calendar icon</string>
+    <string name="travelers_icon_description">Travelers icon</string>
+    <string name="arrow_forward_description">Arrow Forward</string>
+    <string name="trip_details">Trip Details</string>
+    <string name="date_format">M/dd/yyyy</string>
+    <string name="time_format">h:mm aa</string>
+    <string name="date_time_format">M/dd/yyyy h:mm aa</string>
+    <string name="invalid_range">Please check the range on the number of travelers!</string>
+    <string name="invalid_date">Please enter a valid date!</string>
+    <string name="invalid_time">Please pick a time in the future!</string>
 </resources>
