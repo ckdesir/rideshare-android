@@ -71,7 +71,13 @@ fun methodButtons(){
             )
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
-            RadioButton(selected = selected == "phone", onClick = { selected = "phone" })
+            RadioButton(
+                selected = selected == "phone",
+                onClick = { selected = "phone" },
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = androidx.compose.ui.graphics.Color.Black,
+                    unselectedColor = androidx.compose.ui.graphics.Color.Gray,
+                ))
             Text(
                 text = "Phone Number",
                 modifier = Modifier
