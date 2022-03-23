@@ -5,7 +5,6 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
@@ -23,15 +22,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.components.RightArrow
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.PagerState
 
 
+@OptIn(ExperimentalPagerApi::class, androidx.compose.material.ExperimentalMaterialApi::class)
 @Composable
-fun OnboardingView1(
-) {
+fun OnboardingView1(pagerState: PagerState) {
+
     Scaffold {
         Column(
             modifier = Modifier
@@ -47,9 +48,9 @@ fun OnboardingView1(
                     .padding(
                         start = 200.dp,
                         top = 50.dp,
-                    )
+                    ),
             ){
-                RightArrow()
+                RightArrow(pagerState)
             }
             Spacer(modifier = Modifier.weight(1F))
 
@@ -73,7 +74,7 @@ fun ProfileImage(){
     ActivityResultContracts.GetContent()) { uri: Uri? ->
         imageUri = uri
     }
-    
+
     if(imageUri == null) {
         Box(
         ) {
@@ -81,7 +82,7 @@ fun ProfileImage(){
                 modifier = Modifier.size(120.dp),
                 shape = CircleShape,
                 elevation = 2.dp,
-                backgroundColor = colorResource(id = R.color.lightgray)
+                backgroundColor = colorResource(id = R.color.lightgray),
             ) {}
 
             Card(
@@ -198,8 +199,8 @@ fun WelcomeText(
 
 
 
-@Preview
-@Composable
-fun previewText(){
-    OnboardingView1()
-}
+//@Preview
+//@Composable
+//fun previewText(){
+//    OnboardingView1()
+//}

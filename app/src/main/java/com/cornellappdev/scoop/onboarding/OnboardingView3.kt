@@ -9,15 +9,16 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.BlendMode.Companion.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.components.RightArrow
-import android.graphics.Color as Color1
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.PagerState
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
-fun OnboardingView3 (){
+fun OnboardingView3(pagerState: PagerState) {
     Scaffold {
         Column(
             modifier = Modifier
@@ -36,7 +37,7 @@ fun OnboardingView3 (){
                     .padding(end = 30.dp)
 
             ){
-                RightArrow()
+                RightArrow(pagerState)
             }
             Spacer(modifier = Modifier.weight(1F).padding(
 
@@ -95,8 +96,8 @@ fun methodButtons(){
 }
 
 
-@Preview
-@Composable
-fun OnboardingPreview(){
-    OnboardingView3()
-}
+//@Preview
+//@Composable
+//fun OnboardingPreview(){
+//    OnboardingView3(pagerState)
+//}

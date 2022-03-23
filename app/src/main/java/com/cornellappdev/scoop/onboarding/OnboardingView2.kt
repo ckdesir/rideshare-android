@@ -14,9 +14,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.components.DenseTextField
 import com.cornellappdev.scoop.components.RightArrow
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.PagerState
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
-fun OnboardingView2(){
+fun OnboardingView2(pagerState: PagerState) {
 
     val (nameText, setNameText) = rememberSaveable { mutableStateOf("") }
     val (pronounsText, setPronounsText) = rememberSaveable { mutableStateOf("") }
@@ -107,7 +110,7 @@ fun OnboardingView2(){
 
                 modifier = Modifier.align(Alignment.End)
             ){
-                RightArrow()
+                RightArrow(pagerState)
             }
 
             Spacer(modifier = Modifier.weight(1F))
@@ -117,8 +120,8 @@ fun OnboardingView2(){
 }
 
 
-@Preview
-@Composable
-fun PreviewOnboard(){
-    OnboardingView2()
-}
+//@Preview
+//@Composable
+//fun PreviewOnboard(){
+//    OnboardingView2(pagerState)
+//}
