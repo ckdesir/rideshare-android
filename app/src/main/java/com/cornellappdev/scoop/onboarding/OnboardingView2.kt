@@ -40,7 +40,7 @@ fun OnboardingView2(pagerState: PagerState) {
             Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(25.dp)
         ) {
-            AboutHeader(pagerState = pagerState)
+            OnboardingHeader(pagerState = pagerState, "About You")
             Spacer(modifier = Modifier.weight(1F))
 
             Box(){

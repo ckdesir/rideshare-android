@@ -25,7 +25,7 @@ fun OnboardingView3(pagerState: PagerState) {
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ){
-            AboutHeader(pagerState = pagerState)
+            OnboardingHeader(pagerState = pagerState, "About You")
             Spacer(modifier = Modifier.weight(1F))
             Text(
                 fontFamily = FontFamily.Default,

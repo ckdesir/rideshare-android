@@ -20,6 +20,7 @@ fun OnboardingHolderView(){
             0-> OnboardingView1(pagerState)
             1-> OnboardingView2(pagerState)
             2-> OnboardingView3(pagerState)
+            3-> OnboardingView4(pagerState)
 
         }
 

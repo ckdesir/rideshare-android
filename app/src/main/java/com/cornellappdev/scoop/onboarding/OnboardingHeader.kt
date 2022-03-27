@@ -23,8 +23,9 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class, com.google.accompanist.pager.ExperimentalPagerApi::class)
 @Composable
-fun AboutHeader(
-    pagerState: PagerState
+fun OnboardingHeader(
+    pagerState: PagerState,
+    title: String,
 ){
     val scope = rememberCoroutineScope()
 
@@ -62,7 +63,7 @@ fun AboutHeader(
 
             Spacer(modifier = Modifier.weight(0.5F))
             Text(
-                text = "About You",
+                text = title,
                 fontSize = 25.sp,
                 color = Color.Black,
             )
