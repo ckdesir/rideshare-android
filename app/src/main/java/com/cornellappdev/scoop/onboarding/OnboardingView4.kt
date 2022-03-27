@@ -5,7 +5,6 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -13,11 +12,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cornellappdev.scoop.components.DenseTextField
 import com.cornellappdev.scoop.components.RightArrow
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
@@ -38,13 +34,12 @@ fun OnboardingView4(
         ) {
             OnboardingHeader(pagerState = pagerState, title = "During Roadtrips ...")
 
-//            OnboardingHeader(pagerState = pagerState, "About You")
             Spacer(modifier = Modifier.weight(1F))
 
             Text(
                 fontFamily = FontFamily.Default,
                 text = "How talkative are you?",
-                fontSize = 25.sp,
+                fontSize = 20.sp,
             )
 
 //          First Slider
@@ -69,7 +64,7 @@ fun OnboardingView4(
             Text(
                 fontFamily = FontFamily.Default,
                 text = "Do you like music?",
-                fontSize = 25.sp,
+                fontSize = 20.sp,
             )
 
             //          First Slider
@@ -89,6 +84,17 @@ fun OnboardingView4(
                     onValueChange = {sliderPosition2 = it},
                     colors = customSliderColors()
                 )
+            }
+            Box(
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(
+                        end = 30.dp,
+                        top = 20.dp,
+                    )
+
+            ){
+                RightArrow(pagerState)
             }
 
             Spacer(modifier = Modifier.weight(1.25F))

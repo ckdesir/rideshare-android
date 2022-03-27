@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.components.RightArrow
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
@@ -29,7 +30,8 @@ fun OnboardingView3(pagerState: PagerState) {
             Spacer(modifier = Modifier.weight(1F))
             Text(
                 fontFamily = FontFamily.Default,
-                text = "What’s you preferred method of contact?"
+                text = "What’s you preferred method of contact?",
+                fontSize = 19.sp,
             )
             methodButtons()
             Box(
@@ -72,7 +74,8 @@ fun methodButtons(){
                 text = "Cornell Email",
                 modifier = Modifier
                     .clickable(onClick = { selected = "email" })
-                    .padding(start = 2.dp)
+                    .padding(start = 2.dp),
+                fontSize = 15.sp,
             )
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -87,7 +90,8 @@ fun methodButtons(){
                 text = "Phone Number",
                 modifier = Modifier
                     .clickable(onClick = { selected = "phone" })
-                    .padding(start = 2.dp)
+                    .padding(start = 2.dp),
+                fontSize = 15.sp,
             )
 
         }
