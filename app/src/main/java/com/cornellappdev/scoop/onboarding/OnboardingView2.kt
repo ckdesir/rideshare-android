@@ -28,10 +28,11 @@ fun OnboardingView2(pagerState: PagerState) {
 
     Scaffold(
 
-        modifier = Modifier.padding(
-            start = 40.dp,
-            end = 40.dp,
-        )
+        modifier = Modifier
+            .padding(
+                start = 40.dp,
+                end = 40.dp,
+            )
             .fillMaxWidth()
     ) {
 
@@ -39,6 +40,7 @@ fun OnboardingView2(pagerState: PagerState) {
             Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(25.dp)
         ) {
+            AboutHeader(pagerState = pagerState)
             Spacer(modifier = Modifier.weight(1F))
 
             Box(){
@@ -113,7 +115,7 @@ fun OnboardingView2(pagerState: PagerState) {
                 RightArrow(pagerState)
             }
 
-            Spacer(modifier = Modifier.weight(1F))
+            Spacer(modifier = Modifier.weight(1.5F))
 
         }
     }

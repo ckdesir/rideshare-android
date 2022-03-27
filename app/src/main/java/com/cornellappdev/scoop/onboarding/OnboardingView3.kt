@@ -10,7 +10,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.components.RightArrow
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -26,6 +25,7 @@ fun OnboardingView3(pagerState: PagerState) {
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ){
+            AboutHeader(pagerState = pagerState)
             Spacer(modifier = Modifier.weight(1F))
             Text(
                 fontFamily = FontFamily.Default,
@@ -33,16 +33,15 @@ fun OnboardingView3(pagerState: PagerState) {
             )
             methodButtons()
             Box(
-                modifier = Modifier.align(Alignment.End)
+                modifier = Modifier
+                    .align(Alignment.End)
                     .padding(end = 30.dp)
 
             ){
                 RightArrow(pagerState)
             }
-            Spacer(modifier = Modifier.weight(1F).padding(
-
-            ))
-
+            Spacer(modifier = Modifier
+                .weight(1.5F))
         }
 
     }
@@ -52,10 +51,15 @@ fun OnboardingView3(pagerState: PagerState) {
 fun methodButtons(){
     var selected by remember { mutableStateOf("email") }
 
-    Column() {
+    Column(
+        modifier = Modifier.padding(
+            start = 40.dp
+        ).fillMaxWidth()
+    ) {
 
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+
         ) {
             RadioButton(
                 selected = selected == "email",
