@@ -24,6 +24,7 @@ import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.ui.components.post.SecondPage
 import com.cornellappdev.scoop.ui.components.post.ThirdPage
 import com.cornellappdev.scoop.models.Trip
+import com.cornellappdev.scoop.ui.components.post.FirstPage
 import com.cornellappdev.scoop.ui.theme.DarkGray
 import com.cornellappdev.scoop.ui.theme.LightGray
 import com.google.accompanist.pager.*
@@ -35,7 +36,7 @@ import kotlinx.coroutines.launch
 )
 @Composable
 fun PostScreen(onPostNewTrip: (Trip) -> Unit) {
-    val pagerState = rememberPagerState(1)
+    val pagerState = rememberPagerState(0)
     val coroutineScope = rememberCoroutineScope()
     val tripState = remember {
         mutableStateOf(
@@ -70,7 +71,10 @@ fun PostScreen(onPostNewTrip: (Trip) -> Unit) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     when (page) {
-                        0 -> {}
+                        0 -> FirstPage(
+                            proceedToPageIndex(coroutineScope, page + 1, pagerState),
+                            tripState
+                        )
                         1 -> SecondPage(
                             proceedToPageIndex(coroutineScope, page + 1, pagerState),
                             tripState

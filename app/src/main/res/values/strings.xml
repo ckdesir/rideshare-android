@@ -19,6 +19,10 @@
     <string name="date_format">M/dd/yyyy</string>
     <string name="time_format">h:mm aa</string>
     <string name="date_time_format">M/dd/yyyy h:mm aa</string>
+    <string name="invalid_method_of_transportation">Please enter a valid method of transportation!
+    </string>
+    <string name="invalid_departure">Please enter a valid departure location!</string>
+    <string name="invalid_arrival">Please enter a valid arrival location!</string>
     <string name="invalid_range">Please check the range on the number of travelers!</string>
     <string name="invalid_date">Please enter a valid date!</string>
     <string name="invalid_time">Please pick a time in the future!</string>
