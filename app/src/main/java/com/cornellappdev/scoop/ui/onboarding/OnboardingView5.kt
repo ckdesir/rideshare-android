@@ -123,7 +123,6 @@ fun OnboardingView5(pagerState: PagerState) {
             }
         }
     }
-
 }
 
 

@@ -36,6 +36,3 @@ fun OnboardingHolderView() {
         }
     }
 }
-
-
-

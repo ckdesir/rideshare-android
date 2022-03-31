@@ -72,7 +72,6 @@ fun OnboardingView4(
                     sliderPosition = sliderPosition2
                 )
             }
-
             Box(
                 modifier = Modifier
                     .align(Alignment.End)
