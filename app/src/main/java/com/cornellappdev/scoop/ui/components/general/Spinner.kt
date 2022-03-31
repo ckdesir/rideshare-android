@@ -1,11 +1,11 @@
 package com.cornellappdev.scoop.ui.components.general
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
-import androidx.compose.material.ExposedDropdownMenuDefaults.TrailingIcon
 import androidx.compose.material.ExposedDropdownMenuDefaults.textFieldColors
 import androidx.compose.material.TextFieldDefaults.indicatorLine
 import androidx.compose.material.icons.Icons
@@ -15,53 +15,62 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SelectField(
+fun Spinner(
+    selectedOption: MutableState<String>,
     options: List<String>,
-    input: MutableState<String>,
-    enabled: Boolean = true,
     modifier: Modifier = Modifier,
+    placeholder: String = stringResource(R.string.select),
+    enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    onSelectedOption: (String) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedOptionText by remember { mutableStateOf("select") }
     ExposedDropdownMenuBox(
         expanded = expanded,
         onExpandedChange = {
             expanded = !expanded
         },
-        modifier = modifier.indicatorLine(
-            enabled = enabled,
-            isError = false,
-            interactionSource = interactionSource,
-            colors = textFieldColors(
-                backgroundColor = Color.Transparent,
-                cursorColor = Color.Black,
-                focusedIndicatorColor = Color.Black,
-                unfocusedIndicatorColor = Color.Black
-            ),
-            focusedIndicatorLineThickness = 2.dp,
-            unfocusedIndicatorLineThickness = 2.dp
-        )
+        modifier = modifier
+            .indicatorLine(
+                enabled = enabled,
+                isError = false,
+                interactionSource = interactionSource,
+                colors = textFieldColors(
+                    backgroundColor = Color.Transparent,
+                    cursorColor = Color.Black,
+                    focusedIndicatorColor = Color.Black,
+                    unfocusedIndicatorColor = Color.Black
+                ),
+                focusedIndicatorLineThickness = 2.dp,
+                unfocusedIndicatorLineThickness = 2.dp
+            )
             .height(40.dp)
             .padding(0.dp)
             .fillMaxWidth()
     ) {
-        Row (
+        Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .height(40.dp)
         ) {
+            val text = selectedOption.value.ifBlank { placeholder }
             Text(
-                text = selectedOptionText,
-                style = TextStyle(color = decideColor(selectedOptionText), fontSize = 22.sp),
+                text = text,
+                style = TextStyle(
+                    color = decideColor(text, placeholder),
+                    fontSize = 22.sp
+                ),
                 modifier = Modifier.weight(1f)
             )
             Icon(
@@ -80,8 +89,8 @@ fun SelectField(
             options.forEach { selectionOption ->
                 DropdownMenuItem(
                     onClick = {
-                        selectedOptionText = selectionOption
-                        input.value = selectedOptionText
+                        selectedOption.value = selectionOption
+                        onSelectedOption(selectionOption)
                         expanded = false
                     }
                 ) {
@@ -95,7 +104,7 @@ fun SelectField(
     }
 }
 
-fun decideColor(text : String) : Color {
-    return if (text == "select") PlaceholderGray;
-    else Color.Black;
+fun decideColor(text: String, placeholder: String): Color {
+    return if (text == placeholder) PlaceholderGray
+    else Color.Black
 }

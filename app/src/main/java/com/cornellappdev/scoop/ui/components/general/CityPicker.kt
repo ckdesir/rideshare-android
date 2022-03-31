@@ -28,8 +28,8 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 @Composable
 fun CityPicker(
     cityState: MutableState<String>,
-    modifier: Modifier = Modifier,
     placeholder: String,
+    modifier: Modifier = Modifier,
     onCityChanged: (String) -> Unit
 ) {
     // Set the fields to specify which types of place data to
