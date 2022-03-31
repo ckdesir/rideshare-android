@@ -13,7 +13,7 @@ fun OnboardingHolderView(){
 
     val pagerState = rememberPagerState()
 
-    HorizontalPager(count = 10, state = pagerState) { page ->
+    HorizontalPager(count = 5, state = pagerState) { page ->
         // Our page content
 
         when(page){

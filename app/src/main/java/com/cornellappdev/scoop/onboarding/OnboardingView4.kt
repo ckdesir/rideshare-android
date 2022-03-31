@@ -36,30 +36,15 @@ fun OnboardingView4(
 
             Spacer(modifier = Modifier.weight(1F))
 
+            var sliderPosition1 = remember { mutableStateOf(0F)}
+            var sliderPosition2 = remember { mutableStateOf(0F)}
             Text(
                 fontFamily = FontFamily.Default,
                 text = "How talkative are you?",
                 fontSize = 20.sp,
             )
 
-//          First Slider
-            var sliderPosition1 by remember { mutableStateOf(0F)}
-
-            Box(contentAlignment = Alignment.Center,
-                modifier = Modifier.padding(
-                    start = 20.dp,
-                    end = 20.dp,
-                    top = 10.dp,
-                    bottom = 10.dp,
-                )
-            ) {
-                VerticalLines(listOf("Quiet", " ", " ", "Talkative"))
-                Slider(modifier = Modifier.fillMaxWidth(),
-                    value = sliderPosition1,
-                    onValueChange = {sliderPosition1 = it},
-                    colors = customSliderColors()
-                )
-            }
+            OnboardingSlider(values = listOf("Quiet", " ", " ", "Talkative"), sliderPosition = sliderPosition1)
 
             Text(
                 fontFamily = FontFamily.Default,
@@ -67,24 +52,8 @@ fun OnboardingView4(
                 fontSize = 20.sp,
             )
 
-            //          First Slider
-            var sliderPosition2 by remember { mutableStateOf(0F)}
+            OnboardingSlider(values = listOf("No Music", " ", " ", "Music"), sliderPosition = sliderPosition2)
 
-            Box(contentAlignment = Alignment.Center,
-                modifier = Modifier.padding(
-                    start = 20.dp,
-                    end = 20.dp,
-                    top = 10.dp,
-                    bottom = 10.dp,
-                )
-            ) {
-                VerticalLines(listOf("No Music", " ", " ", "Music"))
-                Slider(modifier = Modifier.fillMaxWidth(),
-                    value = sliderPosition2,
-                    onValueChange = {sliderPosition2 = it},
-                    colors = customSliderColors()
-                )
-            }
             Box(
                 modifier = Modifier
                     .align(Alignment.End)
@@ -107,7 +76,7 @@ fun OnboardingView4(
 }
 
 @Composable
-fun VerticalLines(dates: List<String>) {
+fun VerticalLines(values: List<String>) {
 
     val drawPadding = with(LocalDensity.current) { 10.dp.toPx() }
     val textSize = with(LocalDensity.current) {15.dp.toPx() }
@@ -132,8 +101,8 @@ fun VerticalLines(dates: List<String>) {
                 )
         ) {
             val yStart = 0f
-            val distance = (size.width.minus(2 * drawPadding)).div(dates.size.minus(1))
-            dates.forEachIndexed { index, step ->
+            val distance = (size.width.minus(2 * drawPadding)).div(values.size.minus(1))
+            values.forEachIndexed { index, step ->
                 drawLine(
                     color = Color.Black,
                     start = Offset(x = drawPadding + index.times(distance), y = yStart),
@@ -154,9 +123,7 @@ fun VerticalLines(dates: List<String>) {
 }
 
 @Composable
-fun ForecastSlider(dates: List<String>, vararg sliderPositin: Float) {
-
-    var sliderPosition by remember { mutableStateOf(0F)}
+fun OnboardingSlider(values: List<String>, sliderPosition: MutableState<Float>) {
 
     Box(contentAlignment = Alignment.Center,
         modifier = Modifier.padding(
@@ -166,10 +133,11 @@ fun ForecastSlider(dates: List<String>, vararg sliderPositin: Float) {
             bottom = 10.dp,
         )
     ) {
-        VerticalLines(dates)
+        VerticalLines(values)
         Slider(modifier = Modifier.fillMaxWidth(),
-            value = sliderPosition,
-            onValueChange = {sliderPosition = it},
+            value = sliderPosition.value,
+            onValueChange = {
+                sliderPosition.value = it},
             colors = customSliderColors()
         )
     }
