@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -21,11 +22,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import com.cornellappdev.scoop.BuildConfig
 import com.cornellappdev.scoop.ui.screens.HomeScreen
 import com.cornellappdev.scoop.ui.screens.PostScreen
 import com.cornellappdev.scoop.ui.screens.ProfileScreen
 import com.cornellappdev.scoop.ui.screens.SearchScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.android.libraries.places.api.Places
 
 /** This composable makes the bottom nav bar and base layer on which different screens are shown. */
 @Composable
@@ -35,6 +38,9 @@ fun MainScreen(
     navController.currentBackStackEntryAsState()
     val bottomNavTabList = BottomNavTab.bottomNavTabList
     val (showBottomBar, setShowBottomBar) = rememberSaveable { mutableStateOf(true) }
+
+    // Initialize the Places SDK
+    Places.initialize(LocalContext.current, BuildConfig.PLACES_API_KEY)
 
     Scaffold(
         bottomBar = {
