@@ -111,7 +111,7 @@ fun BottomSheet(trip: Trip) {
                     .padding(end = 20.dp)
                     .size(32.dp)
                     .align(Alignment.CenterVertically),
-                contentDescription = stringResource(R.string.calendar_icon_descrption)
+                contentDescription = stringResource(R.string.calendar_icon_description)
             )
 
             Text(
