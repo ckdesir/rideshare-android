@@ -23,7 +23,7 @@ import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 @Composable
 fun DenseTextField(
     value: String,
-    setValue: (String) -> Unit,
+    onValueChange: (String) -> Unit,
     placeholderText: String,
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -48,7 +48,7 @@ fun DenseTextField(
             )
             .height(32.dp),
         textStyle = TextStyle(color = Color.Black, fontSize = 22.sp),
-        onValueChange = setValue,
+        onValueChange = onValueChange,
         interactionSource = interactionSource,
         singleLine = singleLine
     ) { innerTextField ->
