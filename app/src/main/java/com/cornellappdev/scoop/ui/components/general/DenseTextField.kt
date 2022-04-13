@@ -7,6 +7,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.TextFieldDefaults.indicatorLine
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,16 +23,16 @@ import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun DenseTextField(
-    value: String,
-    onValueChange: (String) -> Unit,
+    text: MutableState<String>,
     placeholderText: String,
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     enabled: Boolean = true,
     singleLine: Boolean = true,
+    onValueChange: (String) -> Unit,
 ) {
     BasicTextField(
-        value = value,
+        value = text.value,
         modifier = modifier
             .indicatorLine(
                 enabled = enabled,
@@ -48,7 +49,10 @@ fun DenseTextField(
             )
             .height(32.dp),
         textStyle = TextStyle(color = Color.Black, fontSize = 22.sp),
-        onValueChange = onValueChange,
+        onValueChange = {
+            text.value = it
+            onValueChange(it)
+        },
         interactionSource = interactionSource,
         singleLine = singleLine
     ) { innerTextField ->
@@ -67,7 +71,7 @@ fun DenseTextField(
                     style = TextStyle(color = PlaceholderGray, fontSize = 22.sp),
                 )
             },
-            value = value,
+            value = text.value,
             innerTextField = innerTextField,
             singleLine = singleLine,
             contentPadding = PaddingValues(0.dp),

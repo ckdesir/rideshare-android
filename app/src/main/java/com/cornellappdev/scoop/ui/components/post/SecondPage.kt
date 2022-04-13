@@ -1,5 +1,6 @@
 package com.cornellappdev.scoop.ui.components.post
 
+import android.widget.EditText
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -343,18 +344,16 @@ fun OtherDetailsSection(
                 contentDescription = stringResource(R.string.details_icon_description)
             )
             DenseTextField(
-                value = detailsText.value,
-                onValueChange = {
-                    detailsText.value = it
-                    tripState.value = tripState.value.copy(
-                        otherDetails = it
-                    )
-                },
+                text = detailsText,
                 placeholderText = stringResource(R.string.enter_details),
                 modifier = Modifier
                     .align(Alignment.Bottom)
                     .fillMaxWidth()
-            )
+            ) {
+                tripState.value = tripState.value.copy(
+                    otherDetails = it
+                )
+            }
         }
     }
 }
