@@ -22,4 +22,9 @@
     <string name="invalid_range">Please check the range on the number of travelers!</string>
     <string name="invalid_date">Please enter a valid date!</string>
     <string name="invalid_time">Please pick a time in the future!</string>
+    <string name="cd_back">Back</string>
+    <string name="click_label_select">select</string>
+    <string name="state_descr_selected">Selected</string>
+    <string name="state_descr_not_selected">Not selected</string>
+
 </resources>
