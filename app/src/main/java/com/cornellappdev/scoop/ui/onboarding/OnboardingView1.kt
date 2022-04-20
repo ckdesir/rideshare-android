@@ -82,7 +82,7 @@ fun ProfileImage(){
                 modifier = Modifier.size(120.dp),
                 shape = CircleShape,
                 elevation = 2.dp,
-                backgroundColor = colorResource(id = R.color.lightgray),
+                backgroundColor = Color.LightGray,
             ) {}
 
             Card(
@@ -91,7 +91,7 @@ fun ProfileImage(){
                     .align(Alignment.BottomEnd),
                 shape = CircleShape,
                 elevation = 2.dp,
-                backgroundColor = colorResource(id = R.color.lightgray),
+                backgroundColor = Color.LightGray,
                 border = BorderStroke(width = 2.dp, color = Color.White),
                 onClick = {
                     launcher.launch("image/*")
@@ -126,7 +126,7 @@ fun ProfileImage(){
                         modifier = Modifier.size(120.dp),
                         shape = CircleShape,
                         elevation = 2.dp,
-                        backgroundColor = colorResource(id = R.color.lightgray)
+                        backgroundColor = Color.LightGray
                     ) {
                         Image(
                             bitmap = btm.asImageBitmap(),
@@ -142,7 +142,7 @@ fun ProfileImage(){
                             .align(Alignment.BottomEnd),
                         shape = CircleShape,
                         elevation = 2.dp,
-                        backgroundColor = colorResource(id = R.color.lightgray),
+                        backgroundColor = Color.LightGray,
                         border = BorderStroke(width = 2.dp, color = Color.White),
                         onClick = {
                             launcher.launch("image/*")
@@ -169,9 +169,9 @@ fun ProfileImage(){
 fun WelcomeText(
 ) {
     Card(
-        border = BorderStroke(width = 1.dp, color = colorResource(id = R.color.lightgray)),
+        border = BorderStroke(width = 1.dp, color = Color.LightGray),
         shape = RoundedCornerShape(14.dp),
-        backgroundColor = colorResource(id = R.color.lightgray),
+        backgroundColor = Color.LightGray,
         modifier = Modifier
             .padding(
                 bottom = 20.dp
