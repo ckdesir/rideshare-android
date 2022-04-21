@@ -12,7 +12,7 @@
     <string name="date_placeholder">mm/dd/yyyy</string>
     <string name="time_template">1:33 AM</string>
     <string name="clock_icon_description">Clock icon</string>
-    <string name="calendar_icon_descrption">Calendar icon</string>
+    <string name="calendar_icon_description">Calendar icon</string>
     <string name="travelers_icon_description">Travelers icon</string>
     <string name="arrow_forward_description">Arrow Forward</string>
     <string name="trip_details">Trip Details</string>
@@ -23,4 +23,9 @@
     <string name="invalid_range">Please check the range on the number of travelers!</string>
     <string name="invalid_date">Please enter a valid date!</string>
     <string name="invalid_time">Please pick a time in the future!</string>
+
+    <string-array name="methods_of_transportation">
+        <item>student driving</item>
+        <item>shared taxi</item>
+    </string-array>
 </resources>
