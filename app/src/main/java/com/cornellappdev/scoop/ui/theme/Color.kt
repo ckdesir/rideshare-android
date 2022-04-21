@@ -8,7 +8,7 @@ val DarkGray = Color(0xFFAFACAC)
 val LightGray = Color(0xFFECECEC)
 val PlaceholderGray = Color(0xFFC4C4C4)
 
-val ColorPalette = lightColors(
+val colorPalette = lightColors(
     background = Color.White,
     surface = Color.White,
     onPrimary = Color.White,
