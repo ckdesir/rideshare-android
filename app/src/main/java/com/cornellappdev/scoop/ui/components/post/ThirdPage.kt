@@ -18,6 +18,9 @@ fun ThirdPage(trip: Trip) {
         sheetShape = RoundedCornerShape(25.dp),
         sheetContent = { BottomSheet(trip) }
     ) {
-        Image(painter = painterResource(R.drawable.ic_fake_map), contentDescription = "Map showing departure to arrival locations")
+        Image(
+            painter = painterResource(R.drawable.ic_fake_map),
+            contentDescription = "Map showing departure to arrival locations"
+        )
     }
 }

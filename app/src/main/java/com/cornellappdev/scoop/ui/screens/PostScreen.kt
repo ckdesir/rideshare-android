@@ -21,9 +21,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
+import com.cornellappdev.scoop.models.Trip
 import com.cornellappdev.scoop.ui.components.post.SecondPage
 import com.cornellappdev.scoop.ui.components.post.ThirdPage
-import com.cornellappdev.scoop.models.Trip
 import com.cornellappdev.scoop.ui.theme.DarkGray
 import com.cornellappdev.scoop.ui.theme.LightGray
 import com.google.accompanist.pager.*
@@ -124,12 +124,12 @@ fun PostScreen(onPostNewTrip: (Trip) -> Unit) {
                 coroutineScope,
                 pagerState.currentPage - 1,
                 pagerState
-            )()
+            ).invoke()
             2 -> proceedToPageIndex(
                 coroutineScope,
                 pagerState.currentPage - 1,
                 pagerState
-            )()
+            ).invoke()
         }
     }
 }

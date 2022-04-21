@@ -16,7 +16,11 @@ interface NavUnit {
  * The route is needed to match the tab to the correct screen.
  * The iconId is the resource id number for the drawable for the icon of the tab.
  */
-data class BottomNavTab(override var route: String, val iconId: Int, val contentDescription: String) :
+data class BottomNavTab(
+    override var route: String,
+    val iconId: Int,
+    val contentDescription: String
+) :
     NavUnit {
     companion object {
         val bottomNavTabList = listOf(
@@ -31,8 +35,7 @@ data class BottomNavTab(override var route: String, val iconId: Int, val content
  * Contains information about all known routes. These should correspond to routes in our
  * NavHost/new routes should be added here.
  */
-enum class Routes(override var route: String) : NavUnit
-{
+enum class Routes(override var route: String) : NavUnit {
     Home("HOME"),
     HomeShowTripPosted("HOME/{show_trip_posted}"),
     Search("SEARCH"),
