@@ -8,6 +8,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.NearMe
 import androidx.compose.material.icons.outlined.Place
 import androidx.compose.runtime.Composable
@@ -23,7 +24,6 @@ import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.models.Trip
 import com.cornellappdev.scoop.ui.theme.BorderGray
-import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 
 /**
  * Composable that displays information about the [Trip] passed in.
@@ -56,22 +56,22 @@ fun RideCard(
                     }
                 }
 
-                Card(
-                    modifier = Modifier.wrapContentSize(),
-                    shape = RoundedCornerShape(10.dp),
-                    backgroundColor = PlaceholderGray
-                ) {
-                    Column(
-                        modifier = Modifier.padding(horizontal = 20.dp, vertical = 13.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        trip.dateOfTrip?.let { date ->
-                            Text(
-                                text = date,
-                                style = TextStyle(color = Color.Black, fontSize = 22.sp)
-                            )
-                        }
+                Row(modifier = Modifier.wrapContentSize()) {
+                    Icon(
+                        Icons.Outlined.CalendarToday,
+                        modifier = Modifier
+                            .padding(end = 20.dp)
+                            .size(29.dp)
+                            .align(Alignment.CenterVertically),
+                        contentDescription = stringResource(R.string.calendar_icon_description)
+                    )
+
+                    trip.dateOfTrip?.let { date ->
+                        Text(
+                            text = date,
+                            modifier = Modifier.align(Alignment.CenterVertically),
+                            style = TextStyle(color = Color.Black, fontSize = 16.sp)
+                        )
                     }
                 }
             }
@@ -131,4 +131,3 @@ fun RideCard(
         }
     }
 }
-
