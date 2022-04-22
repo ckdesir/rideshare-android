@@ -38,12 +38,13 @@ import java.util.*
  *
  * If there is a filter applied prior to an edited search, the results of the edited search will
  * be filtered and returned in the callback of onSearchCompleted. Once editing mode is turned
- * on in the SearchCard, the manager of this composable is responsible for stopping it.
+ * on in the SearchCard, the manager of this composable is responsible for stopping it (this composable
+ * has no icons to switch editing mode off).
  *
- * @param[search] State that represents the current state of search of the user
- * @param[filter] State that represents the current filter applied to the results of search
- * @param[isEditing] State that represents the current mode of the [SearchCard]
- * @param[onSearchCompleted] Callback that returns the results of the edited search back to the caller
+ * @param search State that represents the current state of search of the user
+ * @param filter State that represents the current filter applied to the results of search
+ * @param isEditing State that represents the current mode of the [SearchCard]
+ * @param onSearchCompleted Callback that returns the results of the edited search back to the caller
  */
 @Composable
 fun SearchCard(

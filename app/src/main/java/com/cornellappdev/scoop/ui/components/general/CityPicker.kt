@@ -24,6 +24,19 @@ import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import java.util.*
 
+/**
+ * Allows users to select a city using Place API autocomplete.
+ *
+ * @param cityState State that represents the current city selected by user
+ * @param placeholder The placeholder to be displayed when the text field is in focus and the input text is empty
+ * @param modifier Modifier to be applied to the [CityPicker]
+ * @param placeholderColor [Color] to apply to the placeholder text
+ * @param enabled Controls the enabled state of the button. When false, this button will not be clickable.
+ * @param disabledTextStyle The optional text style to be applied to the text if the [CityPicker] is not enabled
+ * @param disableDivider Controls the divider below the text. When false, the divider will not be there.
+ * @param onCityChanged Callback called when the user changes the city selected. If the user selects the same
+ *      city as previously selected, this function will not be called.
+ */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CityPicker(

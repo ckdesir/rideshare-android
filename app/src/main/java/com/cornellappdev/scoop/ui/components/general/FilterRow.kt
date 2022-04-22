@@ -28,9 +28,9 @@ import com.cornellappdev.scoop.ui.theme.ScoopGreen
 /**
  * LazyRow of selectable filters.
  *
- * @param[filter] State that represents the current filter selected by the user
- * @param[selectableFilters] List of selectable filters
- * @param[onFilterSelected] Callback that is called when new filter is selected by the user
+ * @param filter State that represents the current filter selected by the user
+ * @param selectableFilters List of selectable filters
+ * @param onFilterSelected Callback that is called when new filter is selected by the user
  */
 @Composable
 fun FilterRow(

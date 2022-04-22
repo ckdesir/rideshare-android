@@ -32,6 +32,13 @@ import com.cornellappdev.scoop.models.Trip
 import com.cornellappdev.scoop.ui.components.general.FilterRow
 import com.cornellappdev.scoop.ui.components.general.RideCard
 
+/**
+ * This page allows users to look at their search, filter and view their results.
+ *
+ * Users also have the ability to edit their search.
+ *
+ * @param searchState State that represents the current search the user inputted
+ */
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun DisplaySearchesPage(searchState: MutableState<Search>) {

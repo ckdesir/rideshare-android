@@ -18,7 +18,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
@@ -26,6 +25,11 @@ import com.cornellappdev.scoop.models.Trip
 import com.cornellappdev.scoop.ui.theme.BorderGray
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 
+/**
+ * Composable that displays information about the [Trip] passed in.
+ *
+ * @param trip The trip to be turned into a [RideCard]
+ */
 @Composable
 fun RideCard(
     trip: Trip
@@ -128,15 +132,3 @@ fun RideCard(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ShowRideCard() {
-    RideCard(
-        Trip(
-            "Taxi",
-            dateOfTrip = "Mar 3",
-            departureLocation = "Ithaca, NY",
-            arrivalLocation = "New York, NY"
-        )
-    )
-}

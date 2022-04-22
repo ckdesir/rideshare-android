@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.models.Trip
 
-
 @Composable
 fun BottomSheet(trip: Trip) {
     Column(modifier = Modifier.padding(top = 28.dp, start = 40.dp, end = 40.dp)) {

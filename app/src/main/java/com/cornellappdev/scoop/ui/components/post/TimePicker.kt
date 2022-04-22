@@ -12,7 +12,6 @@ import kotlinx.datetime.toLocalDateTime
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 fun createDatePickerDialog(
     context: Context,
     setDateText: (String) -> Unit,
