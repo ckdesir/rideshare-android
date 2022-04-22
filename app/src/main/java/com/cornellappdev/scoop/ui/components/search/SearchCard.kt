@@ -53,6 +53,9 @@ fun SearchCard(
     isEditing: MutableState<Boolean>,
     onSearchCompleted: (List<Trip>) -> Unit,
 ) {
+    // CityPicker requires MutableStates for it's values but the Search model does
+    // not have MutableStates for it's fields, so we must convert them and update the
+    // search state in the callback of CityPicker.
     val departureLocation = remember { mutableStateOf(search.value.departureLocation!!) }
     val arrivalLocation = remember { mutableStateOf(search.value.arrivalLocation!!) }
     val departureDate = remember { mutableStateOf(search.value.departureDate!!) }
@@ -102,7 +105,7 @@ fun SearchCard(
                                     align(Alignment.CenterVertically)
                                 }
                             },
-                            placeholder = "",
+                            placeholder = "", // CityPicker should never be empty.
                             enabled = isEditing.value,
                             disabledTextStyle = MaterialTheme.typography.subtitle1,
                             disableDivider = !isEditing.value
@@ -111,6 +114,7 @@ fun SearchCard(
                                 search.value.departureLocation = it
 
                                 // Query backend for new results, apply filter if applicable, call callback.
+                                /** TODO: Networking for searching for rides, ditto */
                                 onSearchCompleted(listOf())
                             }
                         }
@@ -124,23 +128,6 @@ fun SearchCard(
                             .align(Alignment.CenterVertically),
                         contentDescription = stringResource(R.string.details_icon_description)
                     )
-
-//                    if (!isEditing.value) {
-//                        Column(modifier = Modifier
-//                            .clickable {
-//                                isEditing.value = !isEditing.value
-//                                onEditingChangeEvent(isEditing.value)
-//                            }
-//                            .align(Alignment.CenterVertically)
-//                            .padding(end = 12.dp)) {
-//                            Icon(
-//                                painterResource(R.drawable.ic_details_icon),
-//                                modifier = Modifier
-//                                    .size(32.dp),
-//                                contentDescription = stringResource(R.string.details_icon_description)
-//                            )
-//                        }
-//                    }
                 }
 
                 if (!isEditing.value) {
@@ -213,7 +200,7 @@ fun SearchCard(
                             all = 0.dp
                         ),
                         onClick = {
-                            /** TODO: Change with custom calendar view */
+                            /** TODO: Change with custom calendar view if made eventually. */
                             datePickerDialog.show()
                         }) {
                         Column {
