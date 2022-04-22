@@ -1,5 +1,6 @@
 package com.cornellappdev.scoop.ui.components.general
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.models.Trip
+import com.cornellappdev.scoop.ui.theme.BorderGray
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 
 @Composable
@@ -31,7 +33,8 @@ fun RideCard(
     Card(
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        border = BorderStroke(1.dp, color = BorderGray)
     ) {
         Column(modifier = Modifier.padding(10.dp)) {
             Row(
