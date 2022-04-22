@@ -1,15 +1,18 @@
 package com.cornellappdev.scoop.ui.components.general
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -20,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cornellappdev.scoop.ui.theme.ScoopGreen
 
 /**
  * LazyRow of selectable filters.
@@ -33,18 +37,21 @@ fun FilterRow(
     filter: MutableState<String?>,
     selectableFilters: List<String>,
     modifier: Modifier = Modifier,
+    selectedColor: Color = ScoopGreen,
     onFilterSelected: () -> Unit,
 ) {
     val selectedIndex = remember { mutableStateOf(-1) }
 
     LazyRow(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+        horizontalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         itemsIndexed(selectableFilters) { index, item ->
-            Card(
-                modifier = Modifier.clickable {
-                    if (selectedIndex.value == index) {
+            val isSelected = selectedIndex.value == index
+            val interactionSource = remember { MutableInteractionSource() }
+            TextButton(
+                onClick = {
+                    if (isSelected) {
                         // Deselects the given filter if it's clicked again.
                         selectedIndex.value = -1
                         filter.value = null
@@ -55,17 +62,25 @@ fun FilterRow(
                     onFilterSelected.invoke()
                 },
                 shape = RoundedCornerShape(50.dp),
-                border = BorderStroke(2.dp, Color.Black),
-                backgroundColor = if (index == selectedIndex.value) Color.Gray else Color.White
+                modifier = Modifier.indication(
+                    interactionSource, rememberRipple(
+                        bounded = true,
+                        radius = 60.dp,
+                        color = if (isSelected) Color.Transparent else selectedColor
+                    )
+                ),
+                colors = ButtonDefaults.buttonColors(backgroundColor = if (isSelected) selectedColor else Color.White),
+                interactionSource = interactionSource,
+                border = BorderStroke(1.dp, if (isSelected) Color.Transparent else Color.Black)
             ) {
                 Box(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.padding(8.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
                         item,
                         style = TextStyle(
-                            color = Color.Black,
+                            color = if (isSelected) Color.White else Color.Black,
                             fontSize = 20.sp
                         )
                     )
