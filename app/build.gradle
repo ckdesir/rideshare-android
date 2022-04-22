@@ -5,6 +5,9 @@ plugins {
 }
 
 apply from: 'dependencies.gradle'
+def secretsPropertiesFile = rootProject.file("secrets.properties")
+def secretsProperties = new Properties()
+secretsProperties.load(new FileInputStream(secretsPropertiesFile))
 
 android {
     compileSdk versions.compileSdk
@@ -20,6 +23,8 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        buildConfigField 'String', 'PLACES_API_KEY', secretsProperties['PLACES_API_KEY']
     }
 
     buildTypes {
@@ -54,10 +59,12 @@ android {
 }
 
 dependencies {
+    implementation platform('com.google.firebase:firebase-bom:29.3.1')
+
     implementation composeDependencies.values()
     implementation accompanistDependencies.values()
     implementation firebaseDependencies.values()
     implementation androidxDependencies.values()
-    //implementation platform('com.google.firebase:firebase-bom:29.0.4')
-    implementation 'org.jetbrains.kotlinx:kotlinx-datetime:0.3.2'
+    implementation jetbrainsDependencies.values()
+    implementation apiDependencies.values()
 }
