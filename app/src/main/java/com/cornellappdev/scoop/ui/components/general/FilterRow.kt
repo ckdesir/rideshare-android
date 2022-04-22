@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cornellappdev.scoop.ui.theme.ScoopGreen
+import com.cornellappdev.scoop.ui.theme.DarkGreen
 
 /**
  * LazyRow of selectable filters.
@@ -37,7 +37,7 @@ fun FilterRow(
     filter: MutableState<String?>,
     selectableFilters: List<String>,
     modifier: Modifier = Modifier,
-    selectedColor: Color = ScoopGreen,
+    selectedColor: Color = DarkGreen,
     onFilterSelected: () -> Unit,
 ) {
     val selectedIndex = remember { mutableStateOf(-1) }

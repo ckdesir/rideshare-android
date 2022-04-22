@@ -8,7 +8,8 @@ val DarkGray = Color(0xFFAFACAC)
 val LightGray = Color(0xFFECECEC)
 val BorderGray = Color(0xFF949494)
 val PlaceholderGray = Color(0xFFC4C4C4)
-val ScoopGreen = Color(0xFF60BFA0)
+val Green = Color(0xFF60BFA0)
+val DarkGreen = Color(0xFF3A9275)
 
 val colorPalette = lightColors(
     background = Color.White,
