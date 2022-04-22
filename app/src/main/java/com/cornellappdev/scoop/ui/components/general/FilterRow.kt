@@ -28,8 +28,12 @@ import com.cornellappdev.scoop.ui.theme.DarkGreen
 /**
  * LazyRow of selectable filters.
  *
+ * If a filter is unselected, the filter value is null.
+ *
  * @param filter State that represents the current filter selected by the user
  * @param selectableFilters List of selectable filters
+ * @param modifier Modifier to apply to FilterRow
+ * @param selectedColor Color to apply to row if selected (if selected, the color of the text is white)
  * @param onFilterSelected Callback that is called when new filter is selected by the user
  */
 @Composable
