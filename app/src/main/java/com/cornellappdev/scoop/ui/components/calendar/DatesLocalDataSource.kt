@@ -1,7 +1,5 @@
-package com.jetpack.customcalendar.calendar
+package com.cornellappdev.scoop.ui.components.calendar
 
-import com.jetpack.customcalendar.calendar.model.CalendarMonth
-import com.jetpack.customcalendar.calendar.model.DayOfWeek
 import javax.inject.Inject
 import javax.inject.Singleton
 

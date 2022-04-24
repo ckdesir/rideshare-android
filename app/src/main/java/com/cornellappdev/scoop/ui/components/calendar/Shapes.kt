@@ -1,4 +1,4 @@
-package com.jetpack.customcalendar.calendar
+package com.cornellappdev.scoop.ui.components.calendar
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize

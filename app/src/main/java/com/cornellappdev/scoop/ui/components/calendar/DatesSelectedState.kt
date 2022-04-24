@@ -1,10 +1,9 @@
-package com.jetpack.customcalendar.calendar.model
+package com.cornellappdev.scoop.ui.components.calendar
 
 import androidx.annotation.VisibleForTesting
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.jetpack.customcalendar.calendar.CalendarYear
 
 class DatesSelectedState(private val year: CalendarYear) {
     private var from by mutableStateOf(DaySelectedEmpty)

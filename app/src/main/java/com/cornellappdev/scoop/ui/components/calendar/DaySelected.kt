@@ -1,6 +1,5 @@
-package com.jetpack.customcalendar.calendar.model
+package com.cornellappdev.scoop.ui.components.calendar
 
-import com.jetpack.customcalendar.calendar.CalendarYear
 import java.util.*
 
 data class DaySelected(
