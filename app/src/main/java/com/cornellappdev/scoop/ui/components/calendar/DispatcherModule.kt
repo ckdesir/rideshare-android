@@ -1,4 +1,4 @@
-package com.jetpack.customcalendar.calendar
+package com.cornellappdev.scoop.ui.components.calendar
 
 import dagger.Module
 import dagger.Provides

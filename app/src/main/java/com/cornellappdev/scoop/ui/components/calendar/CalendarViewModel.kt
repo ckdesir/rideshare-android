@@ -1,8 +1,7 @@
-package com.jetpack.customcalendar.calendar
+package com.cornellappdev.scoop.ui.components.calendar
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jetpack.customcalendar.calendar.model.DaySelected
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

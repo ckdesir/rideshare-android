@@ -1,7 +1,5 @@
-package com.jetpack.customcalendar.calendar
+package com.cornellappdev.scoop.ui.components.calendar
 
-import com.jetpack.customcalendar.calendar.model.DatesSelectedState
-import com.jetpack.customcalendar.calendar.model.DaySelected
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

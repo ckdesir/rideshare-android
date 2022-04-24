@@ -1,4 +1,4 @@
-package com.jetpack.customcalendar.calendar.model
+package com.cornellappdev.scoop.ui.components.calendar
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
