@@ -112,7 +112,7 @@ fun DisplaySearchesPage(searchState: MutableState<Search>) {
                     }
                 }
 
-                // Gradient overlay
+                // Gradient overlay to the bottom of the Search results LazyColumn
                 androidx.compose.animation.AnimatedVisibility(
                     modifier = Modifier
                         .align(Alignment.BottomStart)
@@ -120,6 +120,8 @@ fun DisplaySearchesPage(searchState: MutableState<Search>) {
                         .fillMaxWidth(),
                     enter = fadeIn(),
                     exit = fadeOut(),
+                    // The gradient overlay is only visible when the user hasn't scrolled to the end
+                    // so the gradient isn't blocking the final card
                     visible = !state.isScrolledToTheEnd()
                 ) {
                     Spacer(
@@ -140,5 +142,8 @@ fun DisplaySearchesPage(searchState: MutableState<Search>) {
     }
 }
 
+/**
+ * Detects when the given LazyList has scrolled to the end.
+ */
 fun LazyListState.isScrolledToTheEnd() =
     layoutInfo.visibleItemsInfo.lastOrNull()?.index == layoutInfo.totalItemsCount - 1
