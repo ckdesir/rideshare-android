@@ -37,7 +37,7 @@ import java.util.*
  * Additionally, allows users to edit the given fields of the search.
  *
  * If there is a filter applied prior to an edited search, the results of the edited search will
- * be filtered and returned in the callback of onSearchCompleted. Once editing mode is turned
+ * be filtered and returned in the callback of [onSearchCompleted]. Once editing mode is turned
  * on in the SearchCard, the manager of this composable is responsible for stopping it (this composable
  * has no icons to switch editing mode off).
  *
@@ -113,8 +113,7 @@ fun SearchCard(
                             if (search.value.departureLocation != it) {
                                 search.value.departureLocation = it
 
-                                // Query backend for new results, apply filter if applicable, call callback.
-                                /** TODO: Networking for searching for rides, ditto */
+                                /** TODO: Networking for searching for rides should be inserted here and passed into callback. */
                                 onSearchCompleted(listOf())
                             }
                         }
@@ -172,7 +171,7 @@ fun SearchCard(
                         if (search.value.arrivalLocation != it) {
                             search.value.arrivalLocation = it
 
-                            // Query backend for new results, apply filter if applicable, call callback.
+                            /** TODO: Networking for searching for rides should be inserted here and passed into callback. */
                             onSearchCompleted(listOf())
                         }
                     }

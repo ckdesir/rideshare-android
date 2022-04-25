@@ -28,7 +28,7 @@ import com.cornellappdev.scoop.ui.theme.DarkGreen
 /**
  * LazyRow of selectable filters.
  *
- * If a filter is unselected, the filter value is null.
+ * If a filter is unselected, the filter value is set to null.
  *
  * @param filter State that represents the current filter selected by the user
  * @param selectableFilters List of selectable filters
