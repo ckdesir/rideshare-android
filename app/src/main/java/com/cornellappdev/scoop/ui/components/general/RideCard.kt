@@ -60,7 +60,7 @@ fun RideCard(
                     Icon(
                         Icons.Outlined.CalendarToday,
                         modifier = Modifier
-                            .padding(end = 20.dp)
+                            .padding(end = 8.dp)
                             .size(29.dp)
                             .align(Alignment.CenterVertically),
                         contentDescription = stringResource(R.string.calendar_icon_description)
