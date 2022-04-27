@@ -20,16 +20,10 @@ class DatesSelectedState(private val year: CalendarYear) {
 
     fun daySelected(newDate: DaySelected) {
         if (from == DaySelectedEmpty && to == DaySelectedEmpty) {
-            setDates(newDate, DaySelectedEmpty)
+            setDates(newDate, newDate)
         } else if (from != DaySelectedEmpty && to != DaySelectedEmpty) {
             clearDates()
             daySelected(newDate = newDate)
-        } else if (from == DaySelectedEmpty) {
-            if (newDate < to) setDates(newDate, to)
-            else if (newDate > to) setDates(to, newDate)
-        } else if (to == DaySelectedEmpty) {
-            if (newDate < from) setDates(newDate, from)
-            else if (newDate > from) setDates(from, newDate)
         }
     }
 
