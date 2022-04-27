@@ -1,9 +1,11 @@
 package com.cornellappdev.scoop.ui.components.general
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,6 +24,9 @@ import com.google.accompanist.insets.statusBarsHeight
 import com.cornellappdev.scoop.ui.components.calendar.CalendarYear
 import com.cornellappdev.scoop.ui.components.calendar.Circle
 import com.cornellappdev.scoop.ui.components.calendar.SemiRect
+import com.cornellappdev.scoop.ui.theme.DarkGreen
+import com.cornellappdev.scoop.ui.theme.LightGreen
+import com.cornellappdev.scoop.ui.theme.ScoopGreen
 
 typealias CalendarWeek = List<CalendarDay>
 
@@ -29,9 +34,19 @@ typealias CalendarWeek = List<CalendarDay>
 @Composable
 fun CalendarPreview()
 {
+    CalendarScreen {
+
+    }
+}
+
+
+@Composable
+fun CalendarScreen(
+    onBackPressed: () -> Unit
+) {
     val calendarViewModel: CalendarViewModel = viewModel()
     val calendarYear = calendarViewModel.calendarYear
-
+    Log.d("selected", calendarViewModel.datesSelected.toString())
     CalendarContent(
         selectedDates = calendarViewModel.datesSelected.toString(),
         calendarYear = calendarYear,
@@ -40,7 +55,7 @@ fun CalendarPreview()
                 DaySelected(calendarDay.value.toInt(), calendarMonth, calendarYear)
             )
         },
-        onBackPressed = { }
+        onBackPressed = onBackPressed
     )
 }
 
@@ -57,7 +72,36 @@ fun CalendarContent(
             CalendarTopAppBar(selectedDates, onBackPressed)
         }
     ) {
-        Calendar(calendarYear, onDayClicked)
+        Box(contentAlignment = Alignment.BottomCenter){
+            Calendar(calendarYear, onDayClicked)
+            Surface(
+                modifier = Modifier.padding(bottom = 20.dp)
+            ) {
+                SelectDateButton()
+            }
+        }
+    }
+}
+
+@Composable
+fun SelectDateButton(){
+    val calendarViewModel: CalendarViewModel = viewModel()
+    val buttonColor : Color = if (calendarViewModel.datesSelected.toString().isBlank()) LightGreen else DarkGreen
+    Button(
+        shape = RoundedCornerShape(5.dp),
+        onClick = { /* ... */ },
+        // Uses ButtonDefaults.ContentPadding by default
+        contentPadding = PaddingValues(
+            start = 80.dp,
+            top = 10.dp,
+            end = 80.dp,
+            bottom = 10.dp
+        ),
+        colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor)
+
+    ) {
+        // Inner content including an icon and a text label
+        Text("Select Date", color = Color.White)
     }
 }
 
@@ -77,7 +121,7 @@ fun CalendarTopAppBar(selectedDates: String, onBackPressed: () -> Unit) {
                     textAlign = TextAlign.Center
                 )
             },
-            backgroundColor = MaterialTheme.colors.primaryVariant,
+            backgroundColor = Color.Transparent,
             elevation = 0.dp
         )
     }
@@ -244,12 +288,12 @@ private fun DayStatusContainer(
 ) {
     if (status.isMarked()) {
         Box {
-            val color = MaterialTheme.colors.secondary
+            val color = Color(0xFF60BFA0)
             Circle(color = color)
             if (status == DaySelectedStatus.FirstDay) {
-                SemiRect(color = color, lookingLeft = false)
+                SemiRect(color = Color.Transparent, lookingLeft = false)
             } else if (status == DaySelectedStatus.LastDay) {
-                SemiRect(color = color, lookingLeft = true)
+                SemiRect(color = Color.Transparent, lookingLeft = true)
             }
             content()
         }
@@ -295,7 +339,7 @@ private fun LazyListScope.itemsCalendarMonth(
 }
 
 private fun DaySelectedStatus.color(theme: Colors): Color = when (this) {
-    DaySelectedStatus.Selected -> theme.secondary
+    DaySelectedStatus.Selected -> ScoopGreen
     else -> Color.Transparent
 }
 

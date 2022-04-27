@@ -9,6 +9,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
+import com.cornellappdev.scoop.ui.theme.ScoopGreen
 
 @Composable
 fun Circle(color: Color) {
