@@ -78,7 +78,7 @@ fun FilterRow(
                 border = BorderStroke(1.dp, if (isSelected) Color.Transparent else Color.Black)
             ) {
                 Box(
-                    modifier = Modifier.padding(8.dp),
+                    modifier = Modifier.padding(3.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
