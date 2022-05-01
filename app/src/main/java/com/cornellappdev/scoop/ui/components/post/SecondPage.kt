@@ -313,7 +313,7 @@ fun TimeOfTripSection(
 @Composable
 fun OtherDetailsSection(
     detailsText: String,
-    setDetailsText: (String) -> Unit,
+    setDetailsText: (String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -335,8 +335,8 @@ fun OtherDetailsSection(
                 contentDescription = stringResource(R.string.details_icon_description)
             )
             DenseTextField(
-                value = detailsText,
-                setValue = setDetailsText,
+                text = detailsText,
+                onValueChange = setDetailsText,
                 placeholderText = stringResource(R.string.enter_details),
                 modifier = Modifier
                     .align(Alignment.Bottom)

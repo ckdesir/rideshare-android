@@ -28,6 +28,13 @@
     <string name="stop_editing">Stop editing</string>
     <string name="locations">Locations</string>
     <string name="select">select</string>
+    <string name="invalid_method_of_transportation">Please enter a valid method of transportation!
+    </string>
+    <string name="departure_location">departure location…</string>
+    <string name="arrival_location">arrival location…</string>
+    <string name="method_of_transportation">Method of Transportation</string>
+    <string name="invalid_departure">Please enter a valid departure location!</string>
+    <string name="invalid_arrival">Please enter a valid arrival location!</string>
     <string-array name="methods_of_transportation">
         <item>student driving</item>
         <item>shared taxi</item>

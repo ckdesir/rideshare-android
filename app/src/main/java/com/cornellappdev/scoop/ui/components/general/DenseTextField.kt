@@ -7,7 +7,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.TextFieldDefaults.indicatorLine
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,9 +19,7 @@ import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 /**
  * Creates a dense TextField, e.g. a TextField with no internal padding.
  *
- * @param value The text to be displayed
- * @param setValue The callback that is triggered when the input service updates the text.
- *      An updated text comes as a parameter of the callback.
+ * @param text The state that represents the text displayed.
  * @param placeholderText The placeholder to be displayed when the text field is in focus and the input text is empty
  * @param modifier Modifier to be applied to the [DenseTextField]
  * @param interactionSource The InteractionSource of this text field.
@@ -36,7 +33,7 @@ import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun DenseTextField(
-    text: MutableState<String>,
+    text: String,
     placeholderText: String,
     modifier: Modifier = Modifier,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -45,7 +42,7 @@ fun DenseTextField(
     onValueChange: (String) -> Unit,
 ) {
     BasicTextField(
-        value = text.value,
+        value = text,
         modifier = modifier
             .indicatorLine(
                 enabled = enabled,
@@ -63,7 +60,6 @@ fun DenseTextField(
             .height(32.dp),
         textStyle = TextStyle(color = Color.Black, fontSize = 22.sp),
         onValueChange = {
-            text.value = it
             onValueChange(it)
         },
         interactionSource = interactionSource,
@@ -84,7 +80,7 @@ fun DenseTextField(
                     style = TextStyle(color = PlaceholderGray, fontSize = 22.sp),
                 )
             },
-            value = text.value,
+            value = text,
             innerTextField = innerTextField,
             singleLine = singleLine,
             contentPadding = PaddingValues(0.dp),
