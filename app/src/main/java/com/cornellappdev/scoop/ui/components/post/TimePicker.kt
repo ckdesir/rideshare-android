@@ -14,8 +14,8 @@ import java.util.*
 
 fun createDatePickerDialog(
     context: Context,
-    dateFormatter: SimpleDateFormat,
     setDateText: (String) -> Unit,
+    dateFormatter: SimpleDateFormat
 ): DatePickerDialog {
     val currentMoment = Clock.System.now()
     val date: LocalDateTime =
@@ -36,15 +36,16 @@ fun createDatePickerDialog(
 
 fun createTimePickerDialog(
     context: Context,
-    timeFormatter: SimpleDateFormat,
     setTimeText: (String) -> Unit,
+    timeFormatter: SimpleDateFormat
 ): TimePickerDialog {
     val currentMoment = Clock.System.now()
     val date: LocalDateTime =
         currentMoment.toLocalDateTime(TimeZone.currentSystemDefault())
 
     val timePickerDialog = TimePickerDialog(
-        context, android.R.style.Theme_DeviceDefault_Dialog_Alert,
+        context,
+        android.R.style.Theme_DeviceDefault_Dialog_Alert,
         { _: TimePicker, hourOfDay: Int, minute: Int ->
             val cal = Calendar.getInstance()
             cal[Calendar.HOUR_OF_DAY] = hourOfDay

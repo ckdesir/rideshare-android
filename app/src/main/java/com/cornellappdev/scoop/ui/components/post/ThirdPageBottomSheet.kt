@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.models.Trip
 
-
 @Composable
 fun BottomSheet(trip: Trip) {
     Column(modifier = Modifier.padding(top = 28.dp, start = 40.dp, end = 40.dp)) {
@@ -48,11 +47,13 @@ fun BottomSheet(trip: Trip) {
                     .align(Alignment.CenterVertically),
                 contentDescription = stringResource(R.string.details_icon_description)
             )
-            Text(
-                trip.methodOfTransportation!!,
-                modifier = Modifier.align(Alignment.CenterVertically),
-                style = TextStyle(color = Color.Black, fontSize = 18.sp),
-            )
+            trip.methodOfTransportation?.let {
+                Text(
+                    it,
+                    modifier = Modifier.align(Alignment.CenterVertically),
+                    style = TextStyle(color = Color.Black, fontSize = 18.sp),
+                )
+            }
         }
 
         Column(modifier = Modifier.padding(bottom = 15.dp)) {
@@ -65,11 +66,13 @@ fun BottomSheet(trip: Trip) {
                         .align(Alignment.CenterVertically),
                     contentDescription = stringResource(R.string.details_icon_description)
                 )
-                Text(
-                    trip.departureLocation!!,
-                    modifier = Modifier.align(Alignment.CenterVertically),
-                    style = TextStyle(color = Color.Black, fontSize = 18.sp),
-                )
+                trip.departureLocation?.let {
+                    Text(
+                        it,
+                        modifier = Modifier.align(Alignment.CenterVertically),
+                        style = TextStyle(color = Color.Black, fontSize = 18.sp),
+                    )
+                }
             }
 
             Canvas(
@@ -96,11 +99,13 @@ fun BottomSheet(trip: Trip) {
                         .align(Alignment.CenterVertically),
                     contentDescription = stringResource(R.string.details_icon_description)
                 )
-                Text(
-                    trip.arrivalLocation!!,
-                    modifier = Modifier.align(Alignment.CenterVertically),
-                    style = TextStyle(color = Color.Black, fontSize = 18.sp)
-                )
+                trip.arrivalLocation?.let {
+                    Text(
+                        it,
+                        modifier = Modifier.align(Alignment.CenterVertically),
+                        style = TextStyle(color = Color.Black, fontSize = 18.sp)
+                    )
+                }
             }
         }
 

@@ -1,6 +1,5 @@
 package com.cornellappdev.scoop.ui.components.post
 
-import android.widget.EditText
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -34,17 +33,19 @@ import java.util.*
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SecondPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
-    val dateFormatter = SimpleDateFormat(stringResource(R.string.date_format), Locale.getDefault())
-    val timeFormatter = SimpleDateFormat(stringResource(R.string.time_format), Locale.getDefault())
+    val dateFormatter =
+        SimpleDateFormat(stringResource(R.string.month_day_year_no_leading_zero_format), Locale.US)
+    val timeFormatter =
+        SimpleDateFormat(stringResource(R.string.hour_minute_period_format), Locale.US)
     val dateAndTimeFormatter =
-        SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
-    val detailsText = rememberSaveable { mutableStateOf(tripState.value.otherDetails.orEmpty()) }
+        SimpleDateFormat(stringResource(R.string.date_time_format), Locale.US)
+    val (detailsText, setDetailsText) = rememberSaveable { mutableStateOf(tripState.value.otherDetails.orEmpty()) }
     val lowerRangeNumTravelers =
         rememberSaveable { mutableStateOf((tripState.value.lowerRangeNumTravelers ?: 1)) }
     val higherRangeNumTravelers =
         rememberSaveable { mutableStateOf((tripState.value.higherRangeNumTravelers ?: 1)) }
-    val dateText = rememberSaveable { mutableStateOf(tripState.value.dateOfTrip.orEmpty()) }
-    val timeText = rememberSaveable { mutableStateOf(tripState.value.timeOfTrip.orEmpty()) }
+    val (dateText, setDateText) = rememberSaveable { mutableStateOf(tripState.value.dateOfTrip.orEmpty()) }
+    val (timeText, setTimeText) = rememberSaveable { mutableStateOf(tripState.value.timeOfTrip.orEmpty()) }
     var showInvalidRangeMessage by rememberSaveable { mutableStateOf(false) }
     var showInvalidDateMessage by rememberSaveable { mutableStateOf(false) }
     var showInvalidTimeMessage by rememberSaveable { mutableStateOf(false) }
@@ -80,10 +81,11 @@ fun SecondPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
                 .fillMaxWidth()
                 .padding(horizontal = 37.dp)
         ) {
-            NumberOfTravelersSection(lowerRangeNumTravelers, higherRangeNumTravelers, tripState)
-            DateOfTripSection(dateText, dateFormatter, tripState)
-            TimeOfTripSection(timeText, timeFormatter, tripState)
-            OtherDetailsSection(detailsText, tripState)
+
+            NumberOfTravelersSection(lowerRangeNumTravelers, higherRangeNumTravelers)
+            DateOfTripSection(dateText, setDateText, dateFormatter)
+            TimeOfTripSection(timeText, setTimeText, timeFormatter)
+            OtherDetailsSection(detailsText, setDetailsText)
 
             Column(
                 modifier = Modifier
@@ -105,14 +107,14 @@ fun SecondPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
                                     disableMessage()
                                 }
                             }
-                            dateText.value.isEmpty() -> {
+                            dateText.isEmpty() -> {
                                 showInvalidDateMessage = true
                                 proceedEnabled = false
                                 coroutineScope.launch {
                                     disableMessage()
                                 }
                             }
-                            timeText.value.isEmpty() || dateAndTimeFormatter.parse("$dateText $timeText")
+                            timeText.isEmpty() || dateAndTimeFormatter.parse("$dateText $timeText")
                                 ?.before(Date()) == true
                             -> {
                                 showInvalidTimeMessage = true
@@ -122,6 +124,14 @@ fun SecondPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
                                 }
                             }
                             else -> {
+                                // Updates trip state with details collected on SecondPage
+                                val trip = tripState.value
+                                trip.lowerRangeNumTravelers = lowerRangeNumTravelers.value
+                                trip.higherRangeNumTravelers = higherRangeNumTravelers.value
+                                trip.dateOfTrip = dateText
+                                trip.timeOfTrip = timeText
+                                trip.otherDetails = detailsText
+                                tripState.value = trip
                                 onProceedClicked()
                             }
                         }
@@ -151,8 +161,7 @@ fun SecondPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
 @Composable
 fun NumberOfTravelersSection(
     lowerRangeNumTravelers: MutableState<Int>,
-    higherRangeNumTravelers: MutableState<Int>,
-    tripState: MutableState<Trip>
+    higherRangeNumTravelers: MutableState<Int>
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(
@@ -172,11 +181,7 @@ fun NumberOfTravelersSection(
                 state = lowerRangeNumTravelers,
                 modifier = Modifier.padding(start = 13.dp),
                 range = 1..10,
-            ) {
-                tripState.value = tripState.value.copy(
-                    lowerRangeNumTravelers = it
-                )
-            }
+            )
             Text(
                 text = stringResource(R.string.to),
                 modifier = Modifier
@@ -187,11 +192,7 @@ fun NumberOfTravelersSection(
             NumberPicker(
                 state = higherRangeNumTravelers,
                 range = 1..10,
-            ) {
-                tripState.value = tripState.value.copy(
-                    higherRangeNumTravelers = it
-                )
-            }
+            )
         }
     }
 }
@@ -199,16 +200,11 @@ fun NumberOfTravelersSection(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun DateOfTripSection(
-    dateText: MutableState<String>,
-    dateFormatter: SimpleDateFormat,
-    tripState: MutableState<Trip>
+    dateText: String,
+    setDateText: (String) -> Unit,
+    dateFormatter: SimpleDateFormat
 ) {
-    val datePickerDialog = createDatePickerDialog(LocalContext.current, dateFormatter) {
-        dateText.value = it
-        tripState.value = tripState.value.copy(
-            dateOfTrip = it
-        )
-    }
+    val datePickerDialog = createDatePickerDialog(LocalContext.current, setDateText, dateFormatter)
     Column(
         modifier = Modifier
             .width(200.dp)
@@ -235,14 +231,14 @@ fun DateOfTripSection(
                 ),
                 onClick = { datePickerDialog.show() }) {
                 Column {
-                    if (dateText.value.isBlank()) {
+                    if (dateText.isBlank()) {
                         Text(
-                            stringResource(R.string.date_template),
+                            stringResource(R.string.date_placeholder),
                             style = TextStyle(color = PlaceholderGray, fontSize = 22.sp),
                         )
                     } else {
                         Text(
-                            dateText.value, style = TextStyle(color = Color.Black, fontSize = 22.sp),
+                            dateText, style = TextStyle(color = Color.Black, fontSize = 22.sp),
                         )
                     }
 
@@ -259,16 +255,11 @@ fun DateOfTripSection(
 
 @Composable
 fun TimeOfTripSection(
-    timeText: MutableState<String>,
-    timeFormatter: SimpleDateFormat,
-    tripState: MutableState<Trip>
+    timeText: String,
+    setTimeText: (String) -> Unit,
+    timeFormatter: SimpleDateFormat
 ) {
-    val timePickerDialog = createTimePickerDialog(LocalContext.current, timeFormatter) {
-        timeText.value = it
-        tripState.value = tripState.value.copy(
-            timeOfTrip = it
-        )
-    }
+    val timePickerDialog = createTimePickerDialog(LocalContext.current, setTimeText, timeFormatter)
 
     Column(
         modifier = Modifier
@@ -296,14 +287,14 @@ fun TimeOfTripSection(
                 ),
                 onClick = { timePickerDialog.show() }) {
                 Column {
-                    if (timeText.value.isBlank()) {
+                    if (timeText.isBlank()) {
                         Text(
                             stringResource(R.string.time_template),
                             style = TextStyle(color = PlaceholderGray, fontSize = 22.sp),
                         )
                     } else {
                         Text(
-                            timeText.value, style = TextStyle(color = Color.Black, fontSize = 22.sp),
+                            timeText, style = TextStyle(color = Color.Black, fontSize = 22.sp),
                         )
                     }
 
@@ -321,8 +312,8 @@ fun TimeOfTripSection(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun OtherDetailsSection(
-    detailsText: MutableState<String>,
-    tripState: MutableState<Trip>,
+    detailsText: String,
+    setDetailsText: (String) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -344,16 +335,13 @@ fun OtherDetailsSection(
                 contentDescription = stringResource(R.string.details_icon_description)
             )
             DenseTextField(
-                text = detailsText,
+                value = detailsText,
+                setValue = setDetailsText,
                 placeholderText = stringResource(R.string.enter_details),
                 modifier = Modifier
                     .align(Alignment.Bottom)
                     .fillMaxWidth()
-            ) {
-                tripState.value = tripState.value.copy(
-                    otherDetails = it
-                )
-            }
+            )
         }
     }
 }

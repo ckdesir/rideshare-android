@@ -4,7 +4,10 @@ import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -68,13 +71,13 @@ fun BottomNav(navController: NavHostController, tabItems: List<BottomNavTab>) {
             BottomNavigationItem(
                 icon = {
                     Icon(
-                        painter = painterResource(id = screen.iconId),
-                        screen.contentDescription
+                        painter = painterResource(id = if (currentRoute == screen.route) screen.selectedIconId else screen.unselectedIconId),
+                        contentDescription = screen.contentDescription
                     )
                 },
                 selected = currentRoute == screen.route,
-                selectedContentColor = MaterialTheme.colors.onSurface,
-                unselectedContentColor = MaterialTheme.colors.onSurface.copy(alpha = InactiveTabOpacity),
+                selectedContentColor = Color.Unspecified,
+                unselectedContentColor = Color.Unspecified,
                 modifier = Modifier.padding(10.dp),
                 onClick = {
                     if (currentRoute != screen.route) {

@@ -18,7 +18,20 @@ import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 
 /**
- * Creates a Dense TextField, e.g. a TextField with no internal padding.
+ * Creates a dense TextField, e.g. a TextField with no internal padding.
+ *
+ * @param value The text to be displayed
+ * @param setValue The callback that is triggered when the input service updates the text.
+ *      An updated text comes as a parameter of the callback.
+ * @param placeholderText The placeholder to be displayed when the text field is in focus and the input text is empty
+ * @param modifier Modifier to be applied to the [DenseTextField]
+ * @param interactionSource The InteractionSource of this text field.
+ *      Helps to determine if the text field is in focus or not.
+ * @param enabled Controls the enabled state of the button.
+ *      When false, the text field will be neither editable nor focusable,
+ *      the input of the text field will not be selectable.
+ * @param singleLine When set to true, this text field becomes
+ *      a single horizontally scrolling text field instead of wrapping onto multiple lines.
  */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
