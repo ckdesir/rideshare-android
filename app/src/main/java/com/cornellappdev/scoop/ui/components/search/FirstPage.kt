@@ -130,7 +130,7 @@ fun FirstPage(onProceedClicked: () -> Unit, searchState: MutableState<Search>) {
                         placeholderColor = PlaceholderGray,
                         modifier = Modifier.align(Alignment.Bottom)
                     ) {
-                        searchState.value = searchState.value.copy(departureLocation = it)
+                        searchState.value = searchState.value.copy(arrivalLocation = it)
                     }
                 }
 
@@ -141,7 +141,7 @@ fun FirstPage(onProceedClicked: () -> Unit, searchState: MutableState<Search>) {
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.CalendarToday,
-                        contentDescription = stringResource(R.string.calendar_icon_descrption),
+                        contentDescription = stringResource(R.string.calendar_icon_description),
                         modifier = Modifier
                             .padding(end = 10.dp)
                             .size(36.dp)
@@ -172,7 +172,10 @@ fun FirstPage(onProceedClicked: () -> Unit, searchState: MutableState<Search>) {
             enabled = proceedEnabled,
             onClick = onProceedClicked,
             contentPadding = PaddingValues(0.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = DarkGreen),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = DarkGreen,
+                disabledBackgroundColor = DarkGreen.copy(0.40f)
+            ),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(69.dp),

@@ -30,8 +30,10 @@
     <string name="select">select</string>
     <string name="invalid_method_of_transportation">Please enter a valid method of transportation!
     </string>
+    <string name="departure_date">departure date…</string>
     <string name="departure_location">departure location…</string>
     <string name="arrival_location">arrival location…</string>
+    <string name="find_trips">Find Trips</string>
     <string name="method_of_transportation">Method of Transportation</string>
     <string name="invalid_departure">Please enter a valid departure location!</string>
     <string name="invalid_arrival">Please enter a valid arrival location!</string>

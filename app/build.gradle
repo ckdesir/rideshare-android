@@ -23,6 +23,8 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        buildConfigField 'String', 'PLACES_API_KEY', secretsProperties['PLACES_API_KEY']
     }
 
     buildTypes {
