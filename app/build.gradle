@@ -23,8 +23,6 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
-
-        buildConfigField 'String', 'PLACES_API_KEY', secretsProperties['PLACES_API_KEY']
     }
 
     buildTypes {
@@ -40,13 +38,13 @@ android {
     }
 
     kotlinOptions {
+        freeCompilerArgs = ['-opt-in=kotlin.RequiresOptIn']
         jvmTarget = '1.8'
     }
 
     buildFeatures {
         compose true
     }
-
     composeOptions {
         kotlinCompilerExtensionVersion versions.compose
     }
