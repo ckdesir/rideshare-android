@@ -36,7 +36,8 @@ fun SearchPage(onProceedClicked: () -> Unit, searchState: MutableState<Search>) 
     val arrivalLocation =
         rememberSaveable { mutableStateOf((searchState.value.arrivalLocation ?: "")) }
     val departureDate = rememberSaveable { mutableStateOf((searchState.value.departureDate ?: "")) }
-    val proceedEnabled by rememberSaveable { mutableStateOf(departureDate.value.isNotEmpty() && arrivalLocation.value.isNotEmpty() && departureLocation.value.isNotEmpty()) }
+    val proceedEnabled = searchState.value.arrivalLocation?.isNotEmpty() == true &&
+            searchState.value.departureLocation?.isNotEmpty() == true
 
     Column(
         modifier = Modifier
