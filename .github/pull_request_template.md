@@ -1,7 +1,6 @@
-<!-- IF A SECTION IS NOT APPLICABLE TO YOU, PLEASE DELETE IT!! -->
+<!-- IF A SECTION IS NOT APPLICABLE TO YOU, PLEASE DELETE IT (e.g. Related PRs or Issues) -->
 
 <!-- Your title should be able to summarize what changes you've made in one sentence. For example: "Exclude staff from the check for follows". For stacked PRs, please indicate clearly in the title where in the stack you are. For example: "[Eatery Refactor][4/5] Converted all files to MVP model" -->
-
 
 ## Overview
 
@@ -21,19 +20,19 @@
 
 
 
-## Next Steps (delete if not applicable)
+## Next Steps
 
 <!-- If this is part of a multi-PR change, please describe what changes you plan on addressing in future PRs. -->
 
 
 
-## Related PRs or Issues (delete if not applicable)
+## Related PRs or Issues
 
 <!-- List related PRs against other branches/repositories. -->
 
 
 
-## Screenshots (delete if not applicable)
+## Screenshots
 
 <!-- If you are making any changes to UI, you should use this section. -->
 
