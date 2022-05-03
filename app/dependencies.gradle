@@ -32,9 +32,9 @@ ext {
     ]
 
     androidxDependencies = [
-            core             : 'androidx.core:core-ktx:1.8.0-beta01',
+            core             : 'androidx.core:core-ktx:1.9.0-alpha03',
             lifecycle        : 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-beta01',
-            activitycompose  : 'androidx.activity:activity-compose:1.5.0-beta01',
+            activitycompose  : 'androidx.activity:activity-compose:1.6.0-alpha03',
             navigationcompose: 'androidx.navigation:navigation-compose:2.5.0-beta01'
     ]
 

@@ -26,7 +26,7 @@ import com.cornellappdev.scoop.ui.components.post.FirstPage
 import com.cornellappdev.scoop.ui.components.post.SecondPage
 import com.cornellappdev.scoop.ui.components.post.ThirdPage
 import com.cornellappdev.scoop.ui.theme.DarkGray
-import com.cornellappdev.scoop.ui.theme.LightGray
+import com.cornellappdev.scoop.ui.theme.DarkGreen
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -108,15 +108,20 @@ fun PostScreen(onPostNewTrip: (Trip) -> Unit) {
                 shape = RoundedCornerShape(30.dp),
                 onClick = { onPostNewTrip(tripState.value) },
                 colors = ButtonDefaults.outlinedButtonColors(
-                    backgroundColor = LightGray,
-                    contentColor = Color.Black
+                    backgroundColor = DarkGreen,
+                    contentColor = Color.White
+                ),
+                elevation = ButtonDefaults.elevation(
+                    defaultElevation = 6.dp,
+                    pressedElevation = 8.dp,
+                    disabledElevation = 0.dp
                 )
             ) {
                 Text(
                     text = stringResource(R.string.post_trip),
                     modifier = Modifier.padding(12.dp),
                     textAlign = TextAlign.Center,
-                    style = TextStyle(color = Color.Black, fontSize = 20.sp),
+                    style = TextStyle(color = Color.White, fontSize = 20.sp),
                 )
             }
         }
@@ -149,7 +154,7 @@ fun proceedToPageIndex(
 ): () -> Unit {
     return {
         coroutineScope.launch {
-            pagerState.scrollToPage(pageIndex)
+            pagerState.animateScrollToPage(pageIndex)
         }
     }
 }

@@ -23,7 +23,7 @@ import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.models.Trip
 import com.cornellappdev.scoop.ui.components.general.BuildMessage
 import com.cornellappdev.scoop.ui.components.general.DenseTextField
-import com.cornellappdev.scoop.ui.theme.Gray
+import com.cornellappdev.scoop.ui.theme.Green
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -137,7 +137,10 @@ fun SecondPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
                         }
                     },
                     contentPadding = PaddingValues(10.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Gray)
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Green,
+                        contentColor = Color.White
+                    )
                 ) {
                     Icon(
                         Icons.Outlined.ArrowForward,

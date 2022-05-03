@@ -24,7 +24,7 @@ import com.cornellappdev.scoop.models.Trip
 import com.cornellappdev.scoop.ui.components.general.BuildMessage
 import com.cornellappdev.scoop.ui.components.general.CityPicker
 import com.cornellappdev.scoop.ui.components.general.Spinner
-import com.cornellappdev.scoop.ui.theme.Gray
+import com.cornellappdev.scoop.ui.theme.Green
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -117,7 +117,7 @@ fun FirstPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
                         }
                     },
                     contentPadding = PaddingValues(10.dp),
-                    colors = buttonColors(backgroundColor = Gray)
+                    colors = buttonColors(backgroundColor = Green, contentColor = Color.White)
                 ) {
                     Icon(
                         Icons.Outlined.ArrowForward,

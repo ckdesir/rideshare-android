@@ -161,6 +161,7 @@ fun MainScreenNavigationConfigurations(
             PostScreen(
                 onPostNewTrip = {
                     Log.d("Trip", it.arrivalLocation!!)
+                    navigateToHome(navController = navController, showTripPosted = true)
                 })
         }
     }
@@ -172,11 +173,18 @@ private fun currentRoute(navController: NavHostController): String? {
     return navBackStackEntry?.destination?.route
 }
 
+private fun navigateToHome(
+    navController: NavHostController,
+    showTripPosted: Boolean = false
+) {
+    navController.navigate("${Routes.HomeShowTripPosted.route}/$showTripPosted")
+}
+
 private fun navigateToTrip(
     navController: NavHostController,
-    trip_identifier: String
+    tripIdentifier: String
 ) {
-    navController.navigate("${Routes.View.route}/$trip_identifier")
+    navController.navigate("${Routes.View.route}/$tripIdentifier")
 }
 
 private fun navigateToPostFlow(
@@ -184,5 +192,3 @@ private fun navigateToPostFlow(
 ) {
     navController.navigate(Routes.Post.route)
 }
-
-private const val InactiveTabOpacity = 0.60f

@@ -30,7 +30,7 @@ import com.cornellappdev.scoop.ui.theme.DarkGreen
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 
 @Composable
-fun FirstPage(onProceedClicked: () -> Unit, searchState: MutableState<Search>) {
+fun SearchPage(onProceedClicked: () -> Unit, searchState: MutableState<Search>) {
     val departureLocation =
         rememberSaveable { mutableStateOf((searchState.value.departureLocation ?: "")) }
     val arrivalLocation =

@@ -37,6 +37,8 @@
     <string name="method_of_transportation">Method of Transportation</string>
     <string name="invalid_departure">Please enter a valid departure location!</string>
     <string name="invalid_arrival">Please enter a valid arrival location!</string>
+    <string name="scoop_logo">Scoop Logo</string>
+    <string name="post_a_new_trip">Post a new trip</string>
     <string-array name="methods_of_transportation">
         <item>student driving</item>
         <item>shared taxi</item>

@@ -1,6 +1,5 @@
 package com.cornellappdev.scoop.ui.screens
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,12 +11,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.cornellappdev.scoop.models.Search
-import com.cornellappdev.scoop.ui.components.search.FirstPage
+import com.cornellappdev.scoop.ui.components.search.DisplaySearchesPage
+import com.cornellappdev.scoop.ui.components.search.SearchPage
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
@@ -44,40 +42,29 @@ fun SearchScreen() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     when (page) {
-                        0 -> FirstPage(
-                            proceedToPageIndex(coroutineScope, page + 1, pagerState),
-                            searchState
-                        )
-                        1 -> null
+                        0 -> {
+                            SearchPage(
+                                {
+                                    coroutineScope.launch {
+                                        pagerState.animateScrollToPage(page + 1)
+                                    }
+                                }, searchState
+                            )
+                        }
+                        1 -> DisplaySearchesPage(searchState)
                     }
                 }
             }
         }
     }
 
-    BackHandler(enabled = pagerState.currentPage == 1) {
-        when (pagerState.currentPage) {
-            1 -> proceedToPageIndex(
-                coroutineScope,
-                pagerState.currentPage - 1,
-                pagerState
-            ).invoke()
-        }
-    }
-}
-
-/**
- * Proceeds to the specified pageIndex
- */
-@OptIn(ExperimentalPagerApi::class)
-fun proceedToSearchPageIndex(
-    coroutineScope: CoroutineScope,
-    pageIndex: Int,
-    pagerState: PagerState
-): () -> Unit {
-    return {
-        coroutineScope.launch {
-            pagerState.scrollToPage(pageIndex)
-        }
-    }
+//    BackHandler(enabled = pagerState.currentPage == 1) {
+//        when (pagerState.currentPage) {
+//            1 -> proceedToSearchPageIndex(
+//                coroutineScope,
+//                pagerState.currentPage - 1,
+//                pagerState
+//            ).invoke()
+//        }
+//    }
 }
