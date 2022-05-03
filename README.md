@@ -4,7 +4,7 @@ An open-source Android app for helping students find rides on campus.
 ## Installation
 Clone this repository and import into **Android Studio**
 ```bash
-git clone git@github.com:cuappdev/rideshare-android.git
+git clone git@github.com:cuappdev/scoop-android.git
 ```
 
 ## Generating signed APK
