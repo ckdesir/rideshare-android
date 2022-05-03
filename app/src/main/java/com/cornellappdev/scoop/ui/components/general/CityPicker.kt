@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -27,7 +26,7 @@ import java.util.*
 /**
  * Allows users to select a city using Place API autocomplete.
  *
- * @param cityState State that represents the current city selected by user
+ * @param cityText Text that represents the current city selected by user
  * @param placeholder The placeholder to be displayed when the text field is in focus and the input text is empty
  * @param modifier Modifier to be applied to the [CityPicker]
  * @param placeholderColor [Color] to apply to the placeholder text
@@ -40,7 +39,7 @@ import java.util.*
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CityPicker(
-    cityState: MutableState<String>,
+    cityText: String,
     placeholder: String,
     modifier: Modifier = Modifier,
     placeholderColor: Color = PlaceholderGray,
@@ -66,8 +65,7 @@ fun CityPicker(
             if (result.resultCode == Activity.RESULT_OK) {
                 if (result.data != null) {
                     val place = Autocomplete.getPlaceFromIntent(result.data!!)
-                    if (place.address!! != cityState.value) {
-                        cityState.value = place.address!!
+                    if (place.address!! != cityText) {
                         onCityChanged(place.address!!)
                     }
                 }
@@ -80,7 +78,7 @@ fun CityPicker(
         contentPadding = PaddingValues(0.dp),
         onClick = { launcher.launch(intent) }) {
         Column {
-            if (cityState.value.isEmpty()) {
+            if (cityText.isEmpty()) {
                 Text(
                     text = placeholder,
                     style = MaterialTheme.typography.h5.copy(color = placeholderColor)
@@ -89,7 +87,7 @@ fun CityPicker(
                 Text(
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
-                    text = cityState.value,
+                    text = cityText,
                     style = if (enabled) MaterialTheme.typography.h5
                     else disabledTextStyle,
                 )

@@ -12,8 +12,6 @@ import androidx.compose.material.icons.outlined.NearMe
 import androidx.compose.material.icons.outlined.Place
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -53,21 +51,17 @@ fun SearchCard(
     isEditing: MutableState<Boolean>,
     onSearchCompleted: (List<Trip>) -> Unit,
 ) {
-    // CityPicker requires MutableStates for it's values but the Search model does
-    // not have MutableStates for it's fields, so we must convert them and update the
-    // search state in the callback of CityPicker.
-    val departureLocation = remember { mutableStateOf(search.value.departureLocation!!) }
-    val arrivalLocation = remember { mutableStateOf(search.value.arrivalLocation!!) }
-    val departureDate = remember { mutableStateOf(search.value.departureDate!!) }
+    val departureLocation = search.value.departureLocation!!
+    val arrivalLocation = search.value.arrivalLocation!!
+    val departureDate = search.value.departureDate!!
 
     val dateFormatter =
         SimpleDateFormat(stringResource(R.string.month_name_day_year_format), Locale.US)
     val datePickerDialog = createDatePickerDialog(
         LocalContext.current,
         { newDate ->
-            if (departureDate.value != newDate) {
+            if (search.value.departureDate != newDate) {
                 search.value.departureDate = newDate
-                departureDate.value = newDate
 
                 // Query backend to get results with given date, filter if there's a filter
                 onSearchCompleted(listOf())
@@ -97,7 +91,7 @@ fun SearchCard(
                             contentDescription = stringResource(R.string.details_icon_description)
                         )
                         CityPicker(
-                            cityState = departureLocation,
+                            cityText = departureLocation,
                             modifier = Modifier.apply {
                                 if (isEditing.value) {
                                     align(Alignment.Bottom)
@@ -155,7 +149,7 @@ fun SearchCard(
                         contentDescription = stringResource(R.string.details_icon_description)
                     )
                     CityPicker(
-                        cityState = arrivalLocation,
+                        cityText = arrivalLocation,
                         modifier = Modifier.apply {
                             if (isEditing.value) {
                                 align(Alignment.Bottom)
@@ -204,7 +198,7 @@ fun SearchCard(
                         }) {
                         Column {
                             Text(
-                                departureDate.value,
+                                departureDate,
                                 style = if (isEditing.value) MaterialTheme.typography.h5 else MaterialTheme.typography.subtitle1
                             )
                             if (isEditing.value) {

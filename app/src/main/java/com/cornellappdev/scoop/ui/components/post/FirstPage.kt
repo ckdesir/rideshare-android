@@ -30,12 +30,9 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun FirstPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
-    val methodOfTransportation =
-        rememberSaveable { mutableStateOf(tripState.value.departureLocation.orEmpty()) }
-    val departureLocation =
-        rememberSaveable { mutableStateOf(tripState.value.departureLocation.orEmpty()) }
-    val arrivalLocation =
-        rememberSaveable { mutableStateOf(tripState.value.arrivalLocation.orEmpty()) }
+    val methodOfTransportation = tripState.value.departureLocation.orEmpty()
+    val departureLocation = tripState.value.departureLocation.orEmpty()
+    val arrivalLocation = tripState.value.arrivalLocation.orEmpty()
     var showInvalidDepartureMessage by rememberSaveable { mutableStateOf(false) }
     var showInvalidArrivalMessage by rememberSaveable { mutableStateOf(false) }
     var showInvalidMethodMessage by rememberSaveable { mutableStateOf(false) }
@@ -90,21 +87,21 @@ fun FirstPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
                     enabled = proceedEnabled,
                     onClick = {
                         when {
-                            methodOfTransportation.value.isEmpty() -> {
+                            methodOfTransportation.isEmpty() -> {
                                 showInvalidMethodMessage = true
                                 proceedEnabled = false
                                 coroutineScope.launch {
                                     disableMessage()
                                 }
                             }
-                            departureLocation.value.isEmpty() -> {
+                            departureLocation.isEmpty() -> {
                                 showInvalidDepartureMessage = true
                                 proceedEnabled = false
                                 coroutineScope.launch {
                                     disableMessage()
                                 }
                             }
-                            arrivalLocation.value.isEmpty() -> {
+                            arrivalLocation.isEmpty() -> {
                                 showInvalidArrivalMessage = true
                                 proceedEnabled = false
                                 coroutineScope.launch {
@@ -140,9 +137,9 @@ fun FirstPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
 
 @Composable
 fun TextFields(
-    methodOfTransportation: MutableState<String>,
-    departureLocation: MutableState<String>,
-    arrivalLocation: MutableState<String>,
+    methodOfTransportation: String,
+    departureLocation: String,
+    arrivalLocation: String,
     tripState: MutableState<Trip>
 ) {
     Column(
@@ -155,7 +152,8 @@ fun TextFields(
                 .fillMaxWidth(),
             fontSize = 22.sp
         )
-        Spinner(methodOfTransportation, listOf("Car", "Uber", "Train", "Bicycle")) {
+        val transportationState = remember { mutableStateOf(methodOfTransportation) }
+        Spinner(transportationState, listOf("Car", "Uber", "Train", "Bicycle")) {
             tripState.value = tripState.value.copy(
                 methodOfTransportation = it
             )

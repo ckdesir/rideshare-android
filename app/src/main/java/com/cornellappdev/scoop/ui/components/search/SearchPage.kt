@@ -11,9 +11,6 @@ import androidx.compose.material.icons.outlined.NearMe
 import androidx.compose.material.icons.outlined.Place
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -31,13 +28,8 @@ import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 
 @Composable
 fun SearchPage(onProceedClicked: () -> Unit, searchState: MutableState<Search>) {
-    val departureLocation =
-        rememberSaveable { mutableStateOf((searchState.value.departureLocation ?: "")) }
-    val arrivalLocation =
-        rememberSaveable { mutableStateOf((searchState.value.arrivalLocation ?: "")) }
-    val departureDate = rememberSaveable { mutableStateOf((searchState.value.departureDate ?: "")) }
-    val proceedEnabled = searchState.value.arrivalLocation?.isNotEmpty() == true &&
-            searchState.value.departureLocation?.isNotEmpty() == true
+    val proceedEnabled = searchState.value.departureLocation?.isNotEmpty() == true &&
+            searchState.value.arrivalLocation?.isNotEmpty() == true && searchState.value.departureDate?.isNotEmpty() == true
 
     Column(
         modifier = Modifier
@@ -103,7 +95,7 @@ fun SearchPage(onProceedClicked: () -> Unit, searchState: MutableState<Search>) 
                             .align(Alignment.CenterVertically)
                     )
                     CityPicker(
-                        cityState = departureLocation,
+                        cityText = searchState.value.departureLocation.orEmpty(),
                         placeholder = stringResource(R.string.departure_location),
                         placeholderColor = PlaceholderGray,
                         modifier = Modifier.align(Alignment.Bottom)
@@ -126,7 +118,7 @@ fun SearchPage(onProceedClicked: () -> Unit, searchState: MutableState<Search>) 
                             .align(Alignment.CenterVertically)
                     )
                     CityPicker(
-                        cityState = arrivalLocation,
+                        cityText = searchState.value.arrivalLocation.orEmpty(),
                         placeholder = stringResource(R.string.arrival_location),
                         placeholderColor = PlaceholderGray,
                         modifier = Modifier.align(Alignment.Bottom)
@@ -149,14 +141,14 @@ fun SearchPage(onProceedClicked: () -> Unit, searchState: MutableState<Search>) 
                             .align(Alignment.CenterVertically)
                     )
 
-                    val isDepartureDateEmpty = departureDate.value.isEmpty()
+                    val isDepartureDateEmpty = searchState.value.departureDate.isNullOrEmpty()
                     TextButton(
                         onClick = { /*TODO*/ },
                         contentPadding = PaddingValues(0.dp),
                     ) {
                         Column {
                             Text(
-                                text = if (isDepartureDateEmpty) stringResource(R.string.departure_date) else departureDate.value,
+                                text = if (isDepartureDateEmpty) stringResource(R.string.departure_date) else searchState.value.departureDate!!,
                                 style = TextStyle(
                                     color = if (isDepartureDateEmpty) PlaceholderGray else Color.Black,
                                     fontSize = 22.sp
