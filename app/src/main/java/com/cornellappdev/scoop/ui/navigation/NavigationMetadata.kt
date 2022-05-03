@@ -25,9 +25,24 @@ data class BottomNavTab(
     NavUnit {
     companion object {
         val bottomNavTabList = listOf(
-            BottomNavTab("HOME", R.drawable.ic_home_icon, R.drawable.ic_selected_home_icon, "Navigate to home"),
-            BottomNavTab("SEARCH", R.drawable.ic_search_icon, R.drawable.ic_selected_search_icon, "Search up a trip"),
-            BottomNavTab("PROFILE", R.drawable.ic_profile_icon, R.drawable.ic_selected_profile_icon, "View my profile")
+            BottomNavTab(
+                "HOME",
+                R.drawable.ic_home_icon,
+                R.drawable.ic_selected_home_icon,
+                "Navigate to home"
+            ),
+            BottomNavTab(
+                "SEARCH",
+                R.drawable.ic_search_icon,
+                R.drawable.ic_selected_search_icon,
+                "Search up a trip"
+            ),
+            BottomNavTab(
+                "PROFILE",
+                R.drawable.ic_profile_icon,
+                R.drawable.ic_selected_profile_icon,
+                "View my profile"
+            )
         )
     }
 }
@@ -42,5 +57,6 @@ enum class Routes(override var route: String) : NavUnit {
     Search("SEARCH"),
     Profile("PROFILE"),
     Post("POST"),
-    View("VIEW/{trip_identifier}");
+    View("VIEW"),
+    ViewTripIdentifier("VIEW/{trip_identifier}");
 }

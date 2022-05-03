@@ -140,7 +140,7 @@ fun MainScreenNavigationConfigurations(
             ProfileScreen()
         }
         composable(
-            Routes.View.route,
+            Routes.ViewTripIdentifier.route,
             arguments = listOf(
                 navArgument("trip_identifier") {
                     type = NavType.StringType
@@ -177,7 +177,7 @@ private fun navigateToHome(
     navController: NavHostController,
     showTripPosted: Boolean = false
 ) {
-    navController.navigate("${Routes.HomeShowTripPosted.route}/$showTripPosted")
+    navController.navigate("${Routes.Home.route}/$showTripPosted")
 }
 
 private fun navigateToTrip(
