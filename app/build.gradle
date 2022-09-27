@@ -9,7 +9,7 @@ def secretsProperties = new Properties()
 secretsProperties.load(new FileInputStream(secretsPropertiesFile))
 
 android {
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         applicationId 'com.cornellappdev.scoop'
@@ -47,7 +47,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion '1.3.0-alpha03'
+        kotlinCompilerExtensionVersion "1.2.0-beta03"
     }
     
     packagingOptions {
