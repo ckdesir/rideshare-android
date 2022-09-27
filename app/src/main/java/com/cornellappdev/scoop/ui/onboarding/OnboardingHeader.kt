@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 fun OnboardingHeader(
     pagerState: PagerState,
     title: String,
-) {
+){
     val scope = rememberCoroutineScope()
 
     Card(

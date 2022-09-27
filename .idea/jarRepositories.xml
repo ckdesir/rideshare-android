@@ -17,6 +17,7 @@
       <option name="url" value="https://dl.google.com/dl/android/maven2/" />
     </remote-repository>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <remote-repository>
       <option name="id" value="maven" />
       <option name="name" value="maven" />
@@ -24,5 +25,7 @@
     </remote-repository>
 =======
 >>>>>>> 92ea713 (implement calendar)
+=======
+>>>>>>> 68b8071 (commit 1)
   </component>
 </project>

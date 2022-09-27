@@ -8,6 +8,7 @@
         <entry key="../../../../../layout/compose-model-1646348779107.xml" value="0.375" />
         <entry key="../../../../../layout/compose-model-1646354553983.xml" value="0.335" />
         <entry key="../../../../../layout/compose-model-1646354969797.xml" value="0.1" />
+<<<<<<< HEAD
         <entry key="../../../../../layout/compose-model-1646866825828.xml" value="0.19722222222222222" />
         <entry key="../../../../../layout/compose-model-1647545927472.xml" value="0.5913978494623656" />
         <entry key="../../../../../layout/compose-model-1647546026913.xml" value="0.5" />
@@ -33,6 +34,10 @@
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.1875" />
         <entry key="app/src/main/res/drawable/ic_profile_icon.xml" value="0.2705" />
         <entry key="app/src/main/res/drawable/ic_search_icon.xml" value="0.2705" />
+=======
+        <entry key="../../../../../layout/compose-model-1664242796579.xml" value="0.1" />
+        <entry key="../../../../../layout/compose-model-1664243611002.xml" value="0.335" />
+>>>>>>> 68b8071 (commit 1)
       </map>
     </option>
   </component>

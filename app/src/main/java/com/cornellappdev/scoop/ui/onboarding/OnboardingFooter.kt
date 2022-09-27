@@ -22,7 +22,6 @@ fun FooterImage(
         horizontalArrangement = Arrangement.spacedBy(7.dp),
     ) {
         if (currIndex == carIndex) {
-
             Image(
                 painterResource(R.drawable.ic_footer_car),
                 contentDescription = "",
@@ -46,7 +45,6 @@ fun FooterImage(
             contentDescription = "",
             contentScale = ContentScale.Crop,
         )
-
     }
 }
 

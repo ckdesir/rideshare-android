@@ -1,6 +1,6 @@
-package com.cornellappdev.scoop.onboarding
+package com.cornellappdev.scoop.ui.onboarding
 
-import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,12 +14,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.components.RightArrow
+import com.cornellappdev.scoop.onboarding.OnboardingFooter
+import com.cornellappdev.scoop.onboarding.OnboardingHeader
 import com.cornellappdev.scoop.ui.components.general.DenseTextField
-import com.cornellappdev.scoop.ui.components.general.UnderlinedEditText
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingView2(pagerState: PagerState) {
@@ -135,7 +135,90 @@ fun OnboardingView2(pagerState: PagerState) {
                     .align(Alignment.End)
                     .padding(20.dp)
             ) {
-                RightArrow(pagerState)
+                Column(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(400.dp),
+                    verticalArrangement = Arrangement.spacedBy(25.dp),
+                ) {
+
+                    Spacer(modifier = Modifier.height(30.dp))
+
+                    Box(){
+                        Column(Modifier.fillMaxWidth(),) {
+                            Text(
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Default,
+                                text = "Name",
+                                fontSize = 20.sp,
+                                modifier = Modifier.padding(
+                                    bottom = 10.dp
+                                )
+                            )
+                            DenseTextField(value = nameText, setValue = setNameText, placeholderText = "Enter Name")
+                        }
+                    }
+
+                    Box(Modifier.fillMaxWidth()){
+                        Column() {
+                            Text(
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Default,
+                                text = "Pronouns",
+                                fontSize = 20.sp,
+                                modifier = Modifier.padding(
+                                    bottom = 10.dp
+                                )
+                            )
+                            DenseTextField(value = pronounsText, setValue = setPronounsText, placeholderText = "Enter Pronouns")
+                        }
+                    }
+
+                    Box(Modifier.fillMaxWidth()){
+                        Column() {
+                            Text(
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Default,
+                                text = "Name",
+                                fontSize = 20.sp,
+                                modifier = Modifier.padding(
+                                    bottom = 10.dp
+                                )
+                            )
+                            DenseTextField(value = hometownText, setValue = setHometownText, placeholderText = "Enter Hometown")
+                        }
+                    }
+
+                    Box(Modifier.fillMaxWidth()){
+                        Column() {
+                            Text(
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Default,
+                                text = "Class Year",
+                                fontSize = 20.sp,
+                                modifier = Modifier.padding(
+                                    bottom = 10.dp
+                                )
+                            )
+                            DenseTextField(value = yearText, setValue = setYearText, placeholderText = "Enter Class Year")
+                        }
+                    }
+                }
+
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.End)
+                        .padding(20.dp)
+                ){
+                    RightArrow(pagerState)
+                }
+                Spacer(modifier = Modifier.height(40.dp))
+                Row (
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.Center,
+                ){
+                    OnboardingFooter(carIndex = pagerState.currentPage)
+                }
             }
             Spacer(modifier = Modifier.height(40.dp))
             Row(
