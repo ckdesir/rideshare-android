@@ -19,32 +19,49 @@ import com.google.accompanist.pager.PagerState
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingView3(pagerState: PagerState) {
-    Scaffold {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ){
+    Scaffold (){
+        Column() {
             OnboardingHeader(pagerState = pagerState, "About You")
-            Spacer(modifier = Modifier.weight(1F))
-            Text(
-                fontFamily = FontFamily.Default,
-                text = "What’s you preferred method of contact?",
-                fontSize = 19.sp,
-            )
-            methodButtons()
-            Box(
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(end = 30.dp)
 
-            ){
-                RightArrow(pagerState)
+            Column(
+                modifier = Modifier
+                    .padding(
+                        start = 40.dp,
+                        end = 40.dp,
+                    )
+                    .fillMaxWidth()) {
+
+                Column(
+                    modifier = Modifier.height(400.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ){
+
+                    Text(
+                        fontFamily = FontFamily.Default,
+                        text = "What’s you preferred method of contact?",
+                        fontSize = 16.sp,
+                    )
+                    methodButtons()
+                }
+
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.End)
+                        .padding(20.dp)
+                ){
+                    RightArrow(pagerState)
+                }
+                Spacer(modifier = Modifier.height(40.dp))
+                Row (
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.Center,
+                ){
+                    OnboardingFooter(carIndex = pagerState.currentPage)
+                }
             }
-            Spacer(modifier = Modifier
-                .weight(1.5F))
         }
+
 
     }
 }
@@ -54,9 +71,11 @@ fun methodButtons(){
     var selected by remember { mutableStateOf("email") }
 
     Column(
-        modifier = Modifier.padding(
-            start = 40.dp
-        ).fillMaxWidth()
+        modifier = Modifier
+            .padding(
+                start = 50.dp
+            )
+            .fillMaxWidth(),
     ) {
 
         Row(
@@ -95,17 +114,5 @@ fun methodButtons(){
             )
 
         }
-
     }
-
-
-
-
 }
-
-
-//@Preview
-//@Composable
-//fun OnboardingPreview(){
-//    OnboardingView3(pagerState)
-//}

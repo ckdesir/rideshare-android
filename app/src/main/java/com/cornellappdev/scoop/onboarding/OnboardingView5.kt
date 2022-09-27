@@ -26,7 +26,6 @@ fun OnboardingView5(pagerState: PagerState) {
     val (stopText, setStopText) = rememberSaveable { mutableStateOf("") }
 
     Scaffold(
-
         modifier = Modifier
             .padding(
                 start = 40.dp,
@@ -34,72 +33,80 @@ fun OnboardingView5(pagerState: PagerState) {
             )
             .fillMaxWidth()
     ) {
-
         Column(
-            Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(25.dp)
         ) {
             OnboardingHeader(pagerState = pagerState, "Favorites")
-            Spacer(modifier = Modifier.weight(1F))
-
-            Box(){
-                Column(Modifier.fillMaxWidth(),) {
-                    Text(
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Default,
-                        text = "Roadtrip Snack",
-                        fontSize = 20.sp,
-                        modifier = Modifier.padding(
-                            bottom = 10.dp
+            
+            Column(
+                modifier = Modifier
+                    .height(400.dp)
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(25.dp)
+            ) {
+                
+                Spacer(modifier = Modifier.height(50.dp))
+                
+                Box(){
+                    Column(Modifier.fillMaxWidth(),) {
+                        Text(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Default,
+                            text = "Roadtrip Snack",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(
+                                bottom = 10.dp
+                            )
                         )
-                    )
-                    DenseTextField(value = snackText, setValue = setSnackText, placeholderText = "enter snack")
+                        DenseTextField(value = snackText, setValue = setSnackText, placeholderText = "enter snack")
+                    }
                 }
 
-            }
-
-            Box(Modifier.fillMaxWidth()){
-                Column() {
-                    Text(
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Default,
-                        text = "Roadtrip Song",
-                        fontSize = 20.sp,
-                        modifier = Modifier.padding(
-                            bottom = 10.dp
+                Box(Modifier.fillMaxWidth()){
+                    Column() {
+                        Text(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Default,
+                            text = "Roadtrip Song",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(
+                                bottom = 10.dp
+                            )
                         )
-                    )
-                    DenseTextField(value = songText, setValue = setSongText, placeholderText = "enter song")
+                        DenseTextField(value = songText, setValue = setSongText, placeholderText = "enter song")
+                    }
                 }
 
-            }
+                Box(Modifier.fillMaxWidth()){
 
-            Box(Modifier.fillMaxWidth()){
-
-                Column() {
-                    Text(
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Default,
-                        text = "Roadtrip Stop",
-                        fontSize = 20.sp,
-                        modifier = Modifier.padding(
-                            bottom = 10.dp
+                    Column() {
+                        Text(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Default,
+                            text = "Roadtrip Stop",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(
+                                bottom = 10.dp
+                            )
                         )
-                    )
-                    DenseTextField(value = stopText, setValue = setStopText, placeholderText = "enter stop")
+                        DenseTextField(value = stopText, setValue = setStopText, placeholderText = "enter stop")
+                    }
                 }
-
             }
 
             Box(
-
-                modifier = Modifier.align(Alignment.End)
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(20.dp)
             ){
                 RightArrow(pagerState)
             }
-
-            Spacer(modifier = Modifier.weight(1.5F))
-
+            Spacer(modifier = Modifier.height(40.dp))
+            Row (
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.Center,
+            ){
+                OnboardingFooter(carIndex = pagerState.currentPage)
+            }
         }
     }
 }

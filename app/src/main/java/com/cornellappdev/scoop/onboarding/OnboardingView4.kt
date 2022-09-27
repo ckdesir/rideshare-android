@@ -25,51 +25,63 @@ fun OnboardingView4(
 ) {
     
     Scaffold() {
-        
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            OnboardingHeader(pagerState = pagerState, title = "During Roadtrips ...")
 
-            Spacer(modifier = Modifier.weight(1F))
+        Column() {
 
-            var sliderPosition1 = remember { mutableStateOf(0F)}
-            var sliderPosition2 = remember { mutableStateOf(0F)}
-            Text(
-                fontFamily = FontFamily.Default,
-                text = "How talkative are you?",
-                fontSize = 20.sp,
-            )
+            OnboardingHeader(pagerState = pagerState, title = "During Roadtrips")
 
-            OnboardingSlider(values = listOf("Quiet", " ", " ", "Talkative"), sliderPosition = sliderPosition1)
-
-            Text(
-                fontFamily = FontFamily.Default,
-                text = "Do you like music?",
-                fontSize = 20.sp,
-            )
-
-            OnboardingSlider(values = listOf("No Music", " ", " ", "Music"), sliderPosition = sliderPosition2)
-
-            Box(
+            Column(
                 modifier = Modifier
-                    .align(Alignment.End)
                     .padding(
-                        end = 30.dp,
-                        top = 20.dp,
+                        start = 40.dp,
+                        end = 40.dp,
+                    )
+                    .fillMaxWidth()
+            ) {
+
+
+                Column(
+                    modifier = Modifier
+                        .height(400.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+
+                    var sliderPosition1 = remember { mutableStateOf(0F)}
+                    var sliderPosition2 = remember { mutableStateOf(0F)}
+                    Text(
+                        fontFamily = FontFamily.Default,
+                        text = "How talkative are you?",
+                        fontSize = 20.sp,
                     )
 
-            ){
-                RightArrow(pagerState)
+                    OnboardingSlider(values = listOf("Quiet", " ", " ", "Talkative"), sliderPosition = sliderPosition1)
+
+                    Text(
+                        fontFamily = FontFamily.Default,
+                        text = "Do you like music?",
+                        fontSize = 20.sp,
+                    )
+
+                    OnboardingSlider(values = listOf("No Music", " ", " ", "Music"), sliderPosition = sliderPosition2)
+                }
+
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.End)
+                        .padding(20.dp)
+                ){
+                    RightArrow(pagerState)
+                }
+                Spacer(modifier = Modifier.height(40.dp))
+                Row (
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.Center,
+                ){
+                    OnboardingFooter(carIndex = pagerState.currentPage)
+                }
             }
-
-            Spacer(modifier = Modifier.weight(1.25F))
-
         }
-
     }
     
 
