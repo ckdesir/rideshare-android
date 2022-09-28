@@ -21,13 +21,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
-import com.cornellappdev.scoop.models.Trip
+import com.cornellappdev.scoop.data.models.Ride
 
 @Composable
-fun BottomSheet(trip: Trip) {
+fun BottomSheet(ride: Ride) {
     Column(modifier = Modifier.padding(top = 28.dp, start = 40.dp, end = 40.dp)) {
         Text(
-            text = "Trip to ${trip.arrivalLocation}",
+            text = "Trip to ${ride.arrivalLocation}",
             style = TextStyle(color = Color.Black, fontSize = 25.sp),
             modifier = Modifier.padding(bottom = 5.dp)
         )
@@ -47,7 +47,7 @@ fun BottomSheet(trip: Trip) {
                     .align(Alignment.CenterVertically),
                 contentDescription = stringResource(R.string.details_icon_description)
             )
-            trip.methodOfTransportation?.let {
+            ride.type?.let {
                 Text(
                     it,
                     modifier = Modifier.align(Alignment.CenterVertically),
@@ -66,7 +66,7 @@ fun BottomSheet(trip: Trip) {
                         .align(Alignment.CenterVertically),
                     contentDescription = stringResource(R.string.details_icon_description)
                 )
-                trip.departureLocation?.let {
+                ride.departureLocation?.let {
                     Text(
                         it,
                         modifier = Modifier.align(Alignment.CenterVertically),
@@ -99,7 +99,7 @@ fun BottomSheet(trip: Trip) {
                         .align(Alignment.CenterVertically),
                     contentDescription = stringResource(R.string.details_icon_description)
                 )
-                trip.arrivalLocation?.let {
+                ride.arrivalLocation?.let {
                     Text(
                         it,
                         modifier = Modifier.align(Alignment.CenterVertically),
@@ -120,7 +120,7 @@ fun BottomSheet(trip: Trip) {
             )
 
             Text(
-                "${trip.dateOfTrip} @ ${trip.timeOfTrip}",
+                "${ride.dateOfTrip} @ ${ride.timeOfTrip}",
                 modifier = Modifier.align(Alignment.CenterVertically),
                 style = TextStyle(color = Color.Black, fontSize = 18.sp)
             )
@@ -137,20 +137,20 @@ fun BottomSheet(trip: Trip) {
             )
 
             Text(
-                "${trip.lowerRangeNumTravelers} to ${trip.higherRangeNumTravelers} other travelers",
+                "${ride.min_travelers} to ${ride.max_travelers} other travelers",
                 modifier = Modifier.align(Alignment.CenterVertically),
                 style = TextStyle(color = Color.Black, fontSize = 18.sp)
             )
         }
 
-        if (trip.otherDetails?.isNotBlank() == true) {
+        if (ride.description?.isNotBlank() == true) {
             Column {
                 Text(
                     "Details:\n",
                     style = TextStyle(color = Color.Black, fontSize = 18.sp),
                 )
                 Text(
-                    trip.otherDetails.orEmpty(),
+                    ride.description.orEmpty(),
                     style = TextStyle(color = Color.Black, fontSize = 18.sp),
                 )
             }

@@ -20,7 +20,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
-import com.cornellappdev.scoop.models.Trip
+import com.cornellappdev.scoop.data.models.Ride
 import com.cornellappdev.scoop.ui.components.general.BuildMessage
 import com.cornellappdev.scoop.ui.components.general.DenseTextField
 import com.cornellappdev.scoop.ui.theme.Gray
@@ -32,20 +32,19 @@ import java.util.*
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SecondPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
-    val dateFormatter =
-        SimpleDateFormat(stringResource(R.string.month_day_year_no_leading_zero_format), Locale.US)
-    val timeFormatter =
-        SimpleDateFormat(stringResource(R.string.hour_minute_period_format), Locale.US)
+
+fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
+    val dateFormatter = SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
+    val timeFormatter = SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
     val dateAndTimeFormatter =
-        SimpleDateFormat(stringResource(R.string.date_time_format), Locale.US)
-    val (detailsText, setDetailsText) = rememberSaveable { mutableStateOf(tripState.value.otherDetails.orEmpty()) }
-    val lowerRangeNumTravelers =
-        rememberSaveable { mutableStateOf((tripState.value.lowerRangeNumTravelers ?: 1)) }
+        SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
+    val (detailsText, setDetailsText) = rememberSaveable { mutableStateOf(rideState.value.description.orEmpty()) }
+    val min_travelers =
+        rememberSaveable { mutableStateOf((rideState.value.min_travelers ?: 1)) }
     val higherRangeNumTravelers =
-        rememberSaveable { mutableStateOf((tripState.value.higherRangeNumTravelers ?: 1)) }
-    val (dateText, setDateText) = rememberSaveable { mutableStateOf(tripState.value.dateOfTrip.orEmpty()) }
-    val (timeText, setTimeText) = rememberSaveable { mutableStateOf(tripState.value.timeOfTrip.orEmpty()) }
+        rememberSaveable { mutableStateOf((rideState.value.max_travelers ?: 1)) }
+    val (dateText, setDateText) = rememberSaveable { mutableStateOf(rideState.value.dateOfTrip.orEmpty()) }
+    val (timeText, setTimeText) = rememberSaveable { mutableStateOf(rideState.value.timeOfTrip.orEmpty()) }
     var showInvalidRangeMessage by rememberSaveable { mutableStateOf(false) }
     var showInvalidDateMessage by rememberSaveable { mutableStateOf(false) }
     var showInvalidTimeMessage by rememberSaveable { mutableStateOf(false) }
@@ -82,7 +81,7 @@ fun SecondPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
                 .padding(horizontal = 37.dp)
         ) {
 
-            NumberOfTravelersSection(lowerRangeNumTravelers, higherRangeNumTravelers)
+            NumberOfTravelersSection(min_travelers, higherRangeNumTravelers)
             DateOfTripSection(dateText, setDateText, dateFormatter)
             TimeOfTripSection(timeText, setTimeText, timeFormatter)
             OtherDetailsSection(detailsText, setDetailsText)
@@ -100,7 +99,7 @@ fun SecondPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
                     enabled = proceedEnabled,
                     onClick = {
                         when {
-                            lowerRangeNumTravelers.value > higherRangeNumTravelers.value -> {
+                            min_travelers.value > higherRangeNumTravelers.value -> {
                                 showInvalidRangeMessage = true
                                 proceedEnabled = false
                                 coroutineScope.launch {
@@ -125,13 +124,13 @@ fun SecondPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
                             }
                             else -> {
                                 // Updates trip state with details collected on SecondPage
-                                val trip = tripState.value
-                                trip.lowerRangeNumTravelers = lowerRangeNumTravelers.value
-                                trip.higherRangeNumTravelers = higherRangeNumTravelers.value
+                                val trip = rideState.value
+                                trip.min_travelers = min_travelers.value
+                                trip.max_travelers = higherRangeNumTravelers.value
                                 trip.dateOfTrip = dateText
                                 trip.timeOfTrip = timeText
-                                trip.otherDetails = detailsText
-                                tripState.value = trip
+                                trip.description = detailsText
+                                rideState.value = trip
                                 onProceedClicked()
                             }
                         }
@@ -160,7 +159,7 @@ fun SecondPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
 
 @Composable
 fun NumberOfTravelersSection(
-    lowerRangeNumTravelers: MutableState<Int>,
+    min_travelers: MutableState<Int>,
     higherRangeNumTravelers: MutableState<Int>
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -178,7 +177,7 @@ fun NumberOfTravelersSection(
                 contentDescription = stringResource(R.string.travelers_icon_description)
             )
             NumberPicker(
-                state = lowerRangeNumTravelers,
+                state = min_travelers,
                 modifier = Modifier.padding(start = 13.dp),
                 range = 1..10,
             )
