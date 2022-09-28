@@ -1,5 +1,6 @@
 package com.cornellappdev.scoop.onboarding
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -7,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,29 +26,30 @@ fun OnboardingView5(pagerState: PagerState) {
     val (songText, setSongText) = rememberSaveable { mutableStateOf("") }
     val (stopText, setStopText) = rememberSaveable { mutableStateOf("") }
 
-    Scaffold(
-        modifier = Modifier
-            .padding(
-                start = 40.dp,
-                end = 40.dp,
-            )
-            .fillMaxWidth()
+    Column(
+        Modifier.background(Color.White)
     ) {
+        OnboardingHeader(pagerState = pagerState, "Favorites")
+
         Column(
+            modifier = Modifier
+                .padding(
+                    start = 40.dp,
+                    end = 40.dp,
+                )
+                .fillMaxWidth()
         ) {
-            OnboardingHeader(pagerState = pagerState, "Favorites")
-            
             Column(
                 modifier = Modifier
                     .height(400.dp)
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(25.dp)
             ) {
-                
+
                 Spacer(modifier = Modifier.height(50.dp))
-                
-                Box(){
-                    Column(Modifier.fillMaxWidth(),) {
+
+                Box() {
+                    Column(Modifier.fillMaxWidth()) {
                         Text(
                             fontWeight = FontWeight.Bold,
                             fontFamily = FontFamily.Default,
@@ -56,11 +59,15 @@ fun OnboardingView5(pagerState: PagerState) {
                                 bottom = 10.dp
                             )
                         )
-                        DenseTextField(value = snackText, setValue = setSnackText, placeholderText = "enter snack")
+                        DenseTextField(
+                            value = snackText,
+                            setValue = setSnackText,
+                            placeholderText = "enter snack"
+                        )
                     }
                 }
 
-                Box(Modifier.fillMaxWidth()){
+                Box(Modifier.fillMaxWidth()) {
                     Column() {
                         Text(
                             fontWeight = FontWeight.Bold,
@@ -71,11 +78,15 @@ fun OnboardingView5(pagerState: PagerState) {
                                 bottom = 10.dp
                             )
                         )
-                        DenseTextField(value = songText, setValue = setSongText, placeholderText = "enter song")
+                        DenseTextField(
+                            value = songText,
+                            setValue = setSongText,
+                            placeholderText = "enter song"
+                        )
                     }
                 }
 
-                Box(Modifier.fillMaxWidth()){
+                Box(Modifier.fillMaxWidth()) {
 
                     Column() {
                         Text(
@@ -87,7 +98,11 @@ fun OnboardingView5(pagerState: PagerState) {
                                 bottom = 10.dp
                             )
                         )
-                        DenseTextField(value = stopText, setValue = setStopText, placeholderText = "enter stop")
+                        DenseTextField(
+                            value = stopText,
+                            setValue = setStopText,
+                            placeholderText = "enter stop"
+                        )
                     }
                 }
             }
@@ -96,18 +111,19 @@ fun OnboardingView5(pagerState: PagerState) {
                 modifier = Modifier
                     .align(Alignment.End)
                     .padding(20.dp)
-            ){
+            ) {
                 RightArrow(pagerState)
             }
             Spacer(modifier = Modifier.height(40.dp))
-            Row (
+            Row(
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.Center,
-            ){
+            ) {
                 OnboardingFooter(carIndex = pagerState.currentPage)
             }
         }
     }
+
 }
 
 

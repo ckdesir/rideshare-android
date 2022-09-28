@@ -20,21 +20,20 @@ import com.cornellappdev.scoop.R
 fun footerImage(
     currIndex: Int,
     carIndex: Int,
-){
+) {
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(7.dp),
     ) {
-        if(currIndex == carIndex){
+        if (currIndex == carIndex) {
 
             Image(
                 painterResource(R.drawable.ic_footer_car),
                 contentDescription = "",
                 contentScale = ContentScale.Crop,
             )
-        }
-        else{
+        } else {
 
             Image(
                 painterResource(R.drawable.footer_green_dot),
@@ -52,7 +51,7 @@ fun footerImage(
             contentDescription = "",
             contentScale = ContentScale.Crop,
         )
-        
+
     }
 }
 
@@ -61,23 +60,20 @@ fun footerImage(
 fun OnboardingFooter(
     carIndex: Int
 ) {
-    Scaffold(){
-        LazyRow(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
-        ){
-            items(6){
-                index ->
-                if(index < 5){
-                    footerImage(currIndex = index, carIndex = carIndex)
-                }
-                else{
-                    Image(
-                        painterResource(R.drawable.green_footer_location),
-                        contentDescription = "",
-                        contentScale = ContentScale.Crop,
-                    )
-                }
+
+    LazyRow(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        items(7) { index ->
+            if (index < 6) {
+                footerImage(currIndex = index, carIndex = carIndex)
+            } else {
+                Image(
+                    painterResource(R.drawable.green_footer_location),
+                    contentDescription = "",
+                    contentScale = ContentScale.Crop,
+                )
             }
         }
     }

@@ -26,18 +26,17 @@ import kotlinx.coroutines.launch
 fun OnboardingHeader(
     pagerState: PagerState,
     title: String,
-){
+) {
     val scope = rememberCoroutineScope()
 
     Card(
         modifier = Modifier
             .padding(
-                top = 20.dp,
                 bottom = 20.dp
             )
             .fillMaxWidth(),
         elevation = 0.dp
-    ){
+    ) {
 
         Column(
             Modifier.fillMaxWidth(),
@@ -47,11 +46,12 @@ fun OnboardingHeader(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
             ) {
-                Button(onClick = {
-                    scope.launch {
-                        pagerState.animateScrollToPage(pagerState.currentPage - 1)
-                    }
-                },
+                Button(
+                    onClick = {
+                        scope.launch {
+                            pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                        }
+                    },
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                     border = BorderStroke(width = 0.dp, color = Color.White),
                     elevation = ButtonDefaults.elevation(0.dp)
@@ -85,9 +85,11 @@ fun OnboardingHeader(
                 )
             }
 
-            Row(horizontalArrangement = Arrangement.End,
-            modifier = Modifier
-                .fillMaxWidth()) {
+            Row(
+                horizontalArrangement = Arrangement.End,
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
                 Image(
                     painterResource(R.drawable.header_line_dotted_green),
                     contentDescription = "",
@@ -99,7 +101,7 @@ fun OnboardingHeader(
 
     }
 
-    
+
 }
 
 //

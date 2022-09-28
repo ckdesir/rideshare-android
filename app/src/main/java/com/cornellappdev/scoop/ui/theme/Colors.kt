@@ -12,10 +12,7 @@ val Green = Color(0xFF60BFA0)
 val DarkGreen = Color(0xFF3A9275)
 
 val colorPalette = lightColors(
+    primary = Color.White,
     background = Color.White,
     surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
 )
