@@ -136,7 +136,7 @@ fun BottomSheet(ride: Ride) {
             )
 
             Text(
-                "${ride.min_travelers} to ${ride.max_travelers} other travelers",
+                "${ride.minTravelers} to ${ride.maxTravelers} other travelers",
                 modifier = Modifier.align(Alignment.CenterVertically),
                 style = TextStyle(color = Color.Black, fontSize = 18.sp)
             )

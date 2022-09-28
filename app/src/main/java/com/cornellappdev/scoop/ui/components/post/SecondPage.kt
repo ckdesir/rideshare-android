@@ -39,9 +39,9 @@ fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
         SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
     val (detailsText, setDetailsText) = rememberSaveable { mutableStateOf(rideState.value.description.orEmpty()) }
     val min_travelers =
-        rememberSaveable { mutableStateOf((rideState.value.min_travelers ?: 1)) }
+        rememberSaveable { mutableStateOf((rideState.value.minTravelers ?: 1)) }
     val higherRangeNumTravelers =
-        rememberSaveable { mutableStateOf((rideState.value.max_travelers ?: 1)) }
+        rememberSaveable { mutableStateOf((rideState.value.maxTravelers ?: 1)) }
     val (dateText, setDateText) = rememberSaveable { mutableStateOf(rideState.value.dateOfTrip.orEmpty()) }
     val (timeText, setTimeText) = rememberSaveable { mutableStateOf(rideState.value.timeOfTrip.orEmpty()) }
     var showInvalidRangeMessage by rememberSaveable { mutableStateOf(false) }
@@ -124,8 +124,8 @@ fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                             else -> {
                                 // Updates trip state with details collected on SecondPage
                                 val trip = rideState.value
-                                trip.min_travelers = min_travelers.value
-                                trip.max_travelers = higherRangeNumTravelers.value
+                                trip.minTravelers = min_travelers.value
+                                trip.maxTravelers = higherRangeNumTravelers.value
                                 trip.dateOfTrip = dateText
                                 trip.timeOfTrip = timeText
                                 trip.description = detailsText
