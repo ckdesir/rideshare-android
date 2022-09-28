@@ -65,6 +65,8 @@ fun OnboardingView3(pagerState: PagerState) {
             }
         }
     }
+
+
 }
 
 
@@ -83,14 +85,15 @@ fun MethodButtons() {
         Row(
             verticalAlignment = Alignment.CenterVertically,
 
-        ) {
+            ) {
             RadioButton(
                 selected = selected == "email",
-                onClick = { selected = "email"},
+                onClick = { selected = "email" },
                 colors = RadioButtonDefaults.colors(
                     selectedColor = androidx.compose.ui.graphics.Color.Black,
                     unselectedColor = androidx.compose.ui.graphics.Color.Gray,
-                ))
+                )
+            )
             Text(
                 text = "Cornell Email",
                 modifier = Modifier
@@ -106,7 +109,8 @@ fun MethodButtons() {
                 colors = RadioButtonDefaults.colors(
                     selectedColor = androidx.compose.ui.graphics.Color.Black,
                     unselectedColor = androidx.compose.ui.graphics.Color.Gray,
-                ))
+                )
+            )
             Text(
                 text = "Phone Number",
                 modifier = Modifier

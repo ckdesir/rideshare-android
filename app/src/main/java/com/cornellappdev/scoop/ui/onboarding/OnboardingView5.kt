@@ -30,6 +30,7 @@ fun OnboardingView5(pagerState: PagerState) {
         Modifier.background(Color.White)
     ) {
         OnboardingHeader(pagerState = pagerState, "Favorites")
+
         Column(
             modifier = Modifier
                 .padding(
@@ -44,6 +45,7 @@ fun OnboardingView5(pagerState: PagerState) {
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(25.dp)
             ) {
+
                 Spacer(modifier = Modifier.height(50.dp))
 
                 Box() {
@@ -85,6 +87,7 @@ fun OnboardingView5(pagerState: PagerState) {
                 }
 
                 Box(Modifier.fillMaxWidth()) {
+
                     Column() {
                         Text(
                             fontWeight = FontWeight.Bold,
@@ -120,6 +123,7 @@ fun OnboardingView5(pagerState: PagerState) {
             }
         }
     }
+
 }
 
 

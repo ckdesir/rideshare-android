@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 fun OnboardingHeader(
     pagerState: PagerState,
     title: String,
-){
+) {
     val scope = rememberCoroutineScope()
 
     Card(
@@ -33,6 +33,7 @@ fun OnboardingHeader(
             .fillMaxWidth(),
         elevation = 0.dp
     ) {
+
         Column(
             Modifier.fillMaxWidth(),
         ) {

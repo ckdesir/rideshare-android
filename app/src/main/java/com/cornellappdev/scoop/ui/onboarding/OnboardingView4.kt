@@ -22,7 +22,7 @@ import com.google.accompanist.pager.PagerState
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingView4(
-    pagerState : PagerState
+    pagerState: PagerState
 ) {
 
     Column(
@@ -43,6 +43,7 @@ fun OnboardingView4(
             Column(
                 modifier = Modifier
                     .height(500.dp),
+
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -93,7 +94,7 @@ fun OnboardingView4(
 fun VerticalLines(values: List<String>) {
 
     val drawPadding = with(LocalDensity.current) { 10.dp.toPx() }
-    val textSize = with(LocalDensity.current) {15.dp.toPx() }
+    val textSize = with(LocalDensity.current) { 15.dp.toPx() }
     val lineHeightDp = 10.dp
     val lineHeightPx = with(LocalDensity.current) { lineHeightDp.toPx() }
     val canvasHeight = 50.dp
@@ -139,7 +140,8 @@ fun VerticalLines(values: List<String>) {
 @Composable
 fun OnboardingSlider(values: List<String>, sliderPosition: MutableState<Float>) {
 
-    Box(contentAlignment = Alignment.Center,
+    Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier.padding(
             start = 20.dp,
             end = 20.dp,
@@ -148,10 +150,12 @@ fun OnboardingSlider(values: List<String>, sliderPosition: MutableState<Float>) 
         )
     ) {
         VerticalLines(values)
-        Slider(modifier = Modifier.fillMaxWidth(),
+        Slider(
+            modifier = Modifier.fillMaxWidth(),
             value = sliderPosition.value,
             onValueChange = {
-                sliderPosition.value = it},
+                sliderPosition.value = it
+            },
             colors = customSliderColors()
         )
     }
