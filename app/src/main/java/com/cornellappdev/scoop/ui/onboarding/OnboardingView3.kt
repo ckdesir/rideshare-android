@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.RadioButton
 import androidx.compose.material.RadioButtonDefaults
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -47,7 +46,7 @@ fun OnboardingView3(pagerState: PagerState) {
                     text = "What’s you preferred method of contact?",
                     fontSize = 16.sp,
                 )
-                methodButtons()
+                MethodButtons()
             }
 
             Box(
@@ -72,7 +71,7 @@ fun OnboardingView3(pagerState: PagerState) {
 
 
 @Composable
-fun methodButtons() {
+fun MethodButtons() {
     var selected by remember { mutableStateOf("email") }
 
     Column(

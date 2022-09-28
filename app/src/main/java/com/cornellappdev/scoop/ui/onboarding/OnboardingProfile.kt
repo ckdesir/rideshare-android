@@ -7,12 +7,11 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,9 +22,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.R
-import com.cornellappdev.scoop.components.RightArrow
 import com.cornellappdev.scoop.onboarding.OnboardingFooter
+import com.cornellappdev.scoop.onboarding.OnboardingHeader
+import com.cornellappdev.scoop.ui.theme.DarkGray
+import com.cornellappdev.scoop.ui.theme.DarkGreen
 import com.cornellappdev.scoop.ui.theme.Gray
+import com.cornellappdev.scoop.ui.theme.Green
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
@@ -34,7 +36,11 @@ import com.google.accompanist.pager.PagerState
 @Composable
 fun OnboardingProfile(pagerState: PagerState) {
 
-    Column() {
+    Column(
+        Modifier.background(Color.White)
+    ) {
+
+        OnboardingHeader(pagerState = pagerState, title = "Profile")
 
         Column(
             modifier = Modifier
@@ -43,30 +49,55 @@ fun OnboardingProfile(pagerState: PagerState) {
                     end = 40.dp,
                 )
                 .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+
+            Spacer(modifier = Modifier.height(50.dp))
 
             Column(
                 modifier = Modifier
                     .height(400.dp)
                     .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                Spacer(modifier = Modifier.weight(1F))
-                WelcomeText()
                 ProfileImage()
-                Box(
-                    modifier = Modifier
-                        .padding(
-                            start = 200.dp,
-                            top = 50.dp,
-                        ),
-                ) {
-                    RightArrow(pagerState)
-                }
-                Spacer(modifier = Modifier.weight(1F))
-            }
+                
+                Spacer(modifier = Modifier.height(40.dp))
 
-            Spacer(modifier = Modifier.height(40.dp))
+                Column(
+                    modifier = Modifier.height(100.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+
+                    Button(
+                        onClick = { /*TODO*/ },
+                        modifier = Modifier.width(160.dp),
+                        elevation = ButtonDefaults.elevation(
+                            defaultElevation = 6.dp,
+                            pressedElevation = 8.dp,
+                            disabledElevation = 0.dp
+                        ),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = DarkGray),
+                    )
+                    {
+                        Text(text = "Add photo later", color = Color.White)
+                    }
+                    Button(
+                        onClick = { /*TODO*/ },
+                        modifier = Modifier.width(160.dp),
+                        elevation = ButtonDefaults.elevation(
+                            defaultElevation = 6.dp,
+                            pressedElevation = 8.dp,
+                            disabledElevation = 0.dp
+                        ),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = DarkGreen)
+                    )
+                    {
+                        Text(text = "Upload", color = Color.White)
+                    }
+                }
+            }
             Row(
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.Center,
@@ -101,10 +132,11 @@ fun ProfileImage() {
         Box(
         ) {
             Card(
-                modifier = Modifier.size(120.dp),
+                modifier = Modifier.size(170.dp),
                 shape = CircleShape,
                 elevation = 2.dp,
                 backgroundColor = Gray,
+                border = BorderStroke(width = 2.dp, color = Green)
             ) {}
 
             Card(
@@ -120,7 +152,7 @@ fun ProfileImage() {
                 }
             ) {
                 Image(
-                    painterResource(R.drawable.ic_baseline_add_24),
+                    painterResource(R.drawable.ic_baseline_add_green),
                     contentDescription = "",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()
@@ -170,7 +202,7 @@ fun ProfileImage() {
                         }
                     ) {
                         Image(
-                            painterResource(R.drawable.ic_baseline_add_24),
+                            painterResource(R.drawable.ic_baseline_add_green),
                             contentDescription = "",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.fillMaxSize()

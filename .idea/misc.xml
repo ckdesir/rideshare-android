@@ -13,6 +13,10 @@
         <entry key="../../../../../layout/compose-model-1664399402883.xml" value="0.24070945945945946" />
         <entry key="../../../../../layout/compose-model-1664400881979.xml" value="0.24074074074074073" />
         <entry key="../../../../../layout/compose-model-1664401774266.xml" value="0.24074074074074073" />
+        <entry key="../../../../../layout/compose-model-1664402856287.xml" value="0.25" />
+        <entry key="app/src/main/res/drawable/footer_green_dot.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/header_line_dotted_green.xml" value="0.45" />
+        <entry key="app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.1" />
       </map>
     </option>
   </component>

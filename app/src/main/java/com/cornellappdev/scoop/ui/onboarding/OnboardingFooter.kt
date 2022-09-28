@@ -3,21 +3,16 @@ package com.cornellappdev.scoop.onboarding
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.rememberPagerState
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.R
 
 @Composable
-fun footerImage(
+fun FooterImage(
     currIndex: Int,
     carIndex: Int,
 ) {
@@ -67,7 +62,7 @@ fun OnboardingFooter(
     ) {
         items(7) { index ->
             if (index < 6) {
-                footerImage(currIndex = index, carIndex = carIndex)
+                FooterImage(currIndex = index, carIndex = carIndex)
             } else {
                 Image(
                     painterResource(R.drawable.green_footer_location),

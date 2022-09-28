@@ -24,7 +24,6 @@ fun OnboardingHolderView() {
         HorizontalPager(
             count = 6,
             state = pagerState,
-            modifier = Modifier.fillMaxSize()
         ) { page ->
             // Our page content
             when (page) {
