@@ -8,7 +8,7 @@ fun ScoopTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
-        colors = ColorPalette,
+        colors = colorPalette,
         typography = Typography,
         content = content
     )

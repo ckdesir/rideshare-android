@@ -8,16 +8,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.R
-import com.cornellappdev.scoop.models.Trip
+import com.cornellappdev.scoop.data.models.Ride
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ThirdPage(trip: Trip) {
+fun ThirdPage(ride: Ride) {
     BottomSheetScaffold(
         sheetPeekHeight = 200.dp,
         sheetShape = RoundedCornerShape(25.dp),
-        sheetContent = { BottomSheet(trip) }
+        sheetContent = { BottomSheet(ride) }
     ) {
-        Image(painter = painterResource(R.drawable.ic_fake_map), contentDescription = "Map showing departure to arrival locations")
+        Image(
+            painter = painterResource(R.drawable.ic_fake_map),
+            contentDescription = "Map showing departure to arrival locations"
+        )
     }
 }
