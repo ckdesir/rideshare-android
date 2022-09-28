@@ -86,8 +86,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
 
     // accompanist
-    implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
-    implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-pager:0.26.4-beta"
+    implementation "com.google.accompanist:accompanist-pager-indicators:0.26.4-beta"
 
     // Moshi
     implementation "com.squareup.moshi:moshi:1.14.0"
