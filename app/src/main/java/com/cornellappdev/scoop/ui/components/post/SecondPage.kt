@@ -32,7 +32,6 @@ import java.util.*
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-
 fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
     val dateFormatter = SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
     val timeFormatter = SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
