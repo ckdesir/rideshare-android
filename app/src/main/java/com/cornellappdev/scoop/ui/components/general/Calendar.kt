@@ -30,13 +30,10 @@ import com.cornellappdev.scoop.ui.theme.ScoopGreen
 
 typealias CalendarWeek = List<CalendarDay>
 
-@Preview
 @Composable
 fun CalendarPreview()
 {
-    CalendarScreen {
-
-    }
+    CalendarScreen {}
 }
 
 
