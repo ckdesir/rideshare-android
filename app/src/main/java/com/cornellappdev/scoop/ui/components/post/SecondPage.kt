@@ -33,10 +33,12 @@ import java.util.*
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SecondPage(onProceedClicked: () -> Unit, tripState: MutableState<Trip>) {
-    val dateFormatter = SimpleDateFormat(stringResource(R.string.date_format), Locale.getDefault())
-    val timeFormatter = SimpleDateFormat(stringResource(R.string.time_format), Locale.getDefault())
+    val dateFormatter =
+        SimpleDateFormat(stringResource(R.string.month_day_year_no_leading_zero_format), Locale.US)
+    val timeFormatter =
+        SimpleDateFormat(stringResource(R.string.hour_minute_period_format), Locale.US)
     val dateAndTimeFormatter =
-        SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
+        SimpleDateFormat(stringResource(R.string.date_time_format), Locale.US)
     val (detailsText, setDetailsText) = rememberSaveable { mutableStateOf(tripState.value.otherDetails.orEmpty()) }
     val lowerRangeNumTravelers =
         rememberSaveable { mutableStateOf((tripState.value.lowerRangeNumTravelers ?: 1)) }
@@ -220,7 +222,7 @@ fun DateOfTripSection(
                     .padding(end = 12.dp)
                     .size(32.dp)
                     .align(Alignment.CenterVertically),
-                contentDescription = stringResource(R.string.calendar_icon_descrption)
+                contentDescription = stringResource(R.string.calendar_icon_description)
             )
             TextButton(
                 modifier = Modifier.align(Alignment.Bottom),
@@ -231,7 +233,7 @@ fun DateOfTripSection(
                 Column {
                     if (dateText.isBlank()) {
                         Text(
-                            stringResource(R.string.date_template),
+                            stringResource(R.string.date_placeholder),
                             style = TextStyle(color = PlaceholderGray, fontSize = 22.sp),
                         )
                     } else {
