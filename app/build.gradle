@@ -49,7 +49,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion "1.2.0-beta03"
+        kotlinCompilerExtensionVersion '1.3.0-alpha04'
     }
     
     packagingOptions {
@@ -114,7 +114,7 @@ dependencies {
 
     // Used to make status bar transparent
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.17.0"
-}
+
     //Navigation
     implementation "androidx.hilt:hilt-navigation-fragment:1.0.0"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
