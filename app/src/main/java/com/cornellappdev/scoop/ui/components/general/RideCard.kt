@@ -22,17 +22,17 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
-import com.cornellappdev.scoop.models.Trip
+import com.cornellappdev.scoop.data.models.Ride
 import com.cornellappdev.scoop.ui.theme.BorderGray
 
 /**
  * Composable that displays information about the [Trip] passed in.
  *
- * @param trip The trip to be turned into a [RideCard]
+ * @param ride The trip to be turned into a [RideCard]
  */
 @Composable
 fun RideCard(
-    trip: Trip
+    ride: Ride
 ) {
     Card(
         shape = RoundedCornerShape(10.dp),
@@ -48,7 +48,7 @@ fun RideCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Column(modifier = Modifier.align(alignment = Alignment.CenterVertically)) {
-                    trip.methodOfTransportation?.let { transportation ->
+                    ride.type?.let { transportation ->
                         Text(
                             text = "Michelle's $transportation",
                             style = TextStyle(color = Color.Black, fontSize = 22.sp)
@@ -66,7 +66,7 @@ fun RideCard(
                         contentDescription = stringResource(R.string.calendar_icon_description)
                     )
 
-                    trip.dateOfTrip?.let { date ->
+                    ride.dateOfTrip?.let { date ->
                         Text(
                             text = date,
                             modifier = Modifier.align(Alignment.CenterVertically),
@@ -86,7 +86,7 @@ fun RideCard(
                             .align(Alignment.CenterVertically),
                         contentDescription = stringResource(R.string.details_icon_description)
                     )
-                    trip.departureLocation?.let { departureLocation ->
+                    ride.departureLocation?.let { departureLocation ->
                         Text(
                             departureLocation,
                             modifier = Modifier.align(Alignment.CenterVertically),
@@ -119,7 +119,7 @@ fun RideCard(
                             .align(Alignment.CenterVertically),
                         contentDescription = stringResource(R.string.details_icon_description)
                     )
-                    trip.arrivalLocation?.let { arrivalLocation ->
+                    ride.arrivalLocation?.let { arrivalLocation ->
                         Text(
                             arrivalLocation,
                             modifier = Modifier.align(Alignment.CenterVertically),

@@ -9,11 +9,7 @@ fun ScoopTheme(
 ) {
     MaterialTheme(
         colors = colorPalette,
-<<<<<<< HEAD
         typography = typography,
-=======
-        typography = Typography,
->>>>>>> ab65d5d468cb32191ba9480cf4e229ae24d4f11b
-        content = content
+        content = content,
     )
 }
