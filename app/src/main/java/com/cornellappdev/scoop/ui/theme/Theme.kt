@@ -10,6 +10,6 @@ fun ScoopTheme(
     MaterialTheme(
         colors = colorPalette,
         typography = typography,
-        content = content
+        content = content,
     )
 }

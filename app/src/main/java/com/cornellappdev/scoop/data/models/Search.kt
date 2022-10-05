@@ -1,4 +1,4 @@
-package com.cornellappdev.scoop.models
+package com.cornellappdev.scoop.data.models
 
 data class Search(
     var departureLocation: String? = null,
