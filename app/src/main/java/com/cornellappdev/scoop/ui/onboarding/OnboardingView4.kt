@@ -21,11 +21,11 @@ import com.google.accompanist.pager.PagerState
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingView4(
-    pagerState : PagerState
+    pagerState: PagerState
 ) {
-    
+
     Scaffold() {
-        
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -36,15 +36,18 @@ fun OnboardingView4(
 
             Spacer(modifier = Modifier.weight(1F))
 
-            var sliderPosition1 = remember { mutableStateOf(0F)}
-            var sliderPosition2 = remember { mutableStateOf(0F)}
+            var sliderPosition1 = remember { mutableStateOf(0F) }
+            var sliderPosition2 = remember { mutableStateOf(0F) }
             Text(
                 fontFamily = FontFamily.Default,
                 text = "How talkative are you?",
                 fontSize = 20.sp,
             )
 
-            OnboardingSlider(values = listOf("Quiet", " ", " ", "Talkative"), sliderPosition = sliderPosition1)
+            OnboardingSlider(
+                values = listOf("Quiet", " ", " ", "Talkative"),
+                sliderPosition = sliderPosition1
+            )
 
             Text(
                 fontFamily = FontFamily.Default,
@@ -52,7 +55,10 @@ fun OnboardingView4(
                 fontSize = 20.sp,
             )
 
-            OnboardingSlider(values = listOf("No Music", " ", " ", "Music"), sliderPosition = sliderPosition2)
+            OnboardingSlider(
+                values = listOf("No Music", " ", " ", "Music"),
+                sliderPosition = sliderPosition2
+            )
 
             Box(
                 modifier = Modifier
@@ -62,7 +68,7 @@ fun OnboardingView4(
                         top = 20.dp,
                     )
 
-            ){
+            ) {
                 RightArrow(pagerState)
             }
 
@@ -71,7 +77,7 @@ fun OnboardingView4(
         }
 
     }
-    
+
 
 }
 
@@ -79,7 +85,7 @@ fun OnboardingView4(
 fun VerticalLines(values: List<String>) {
 
     val drawPadding = with(LocalDensity.current) { 10.dp.toPx() }
-    val textSize = with(LocalDensity.current) {15.dp.toPx() }
+    val textSize = with(LocalDensity.current) { 15.dp.toPx() }
     val lineHeightDp = 10.dp
     val lineHeightPx = with(LocalDensity.current) { lineHeightDp.toPx() }
     val canvasHeight = 50.dp
@@ -125,7 +131,8 @@ fun VerticalLines(values: List<String>) {
 @Composable
 fun OnboardingSlider(values: List<String>, sliderPosition: MutableState<Float>) {
 
-    Box(contentAlignment = Alignment.Center,
+    Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier.padding(
             start = 20.dp,
             end = 20.dp,
@@ -134,10 +141,12 @@ fun OnboardingSlider(values: List<String>, sliderPosition: MutableState<Float>) 
         )
     ) {
         VerticalLines(values)
-        Slider(modifier = Modifier.fillMaxWidth(),
+        Slider(
+            modifier = Modifier.fillMaxWidth(),
             value = sliderPosition.value,
             onValueChange = {
-                sliderPosition.value = it},
+                sliderPosition.value = it
+            },
             colors = customSliderColors()
         )
     }

@@ -25,7 +25,7 @@ fun OnboardingView3(pagerState: PagerState) {
                 .fillMaxSize()
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-        ){
+        ) {
             OnboardingHeader(pagerState = pagerState, "About You")
             Spacer(modifier = Modifier.weight(1F))
             Text(
@@ -39,37 +39,42 @@ fun OnboardingView3(pagerState: PagerState) {
                     .align(Alignment.End)
                     .padding(end = 30.dp)
 
-            ){
+            ) {
                 RightArrow(pagerState)
             }
-            Spacer(modifier = Modifier
-                .weight(1.5F))
+            Spacer(
+                modifier = Modifier
+                    .weight(1.5F)
+            )
         }
 
     }
 }
 
 @Composable
-fun methodButtons(){
+fun methodButtons() {
     var selected by remember { mutableStateOf("email") }
 
     Column(
-        modifier = Modifier.padding(
-            start = 40.dp
-        ).fillMaxWidth()
+        modifier = Modifier
+            .padding(
+                start = 40.dp
+            )
+            .fillMaxWidth()
     ) {
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
 
-        ) {
+            ) {
             RadioButton(
                 selected = selected == "email",
-                onClick = { selected = "email"},
+                onClick = { selected = "email" },
                 colors = RadioButtonDefaults.colors(
                     selectedColor = androidx.compose.ui.graphics.Color.Black,
                     unselectedColor = androidx.compose.ui.graphics.Color.Gray,
-                ))
+                )
+            )
             Text(
                 text = "Cornell Email",
                 modifier = Modifier
@@ -85,7 +90,8 @@ fun methodButtons(){
                 colors = RadioButtonDefaults.colors(
                     selectedColor = androidx.compose.ui.graphics.Color.Black,
                     unselectedColor = androidx.compose.ui.graphics.Color.Gray,
-                ))
+                )
+            )
             Text(
                 text = "Phone Number",
                 modifier = Modifier
@@ -97,8 +103,6 @@ fun methodButtons(){
         }
 
     }
-
-
 
 
 }

@@ -43,8 +43,8 @@ fun OnboardingView2(pagerState: PagerState) {
             OnboardingHeader(pagerState = pagerState, "About You")
             Spacer(modifier = Modifier.weight(1F))
 
-            Box(){
-                Column(Modifier.fillMaxWidth(),) {
+            Box() {
+                Column(Modifier.fillMaxWidth()) {
                     Text(
                         fontWeight = FontWeight.Bold,
                         fontFamily = FontFamily.Default,
@@ -54,12 +54,16 @@ fun OnboardingView2(pagerState: PagerState) {
                             bottom = 10.dp
                         )
                     )
-                    DenseTextField(value = nameText, setValue = setNameText, placeholderText = "Enter Name")
+                    DenseTextField(
+                        value = nameText,
+                        setValue = setNameText,
+                        placeholderText = "Enter Name"
+                    )
                 }
 
             }
 
-            Box(Modifier.fillMaxWidth()){
+            Box(Modifier.fillMaxWidth()) {
                 Column() {
                     Text(
                         fontWeight = FontWeight.Bold,
@@ -70,12 +74,16 @@ fun OnboardingView2(pagerState: PagerState) {
                             bottom = 10.dp
                         )
                     )
-                    DenseTextField(value = pronounsText, setValue = setPronounsText, placeholderText = "Enter Pronouns")
+                    DenseTextField(
+                        value = pronounsText,
+                        setValue = setPronounsText,
+                        placeholderText = "Enter Pronouns"
+                    )
                 }
 
             }
 
-            Box(Modifier.fillMaxWidth()){
+            Box(Modifier.fillMaxWidth()) {
 
                 Column() {
                     Text(
@@ -87,12 +95,16 @@ fun OnboardingView2(pagerState: PagerState) {
                             bottom = 10.dp
                         )
                     )
-                    DenseTextField(value = hometownText, setValue = setHometownText, placeholderText = "Enter Hometown")
+                    DenseTextField(
+                        value = hometownText,
+                        setValue = setHometownText,
+                        placeholderText = "Enter Hometown"
+                    )
                 }
 
             }
 
-            Box(Modifier.fillMaxWidth()){
+            Box(Modifier.fillMaxWidth()) {
                 Column() {
                     Text(
                         fontWeight = FontWeight.Bold,
@@ -103,7 +115,11 @@ fun OnboardingView2(pagerState: PagerState) {
                             bottom = 10.dp
                         )
                     )
-                    DenseTextField(value = yearText, setValue = setYearText, placeholderText = "Enter Class Year")
+                    DenseTextField(
+                        value = yearText,
+                        setValue = setYearText,
+                        placeholderText = "Enter Class Year"
+                    )
                 }
 
             }
@@ -111,7 +127,7 @@ fun OnboardingView2(pagerState: PagerState) {
             Box(
 
                 modifier = Modifier.align(Alignment.End)
-            ){
+            ) {
                 RightArrow(pagerState)
             }
 

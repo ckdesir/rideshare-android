@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProvideWindowInsets {
                 ScoopTheme {
-                    CalendarScreen(onBackPressed = { finish() })
+                    MainScreen()
                 }
             }
         }

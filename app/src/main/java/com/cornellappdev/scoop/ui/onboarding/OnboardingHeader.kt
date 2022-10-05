@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 fun OnboardingHeader(
     pagerState: PagerState,
     title: String,
-){
+) {
     val scope = rememberCoroutineScope()
 
     Card(
@@ -35,16 +35,17 @@ fun OnboardingHeader(
             bottom = 20.dp
         ),
         elevation = 0.dp
-    ){
+    ) {
         Row(
             Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Button(onClick = {
-                scope.launch {
-                    pagerState.animateScrollToPage(pagerState.currentPage - 1)
-                }
-            },
+            Button(
+                onClick = {
+                    scope.launch {
+                        pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 border = BorderStroke(width = 0.dp, color = Color.White),
                 elevation = ButtonDefaults.elevation(0.dp)
@@ -73,7 +74,7 @@ fun OnboardingHeader(
         }
     }
 
-    
+
 }
 
 //

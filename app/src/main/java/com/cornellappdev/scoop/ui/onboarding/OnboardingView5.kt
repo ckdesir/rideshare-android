@@ -42,8 +42,8 @@ fun OnboardingView5(pagerState: PagerState) {
             OnboardingHeader(pagerState = pagerState, "Favorites")
             Spacer(modifier = Modifier.weight(1F))
 
-            Box(){
-                Column(Modifier.fillMaxWidth(),) {
+            Box() {
+                Column(Modifier.fillMaxWidth()) {
                     Text(
                         fontWeight = FontWeight.Bold,
                         fontFamily = FontFamily.Default,
@@ -53,12 +53,16 @@ fun OnboardingView5(pagerState: PagerState) {
                             bottom = 10.dp
                         )
                     )
-                    DenseTextField(value = snackText, setValue = setSnackText, placeholderText = "enter snack")
+                    DenseTextField(
+                        value = snackText,
+                        setValue = setSnackText,
+                        placeholderText = "enter snack"
+                    )
                 }
 
             }
 
-            Box(Modifier.fillMaxWidth()){
+            Box(Modifier.fillMaxWidth()) {
                 Column() {
                     Text(
                         fontWeight = FontWeight.Bold,
@@ -69,12 +73,16 @@ fun OnboardingView5(pagerState: PagerState) {
                             bottom = 10.dp
                         )
                     )
-                    DenseTextField(value = songText, setValue = setSongText, placeholderText = "enter song")
+                    DenseTextField(
+                        value = songText,
+                        setValue = setSongText,
+                        placeholderText = "enter song"
+                    )
                 }
 
             }
 
-            Box(Modifier.fillMaxWidth()){
+            Box(Modifier.fillMaxWidth()) {
 
                 Column() {
                     Text(
@@ -86,7 +94,11 @@ fun OnboardingView5(pagerState: PagerState) {
                             bottom = 10.dp
                         )
                     )
-                    DenseTextField(value = stopText, setValue = setStopText, placeholderText = "enter stop")
+                    DenseTextField(
+                        value = stopText,
+                        setValue = setStopText,
+                        placeholderText = "enter stop"
+                    )
                 }
 
             }
@@ -94,7 +106,7 @@ fun OnboardingView5(pagerState: PagerState) {
             Box(
 
                 modifier = Modifier.align(Alignment.End)
-            ){
+            ) {
                 RightArrow(pagerState)
             }
 

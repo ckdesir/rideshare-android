@@ -39,7 +39,7 @@ fun OnboardingView1(pagerState: PagerState) {
                 .fillMaxSize()
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-        ){
+        ) {
             Spacer(modifier = Modifier.weight(1F))
             WelcomeText()
             ProfileImage()
@@ -49,7 +49,7 @@ fun OnboardingView1(pagerState: PagerState) {
                         start = 200.dp,
                         top = 50.dp,
                     ),
-            ){
+            ) {
                 RightArrow(pagerState)
             }
             Spacer(modifier = Modifier.weight(1F))
@@ -60,22 +60,24 @@ fun OnboardingView1(pagerState: PagerState) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ProfileImage(){
+fun ProfileImage() {
 
     var imageUri by remember {
         mutableStateOf<Uri?>(null)
     }
     val context = LocalContext.current
-    val bitmap =  remember {
+    val bitmap = remember {
         mutableStateOf<Bitmap?>(null)
     }
 
-    val launcher = rememberLauncherForActivityResult(contract =
-    ActivityResultContracts.GetContent()) { uri: Uri? ->
+    val launcher = rememberLauncherForActivityResult(
+        contract =
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
         imageUri = uri
     }
 
-    if(imageUri == null) {
+    if (imageUri == null) {
         Box(
         ) {
             Card(
@@ -105,8 +107,7 @@ fun ProfileImage(){
                 )
             }
         }
-    }
-    else{
+    } else {
 
         imageUri?.let {
             if (Build.VERSION.SDK_INT < 28) {
@@ -196,7 +197,6 @@ fun WelcomeText(
     }
 
 }
-
 
 
 //@Preview

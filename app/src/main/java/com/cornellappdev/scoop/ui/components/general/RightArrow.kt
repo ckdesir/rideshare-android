@@ -31,7 +31,7 @@ fun RightArrow(pagerState: PagerState) {
         shape = CircleShape,
         elevation = 2.dp,
         backgroundColor = Color.LightGray,
-        border = BorderStroke(width = 2.dp, color =  Color.LightGray),
+        border = BorderStroke(width = 2.dp, color = Color.LightGray),
         onClick = {
             scope.launch {
                 pagerState.animateScrollToPage(pagerState.currentPage + 1)

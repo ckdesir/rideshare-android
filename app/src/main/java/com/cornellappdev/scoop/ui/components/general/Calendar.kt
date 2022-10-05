@@ -27,8 +27,7 @@ import com.google.accompanist.insets.statusBarsHeight
 typealias CalendarWeek = List<CalendarDay>
 
 @Composable
-fun CalendarPreview()
-{
+fun CalendarPreview() {
     CalendarScreen {}
 }
 
@@ -66,7 +65,7 @@ fun CalendarContent(
             CalendarTopAppBar(selectedDates, onBackPressed)
         }
     ) {
-        Box(contentAlignment = Alignment.BottomCenter){
+        Box(contentAlignment = Alignment.BottomCenter) {
             Calendar(calendarYear, onDayClicked)
             Surface(
                 modifier = Modifier.padding(bottom = 20.dp)
@@ -78,9 +77,10 @@ fun CalendarContent(
 }
 
 @Composable
-fun SelectDateButton(){
+fun SelectDateButton() {
     val calendarViewModel: CalendarViewModel = viewModel()
-    val buttonColor : Color = if (calendarViewModel.datesSelected.toString().isBlank()) Green else DarkGreen
+    val buttonColor: Color =
+        if (calendarViewModel.datesSelected.toString().isBlank()) Green else DarkGreen
     Button(
         shape = RoundedCornerShape(5.dp),
         onClick = { /* ... */ },
@@ -102,10 +102,11 @@ fun SelectDateButton(){
 @Composable
 fun CalendarTopAppBar(selectedDates: String, onBackPressed: () -> Unit) {
     Column {
-        Spacer(modifier = Modifier
-            .statusBarsHeight()
-            .fillMaxWidth()
-            .background(Color.White)
+        Spacer(
+            modifier = Modifier
+                .statusBarsHeight()
+                .fillMaxWidth()
+                .background(Color.White)
         )
         TopAppBar(
             title = {
@@ -120,8 +121,6 @@ fun CalendarTopAppBar(selectedDates: String, onBackPressed: () -> Unit) {
         )
     }
 }
-
-
 
 
 @Composable
