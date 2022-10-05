@@ -9,7 +9,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CalendarViewModel @Inject constructor(
     private val datesRepository: DatesRepository
-): ViewModel() {
+) : ViewModel() {
     val datesSelected = datesRepository.datesSelected
     val calendarYear = datesRepository.calendarYear
 

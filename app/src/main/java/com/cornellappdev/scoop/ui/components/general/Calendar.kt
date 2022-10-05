@@ -31,8 +31,7 @@ import com.cornellappdev.scoop.ui.theme.ScoopGreen
 typealias CalendarWeek = List<CalendarDay>
 
 @Composable
-fun CalendarPreview()
-{
+fun CalendarPreview() {
     CalendarScreen {}
 }
 
@@ -69,7 +68,7 @@ fun CalendarContent(
             CalendarTopAppBar(selectedDates, onBackPressed)
         }
     ) {
-        Box(contentAlignment = Alignment.BottomCenter){
+        Box(contentAlignment = Alignment.BottomCenter) {
             Calendar(calendarYear, onDayClicked)
             Surface(
                 modifier = Modifier.padding(bottom = 20.dp)
@@ -81,7 +80,7 @@ fun CalendarContent(
 }
 
 @Composable
-fun SelectDateButton(){
+fun SelectDateButton() {
     val calendarViewModel: CalendarViewModel = viewModel()
     val buttonColor : Color = if (calendarViewModel.datesSelected.toString().isBlank()) LightGreen else DarkGreen
     Button(
@@ -105,10 +104,11 @@ fun SelectDateButton(){
 @Composable
 fun CalendarTopAppBar(selectedDates: String, onBackPressed: () -> Unit) {
     Column {
-        Spacer(modifier = Modifier
-            .statusBarsHeight()
-            .fillMaxWidth()
-            .background(Color.White)
+        Spacer(
+            modifier = Modifier
+                .statusBarsHeight()
+                .fillMaxWidth()
+                .background(Color.White)
         )
         TopAppBar(
             title = {
@@ -123,8 +123,6 @@ fun CalendarTopAppBar(selectedDates: String, onBackPressed: () -> Unit) {
         )
     }
 }
-
-
 
 
 @Composable

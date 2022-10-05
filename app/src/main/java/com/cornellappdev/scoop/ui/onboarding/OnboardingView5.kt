@@ -2,7 +2,6 @@ package com.cornellappdev.scoop.onboarding
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -45,7 +44,6 @@ fun OnboardingView5(pagerState: PagerState) {
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(25.dp)
             ) {
-
                 Spacer(modifier = Modifier.height(50.dp))
 
                 Box() {
@@ -87,7 +85,6 @@ fun OnboardingView5(pagerState: PagerState) {
                 }
 
                 Box(Modifier.fillMaxWidth()) {
-
                     Column() {
                         Text(
                             fontWeight = FontWeight.Bold,

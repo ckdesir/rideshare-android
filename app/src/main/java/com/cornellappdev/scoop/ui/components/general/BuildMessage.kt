@@ -32,7 +32,9 @@ fun BuildMessage(showMessage: Boolean, message: String) {
         exit = fadeOut()
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().zIndex(1f), verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxSize()
+                .zIndex(1f), verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Column(

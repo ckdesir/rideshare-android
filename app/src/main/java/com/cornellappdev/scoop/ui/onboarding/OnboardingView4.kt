@@ -40,7 +40,6 @@ fun OnboardingView4(
                 .fillMaxWidth()
         ) {
 
-
             Column(
                 modifier = Modifier
                     .height(500.dp),

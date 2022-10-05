@@ -14,7 +14,7 @@ typealias CalendarYear = List<CalendarMonth>
 @Singleton
 class DatesLocalDataSource @Inject constructor() {
 
-    private fun getMonthLength(month: Month, year: Int): Int{
+    private fun getMonthLength(month: Month, year: Int): Int {
 
         var leap = if (year % 4 == 0) {
             if (year % 100 == 0) {
@@ -28,14 +28,14 @@ class DatesLocalDataSource @Inject constructor() {
         return month.length(leap);
     }
 
-    private fun getStartDayOfWeek(month: Int, year: Int) : DayOfWeek {
+    private fun getStartDayOfWeek(month: Int, year: Int): DayOfWeek {
 
         val calendar = Calendar.getInstance()
         calendar[Calendar.YEAR] = year
         calendar[Calendar.MONTH] = month - 1
         calendar[Calendar.DAY_OF_MONTH] = 1
 
-        return when(calendar[Calendar.DAY_OF_WEEK]){
+        return when (calendar[Calendar.DAY_OF_WEEK]) {
             0 -> DayOfWeek.Sunday
             1 -> DayOfWeek.Monday
             2 -> DayOfWeek.Tuesday
@@ -48,25 +48,24 @@ class DatesLocalDataSource @Inject constructor() {
 
     var currentYear: CalendarYear;
 
-    private val tempMonthList : MutableList<CalendarMonth> = mutableListOf();
+    private val tempMonthList: MutableList<CalendarMonth> = mutableListOf();
 
     init {
 
-        val currentDate : Date = Date();
+        val currentDate: Date = Date();
 
         var currMonth = currentDate.month;
 
         var currYear = currentDate.year + 1900;
 
-        for(i in 0..5){
+        for (i in 0..5) {
 
-            if(currMonth + 1 > 12){
+            if (currMonth + 1 > 12) {
 
                 currYear += 1
 
                 currMonth = 1
-            }
-            else{
+            } else {
                 currMonth += 1
             }
 

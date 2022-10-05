@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import java.util.*
 
 @Composable
-fun Calendar(){
+fun Calendar() {
     val mContext = LocalContext.current
 
     // Declaring integer values
@@ -50,7 +50,7 @@ fun Calendar(){
     val mDatePickerDialog = DatePickerDialog(
         mContext,
         { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
-            mDate.value = "$mDayOfMonth/${mMonth+1}/$mYear"
+            mDate.value = "$mDayOfMonth/${mMonth + 1}/$mYear"
         }, mYear, mMonth, mDay
     )
 

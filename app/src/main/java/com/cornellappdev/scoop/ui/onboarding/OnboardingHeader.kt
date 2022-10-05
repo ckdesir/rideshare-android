@@ -33,7 +33,6 @@ fun OnboardingHeader(
             .fillMaxWidth(),
         elevation = 0.dp
     ) {
-
         Column(
             Modifier.fillMaxWidth(),
         ) {
