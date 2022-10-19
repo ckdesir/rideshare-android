@@ -2,18 +2,21 @@ package com.cornellappdev.scoop.ui.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+
 
 @Composable
 fun ScoopTheme(
     content: @Composable () -> Unit
 ) {
+    val systemUiController = rememberSystemUiController()
+    systemUiController.setSystemBarsColor(
+        color = Green
+    )
+
     MaterialTheme(
         colors = colorPalette,
-<<<<<<< HEAD
         typography = typography,
-=======
-        typography = Typography,
->>>>>>> ab65d5d468cb32191ba9480cf4e229ae24d4f11b
         content = content
     )
 }

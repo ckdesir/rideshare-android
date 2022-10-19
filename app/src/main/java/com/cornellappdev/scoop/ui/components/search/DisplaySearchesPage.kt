@@ -27,8 +27,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
+import com.cornellappdev.scoop.data.models.Ride
 import com.cornellappdev.scoop.models.Search
-import com.cornellappdev.scoop.models.Trip
 import com.cornellappdev.scoop.ui.components.general.FilterRow
 import com.cornellappdev.scoop.ui.components.general.RideCard
 
@@ -42,7 +42,7 @@ import com.cornellappdev.scoop.ui.components.general.RideCard
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun DisplaySearchesPage(searchState: MutableState<Search>) {
-    val searchResults: MutableState<List<Trip>> = remember {
+    val searchResults: MutableState<List<Ride>> = remember {
         mutableStateOf(listOf())
     }
     val filter = rememberSaveable { mutableStateOf<String?>(null) }
