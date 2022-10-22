@@ -1,8 +1,10 @@
 package com.cornellappdev.scoop.ui.components.general
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.TextFieldDefaults.indicatorLine
@@ -12,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
@@ -42,9 +45,16 @@ fun DenseTextField(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     enabled: Boolean = true,
     singleLine: Boolean = true,
+    unfocusedIndicatorColor: Color = Color.Black,
+    textStyle: TextStyle = TextStyle(
+        color = Color.Black,
+        fontSize = 22.sp,
+        textAlign = TextAlign.Start
+    )
 ) {
     BasicTextField(
         value = value,
+        enabled = enabled,
         modifier = modifier
             .indicatorLine(
                 enabled = enabled,
@@ -54,13 +64,14 @@ fun DenseTextField(
                     backgroundColor = Color.Transparent,
                     cursorColor = Color.Black,
                     focusedIndicatorColor = Color.Black,
-                    unfocusedIndicatorColor = Color.Black
+                    unfocusedIndicatorColor = unfocusedIndicatorColor
                 ),
                 focusedIndicatorLineThickness = 2.dp,
                 unfocusedIndicatorLineThickness = 2.dp
             )
-            .height(32.dp),
-        textStyle = TextStyle(color = Color.Black, fontSize = 22.sp),
+            .wrapContentHeight()
+            .width(IntrinsicSize.Min),
+        textStyle = textStyle,
         onValueChange = setValue,
         interactionSource = interactionSource,
         singleLine = singleLine
@@ -77,7 +88,12 @@ fun DenseTextField(
             placeholder = {
                 Text(
                     text = placeholderText,
-                    style = TextStyle(color = PlaceholderGray, fontSize = 22.sp),
+                    style = TextStyle(
+                        color = PlaceholderGray,
+                        fontSize = textStyle.fontSize,
+                        textAlign = TextAlign.Start
+                    ),
+                    maxLines = 1
                 )
             },
             value = value,
