@@ -94,7 +94,7 @@ fun ProfileCard(
             modifier = Modifier
                 .background(Color.White)
                 .align(Alignment.End)
-                .padding(top = 20.dp, end = 18.dp)
+                .padding(top = 8.dp, end = 10.dp)
                 .size(40.dp)
         ) {
             Icon(
@@ -350,6 +350,7 @@ fun ProfileCard(
                 )
         ) {
             Column(
+                verticalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .padding(horizontal = 15.dp)
                     .padding(vertical = 20.dp)
@@ -367,7 +368,7 @@ fun ProfileCard(
                         setValue = { },
                         placeholderText = "",
                         enabled = false,
-                        modifier = Modifier.padding(start = 29.dp),
+                        modifier = Modifier.padding(start = 15.dp),
                         textStyle = TextStyle(
                             color = Color.Black,
                             fontSize = 14.sp,
@@ -408,7 +409,7 @@ fun ProfileCard(
                         setValue = { },
                         placeholderText = "",
                         enabled = false,
-                        modifier = Modifier.padding(start = 29.dp),
+                        modifier = Modifier.padding(start = 15.dp),
                         textStyle = TextStyle(
                             color = Color.Black,
                             fontSize = 14.sp,
@@ -449,7 +450,7 @@ fun ProfileCard(
                         setValue = { },
                         placeholderText = "",
                         enabled = false,
-                        modifier = Modifier.padding(start = 29.dp),
+                        modifier = Modifier.padding(start = 15.dp),
                         textStyle = TextStyle(
                             color = Color.Black,
                             fontSize = 14.sp,
