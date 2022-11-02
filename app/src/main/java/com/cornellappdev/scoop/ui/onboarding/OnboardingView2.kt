@@ -1,6 +1,6 @@
 package com.cornellappdev.scoop.onboarding
 
-import androidx.compose.foundation.background
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,9 +15,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.components.RightArrow
 import com.cornellappdev.scoop.ui.components.general.DenseTextField
+import com.cornellappdev.scoop.ui.components.general.UnderlinedEditText
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingView2(pagerState: PagerState) {

@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
 import com.cornellappdev.scoop.ui.components.general.BuildMessage
-import com.cornellappdev.scoop.ui.components.general.DenseTextField
+import com.cornellappdev.scoop.ui.components.general.UnderlinedEditText
 import com.cornellappdev.scoop.ui.theme.Gray
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 import kotlinx.coroutines.delay
@@ -334,7 +334,7 @@ fun OtherDetailsSection(
                     .align(Alignment.CenterVertically),
                 contentDescription = stringResource(R.string.details_icon_description)
             )
-            DenseTextField(
+            UnderlinedEditText(
                 value = detailsText,
                 setValue = setDetailsText,
                 placeholderText = stringResource(R.string.enter_details),
