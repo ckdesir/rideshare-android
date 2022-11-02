@@ -42,7 +42,7 @@ fun OnboardingView2(pagerState: PagerState) {
             Column(
                 Modifier
                     .fillMaxWidth()
-                    .height(400.dp),
+                    .height(500.dp),
                 verticalArrangement = Arrangement.spacedBy(25.dp),
             ) {
 

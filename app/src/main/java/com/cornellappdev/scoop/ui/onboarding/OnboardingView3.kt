@@ -36,7 +36,7 @@ fun OnboardingView3(pagerState: PagerState) {
         ) {
 
             Column(
-                modifier = Modifier.height(400.dp),
+                modifier = Modifier.height(500.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {

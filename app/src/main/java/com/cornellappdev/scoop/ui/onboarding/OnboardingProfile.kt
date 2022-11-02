@@ -56,7 +56,7 @@ fun OnboardingProfile(pagerState: PagerState) {
 
             Column(
                 modifier = Modifier
-                    .height(400.dp)
+                    .height(570.dp)
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center

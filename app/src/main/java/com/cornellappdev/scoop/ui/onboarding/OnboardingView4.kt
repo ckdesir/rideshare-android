@@ -43,7 +43,7 @@ fun OnboardingView4(
 
             Column(
                 modifier = Modifier
-                    .height(400.dp),
+                    .height(500.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
