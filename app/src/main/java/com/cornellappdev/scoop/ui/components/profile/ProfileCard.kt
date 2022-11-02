@@ -31,446 +31,402 @@ import com.cornellappdev.scoop.ui.theme.Green
 
 @Composable
 fun ProfileCard(
-    userState: MutableState<User>
+        userState: MutableState<User>
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .clip(RoundedCornerShape(30.dp))
-            .background(color = Color.White)
+            modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(30.dp))
+                    .background(color = Color.White)
     ) {
         val editEnabled = remember { mutableStateOf(false) }
 
         val (nameText, setNameText) = rememberSaveable {
             mutableStateOf(
-                (userState.value.firstName ?: "Name") + " " +
-                        (userState.value.lastName ?: "Here")
+                    (userState.value.firstName ?: "Name") + " " +
+                            (userState.value.lastName ?: "Here")
             )
         }
         val (pronounsText, setPronounsText) = rememberSaveable {
             mutableStateOf(
-                userState.value.pronouns ?: "(they/them)"
+                    userState.value.pronouns ?: "(they/them)"
             )
         }
         val (gradeText, setGradeText) = rememberSaveable {
             mutableStateOf(
-                userState.value.grade ?: "Junior"
+                    userState.value.grade ?: "Junior"
             )
         }
         val (hometownText, setHometownText) = rememberSaveable {
             mutableStateOf(
-                userState.value.hometown ?: "Ithaca, NY"
+                    userState.value.hometown ?: "Ithaca, NY"
             )
         }
         val talkativity = rememberSaveable {
             mutableStateOf(
-                userState.value.talkativity
+                    userState.value.talkativity
             )
         }
         val musicAffinity = rememberSaveable {
             mutableStateOf(
-                userState.value.musicAffinity
+                    userState.value.musicAffinity
             )
         }
         val (songText, setSongText) = rememberSaveable {
             mutableStateOf(
-                userState.value.song ?: "Dunno by Mac Miller"
+                    userState.value.song ?: "Dunno by Mac Miller"
             )
         }
         val (snackText, setSnackText) = rememberSaveable {
             mutableStateOf(
-                userState.value.snack ?: "Peanut M&M's"
+                    userState.value.snack ?: "Peanut M&M's"
             )
         }
         val (stopText, setStopText) = rememberSaveable {
             mutableStateOf(
-                userState.value.stop ?: "Sheetz"
+                    userState.value.stop ?: "Sheetz"
             )
         }
 
         // Replace with IconButton
         IconButton(
-            onClick = { editEnabled.value = !editEnabled.value },
-            modifier = Modifier
-                .background(Color.White)
-                .align(Alignment.End)
-                .padding(top = 8.dp, end = 10.dp)
-                .size(40.dp)
+                onClick = { editEnabled.value = !editEnabled.value },
+                modifier = Modifier
+                        .background(Color.White)
+                        .align(Alignment.End)
+                        .padding(top = 8.dp, end = 10.dp)
+                        .size(40.dp)
         ) {
             Icon(
-                painter = if (!editEnabled.value) painterResource(R.drawable.ic_edit_square_48px)
-                else painterResource(R.drawable.ic_check_48px),
-                contentDescription = null,
+                    painter = if (!editEnabled.value) painterResource(R.drawable.ic_edit_square_48px)
+                    else painterResource(R.drawable.ic_check_48px),
+                    contentDescription = null,
+                    modifier = Modifier
+                            .size(30.dp)
+                            .background(Color.Transparent),
+                    tint = Green
+            )
+        }
+        Spacer(
                 modifier = Modifier
-                    .size(30.dp)
-                    .background(Color.Transparent),
-                tint = Green
-            )
-        }
-        Spacer(
-            modifier = Modifier
-                .height(10.dp)
-                .fillMaxWidth()
+                        .height(10.dp)
+                        .fillMaxWidth()
         )
         DenseTextField(
-            value = nameText,
-            setValue = setNameText,
-            placeholderText = "",
-            enabled = editEnabled.value,
-            modifier = Modifier.align(CenterHorizontally),
-            textStyle = TextStyle(
-                color = Color.Black,
-                fontSize = 30.sp,
-                textAlign = TextAlign.Start
-            ),
-            unfocusedIndicatorColor = (
-                    if (editEnabled.value) Color.Black else Color.White
+                value = nameText,
+                setValue = setNameText,
+                placeholderText = "",
+                enabled = editEnabled.value,
+                modifier = Modifier.align(CenterHorizontally),
+                textStyle = TextStyle(
+                        color = Color.Black,
+                        fontSize = 30.sp,
+                        textAlign = TextAlign.Start
+                ),
+                unfocusedIndicatorColor = (
+                        if (editEnabled.value) Color.Black else Color.White
+                        )
+        )
+        Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+        ) {
+            DenseTextField(
+                    value = pronounsText,
+                    setValue = setPronounsText,
+                    placeholderText = "",
+                    enabled = editEnabled.value,
+                    textStyle = TextStyle(
+                            color = Color.Black,
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Start
+                    ),
+                    unfocusedIndicatorColor = (
+                            if (editEnabled.value) Color.Black
+                            else Color.White)
+            )
+            Text(
+                    " | ",
+                    style = TextStyle(
+                            color = Color.Black,
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Start
                     )
-        )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            DenseTextField(
-                value = pronounsText,
-                setValue = setPronounsText,
-                placeholderText = "",
-                enabled = editEnabled.value,
-                textStyle = TextStyle(
-                    color = Color.Black,
-                    fontSize = 14.sp,
-                    textAlign = TextAlign.Start
-                ),
-                unfocusedIndicatorColor = (
-                        if (editEnabled.value) Color.Black
-                        else Color.White)
             )
             DenseTextField(
-                value = " | ",
-                setValue = { },
-                placeholderText = "",
-                enabled = false,
-                textStyle = TextStyle(
-                    color = Color.Black,
-                    fontSize = 14.sp,
-                    textAlign = TextAlign.Start
-                ),
-                unfocusedIndicatorColor = Color.White
-            )
-            DenseTextField(
-                value = gradeText,
-                setValue = setGradeText,
-                placeholderText = "",
-                enabled = editEnabled.value,
-                textStyle = TextStyle(
-                    color = Color.Black,
-                    fontSize = 14.sp,
-                    textAlign = TextAlign.Start
-                ),
-                unfocusedIndicatorColor = (
-                        if (editEnabled.value) Color.Black
-                        else Color.White)
+                    value = gradeText,
+                    setValue = setGradeText,
+                    placeholderText = "",
+                    enabled = editEnabled.value,
+                    textStyle = TextStyle(
+                            color = Color.Black,
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Start
+                    ),
+                    unfocusedIndicatorColor = (
+                            if (editEnabled.value) Color.Black
+                            else Color.White)
             )
         }
         Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(5.dp)
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .height(5.dp)
         )
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
         ) {
-            DenseTextField(
-                value = "Hometown: ",
-                setValue = { },
-                placeholderText = "",
-                enabled = false,
-                textStyle = TextStyle(
-                    color = Color.Black,
-                    fontSize = 14.sp,
-                    textAlign = TextAlign.Start
-                ),
-                unfocusedIndicatorColor = Color.White
+            Text(
+                    "Hometown: ",
+                    style = TextStyle(
+                            color = Color.Black,
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Start
+                    )
             )
             DenseTextField(
-                value = hometownText,
-                setValue = setHometownText,
-                placeholderText = "",
-                enabled = editEnabled.value,
-                textStyle = TextStyle(
-                    color = Color.Black,
-                    fontSize = 14.sp,
-                    textAlign = TextAlign.Start
-                ),
-                unfocusedIndicatorColor = (
-                        if (editEnabled.value) Color.Black
-                        else Color.White)
+                    value = hometownText,
+                    setValue = setHometownText,
+                    placeholderText = "",
+                    enabled = editEnabled.value,
+                    textStyle = TextStyle(
+                            color = Color.Black,
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Start
+                    ),
+                    unfocusedIndicatorColor = (
+                            if (editEnabled.value) Color.Black
+                            else Color.White)
             )
         }
         Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(15.dp)
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .height(15.dp)
         )
-        DenseTextField(
-            value = "Traveling preferences",
-            setValue = { },
-            placeholderText = "",
-            enabled = false,
-            modifier = Modifier.padding(start = 29.dp),
-            textStyle = TextStyle(
-                color = Color.Black,
-                fontSize = 18.sp,
-                textAlign = TextAlign.Start
-            ),
-            unfocusedIndicatorColor = Color.White
+        Text(
+                "Traveling preferences",
+                modifier = Modifier.padding(start = 29.dp),
+                style = TextStyle(
+                        color = Color.Black,
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Start
+                )
         )
         Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(10.dp)
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .height(10.dp)
         )
         Box(
-            modifier = Modifier
-                .padding(horizontal = 29.dp)
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(20.dp))
-                .border(
-                    width = 1.dp,
-                    color = Color.Black,
-                    shape = RoundedCornerShape(20.dp)
-                )
+                modifier = Modifier
+                        .padding(horizontal = 29.dp)
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(20.dp))
+                        .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(20.dp)
+                        )
         ) {
             Column(
-                modifier = Modifier.padding(top = 20.dp)
+                    modifier = Modifier.padding(top = 20.dp)
             ) {
                 Row(
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                        modifier = Modifier
+                                .padding(horizontal = 20.dp)
+                                .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    DenseTextField(
-                        value = "Quiet",
-                        setValue = { },
-                        placeholderText = "",
-                        enabled = false,
-                        textStyle = TextStyle(
-                            color = Color.Black,
-                            fontSize = 13.sp,
-                            textAlign = TextAlign.Start
-                        ),
-                        unfocusedIndicatorColor = Color.White
+                    Text(
+                            "Quiet",
+                            style = TextStyle(
+                                    color = Color.Black,
+                                    fontSize = 13.sp,
+                                    textAlign = TextAlign.Start
+                            )
                     )
-                    DenseTextField(
-                        value = "Talkative",
-                        setValue = { },
-                        placeholderText = "",
-                        enabled = false,
-                        textStyle = TextStyle(
-                            color = Color.Black,
-                            fontSize = 13.sp,
-                            textAlign = TextAlign.Start
-                        ),
-                        unfocusedIndicatorColor = Color.White
+                    Text(
+                            "Talkative",
+                            style = TextStyle(
+                                    color = Color.Black,
+                                    fontSize = 13.sp,
+                                    textAlign = TextAlign.Start
+                            )
                     )
                 }
                 ProfileSlider(
-                    sliderPosition = talkativity
+                        sliderPosition = talkativity
                 )
                 Row(
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                        modifier = Modifier
+                                .padding(horizontal = 20.dp)
+                                .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    DenseTextField(
-                        value = "No music",
-                        setValue = { },
-                        placeholderText = "",
-                        enabled = false,
-                        textStyle = TextStyle(
-                            color = Color.Black,
-                            fontSize = 13.sp,
-                            textAlign = TextAlign.Start
-                        ),
-                        unfocusedIndicatorColor = Color.White
+                    Text(
+                            "No music",
+                            style = TextStyle(
+                                    color = Color.Black,
+                                    fontSize = 13.sp,
+                                    textAlign = TextAlign.Start
+                            )
                     )
-                    DenseTextField(
-                        value = "Music",
-                        setValue = { },
-                        placeholderText = "",
-                        enabled = false,
-                        textStyle = TextStyle(
-                            color = Color.Black,
-                            fontSize = 13.sp,
-                            textAlign = TextAlign.Start
-                        ),
-                        unfocusedIndicatorColor = Color.White
+                    Text(
+                            "Music",
+                            style = TextStyle(
+                                    color = Color.Black,
+                                    fontSize = 13.sp,
+                                    textAlign = TextAlign.Start
+                            )
                     )
                 }
                 ProfileSlider(
-                    sliderPosition = musicAffinity
+                        sliderPosition = musicAffinity
                 )
             }
         }
         Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(20.dp)
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .height(20.dp)
         )
-        DenseTextField(
-            value = "Roadtrip Favorites",
-            setValue = { },
-            placeholderText = "",
-            enabled = false,
-            modifier = Modifier.padding(start = 29.dp),
-            textStyle = TextStyle(
-                color = Color.Black,
-                fontSize = 18.sp,
-                textAlign = TextAlign.Start
-            ),
-            unfocusedIndicatorColor = Color.White
+        Text(
+                "Roadtrip Favorites",
+                modifier = Modifier.padding(start = 29.dp),
+                style = TextStyle(
+                        color = Color.Black,
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Start
+                )
         )
         Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(10.dp)
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .height(10.dp)
         )
         Box(
-            modifier = Modifier
-                .padding(horizontal = 29.dp)
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(20.dp))
-                .border(
-                    width = 1.dp,
-                    color = Color.Black,
-                    shape = RoundedCornerShape(20.dp)
-                )
+                modifier = Modifier
+                        .padding(horizontal = 29.dp)
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(20.dp))
+                        .border(
+                                width = 1.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(20.dp)
+                        )
         ) {
             Column(
-                verticalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier
-                    .padding(horizontal = 15.dp)
-                    .padding(vertical = 20.dp)
+                    verticalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                            .padding(horizontal = 15.dp)
+                            .padding(vertical = 20.dp)
             ) {
                 // Row for favorite song
                 Row(
-                    horizontalArrangement = Arrangement.Start
+                        horizontalArrangement = Arrangement.Start
                 ) {
                     Icon(
-                        imageVector = Icons.Outlined.MusicNote,
-                        contentDescription = null
+                            imageVector = Icons.Outlined.MusicNote,
+                            contentDescription = null
+                    )
+                    Text(
+                            "Song: ",
+                            modifier = Modifier.padding(start = 15.dp),
+                            style = TextStyle(
+                                    color = Color.Black,
+                                    fontSize = 14.sp,
+                                    textAlign = TextAlign.Start
+                            )
                     )
                     DenseTextField(
-                        value = "Song: ",
-                        setValue = { },
-                        placeholderText = "",
-                        enabled = false,
-                        modifier = Modifier.padding(start = 15.dp),
-                        textStyle = TextStyle(
-                            color = Color.Black,
-                            fontSize = 14.sp,
-                            textAlign = TextAlign.Start
-                        ),
-                        unfocusedIndicatorColor = Color.White
-                    )
-                    DenseTextField(
-                        value = songText,
-                        setValue = setSongText,
-                        placeholderText = "",
-                        enabled = editEnabled.value,
-                        textStyle = TextStyle(
-                            color = Color.Black,
-                            fontSize = 14.sp,
-                            textAlign = TextAlign.Start
-                        ),
-                        unfocusedIndicatorColor = (
-                                if (editEnabled.value) Color.Black
-                                else Color.White)
+                            value = songText,
+                            setValue = setSongText,
+                            placeholderText = "",
+                            enabled = editEnabled.value,
+                            textStyle = TextStyle(
+                                    color = Color.Black,
+                                    fontSize = 14.sp,
+                                    textAlign = TextAlign.Start
+                            ),
+                            unfocusedIndicatorColor = (
+                                    if (editEnabled.value) Color.Black
+                                    else Color.White)
                     )
                 }
                 Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(5.dp)
+                        modifier = Modifier
+                                .fillMaxWidth()
+                                .height(5.dp)
                 )
                 // Row for favorite snack
                 Row(
-                    horizontalArrangement = Arrangement.Start
+                        horizontalArrangement = Arrangement.Start
                 ) {
                     Icon(
-                        imageVector = Icons.Outlined.Icecream,
-                        contentDescription = null
+                            imageVector = Icons.Outlined.Icecream,
+                            contentDescription = null
+                    )
+                    Text(
+                            "Snack: ",
+                            modifier = Modifier.padding(start = 15.dp),
+                            style = TextStyle(
+                                    color = Color.Black,
+                                    fontSize = 14.sp,
+                                    textAlign = TextAlign.Start
+                            )
                     )
                     DenseTextField(
-                        value = "Snack: ",
-                        setValue = { },
-                        placeholderText = "",
-                        enabled = false,
-                        modifier = Modifier.padding(start = 15.dp),
-                        textStyle = TextStyle(
-                            color = Color.Black,
-                            fontSize = 14.sp,
-                            textAlign = TextAlign.Start
-                        ),
-                        unfocusedIndicatorColor = Color.White
-                    )
-                    DenseTextField(
-                        value = snackText,
-                        setValue = setSnackText,
-                        placeholderText = "",
-                        enabled = editEnabled.value,
-                        textStyle = TextStyle(
-                            color = Color.Black,
-                            fontSize = 14.sp,
-                            textAlign = TextAlign.Start
-                        ),
-                        unfocusedIndicatorColor = (
-                                if (editEnabled.value) Color.Black
-                                else Color.White)
+                            value = snackText,
+                            setValue = setSnackText,
+                            placeholderText = "",
+                            enabled = editEnabled.value,
+                            textStyle = TextStyle(
+                                    color = Color.Black,
+                                    fontSize = 14.sp,
+                                    textAlign = TextAlign.Start
+                            ),
+                            unfocusedIndicatorColor = (
+                                    if (editEnabled.value) Color.Black
+                                    else Color.White)
                     )
                 }
                 Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(5.dp)
+                        modifier = Modifier
+                                .fillMaxWidth()
+                                .height(5.dp)
                 )
                 // Row for favorite stop
                 Row(
-                    horizontalArrangement = Arrangement.Start
+                        horizontalArrangement = Arrangement.Start
                 ) {
                     Icon(
-                        imageVector = Icons.Outlined.Fastfood,
-                        contentDescription = null
+                            imageVector = Icons.Outlined.Fastfood,
+                            contentDescription = null
+                    )
+                    Text(
+                            "Stop: ",
+                            modifier = Modifier.padding(start = 15.dp),
+                            style = TextStyle(
+                                    color = Color.Black,
+                                    fontSize = 14.sp,
+                                    textAlign = TextAlign.Start
+                            )
                     )
                     DenseTextField(
-                        value = "Stop: ",
-                        setValue = { },
-                        placeholderText = "",
-                        enabled = false,
-                        modifier = Modifier.padding(start = 15.dp),
-                        textStyle = TextStyle(
-                            color = Color.Black,
-                            fontSize = 14.sp,
-                            textAlign = TextAlign.Start
-                        ),
-                        unfocusedIndicatorColor = Color.White
-                    )
-                    DenseTextField(
-                        value = stopText,
-                        setValue = setStopText,
-                        placeholderText = "",
-                        enabled = editEnabled.value,
-                        textStyle = TextStyle(
-                            color = Color.Black,
-                            fontSize = 14.sp,
-                            textAlign = TextAlign.Start
-                        ),
-                        unfocusedIndicatorColor = (
-                                if (editEnabled.value) Color.Black
-                                else Color.White)
+                            value = stopText,
+                            setValue = setStopText,
+                            placeholderText = "",
+                            enabled = editEnabled.value,
+                            textStyle = TextStyle(
+                                    color = Color.Black,
+                                    fontSize = 14.sp,
+                                    textAlign = TextAlign.Start
+                            ),
+                            unfocusedIndicatorColor = (
+                                    if (editEnabled.value) Color.Black
+                                    else Color.White)
                     )
                 }
             }
@@ -481,28 +437,28 @@ fun ProfileCard(
 @Composable
 fun ProfileSlider(sliderPosition: MutableState<Float>) {
     Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.padding(
-            start = 15.dp,
-            end = 15.dp
-        )
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.padding(
+                    start = 15.dp,
+                    end = 15.dp
+            )
     ) {
         Slider(
-            modifier = Modifier.fillMaxWidth(),
-            value = sliderPosition.value,
-            onValueChange = {
-                sliderPosition.value = it
-            },
-            colors = customSliderColors()
+                modifier = Modifier.fillMaxWidth(),
+                value = sliderPosition.value,
+                onValueChange = {
+                    sliderPosition.value = it
+                },
+                colors = customSliderColors()
         )
     }
 }
 
 @Composable
 private fun customSliderColors(): SliderColors = SliderDefaults.colors(
-    activeTickColor = Color.Transparent,
-    inactiveTickColor = Color.Transparent,
-    inactiveTrackColor = Color.Black,
-    activeTrackColor = Color.Black,
-    thumbColor = Color.Black
+        activeTickColor = Color.Transparent,
+        inactiveTickColor = Color.Transparent,
+        inactiveTrackColor = Color.Black,
+        activeTrackColor = Color.Black,
+        thumbColor = Color.Black
 )
