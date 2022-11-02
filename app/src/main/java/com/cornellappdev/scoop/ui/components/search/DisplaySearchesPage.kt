@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
-import com.cornellappdev.scoop.models.Search
+import com.cornellappdev.scoop.data.models.Search
 import com.cornellappdev.scoop.ui.components.general.FilterRow
 import com.cornellappdev.scoop.ui.components.general.RideCard
 

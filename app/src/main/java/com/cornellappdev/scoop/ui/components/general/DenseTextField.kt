@@ -1,10 +1,17 @@
 package com.cornellappdev.scoop.ui.components.general
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.TextFieldDefaults.indicatorLine
@@ -56,22 +63,11 @@ fun DenseTextField(
         value = value,
         enabled = enabled,
         modifier = modifier
-            .indicatorLine(
-                enabled = enabled,
-                isError = false,
-                interactionSource = interactionSource,
-                colors = ExposedDropdownMenuDefaults.textFieldColors(
-                    backgroundColor = Color.Transparent,
-                    cursorColor = Color.Black,
-                    focusedIndicatorColor = Color.Black,
-                    unfocusedIndicatorColor = unfocusedIndicatorColor
-                ),
-                focusedIndicatorLineThickness = 2.dp,
-                unfocusedIndicatorLineThickness = 2.dp
-            )
-            .wrapContentHeight()
-            .width(IntrinsicSize.Min),
-        textStyle = textStyle,
+            .background(Color.Transparent, CircleShape)
+            .border(1.dp, Color.Black, RoundedCornerShape(10.dp))
+            .height(40.dp)
+            .fillMaxWidth(),
+        textStyle = TextStyle(color = Color.Black, fontSize = 12.sp),
         onValueChange = setValue,
         interactionSource = interactionSource,
         singleLine = singleLine
@@ -99,7 +95,7 @@ fun DenseTextField(
             value = value,
             innerTextField = innerTextField,
             singleLine = singleLine,
-            contentPadding = PaddingValues(0.dp),
+            contentPadding = PaddingValues(15.dp, 0.dp),
         )
     }
 }

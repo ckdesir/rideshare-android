@@ -34,8 +34,10 @@ import java.util.*
 @Composable
 
 fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
-    val dateFormatter = SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
-    val timeFormatter = SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
+    val dateFormatter =
+        SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
+    val timeFormatter =
+        SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
     val dateAndTimeFormatter =
         SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
     val (detailsText, setDetailsText) = rememberSaveable { mutableStateOf(rideState.value.description.orEmpty()) }

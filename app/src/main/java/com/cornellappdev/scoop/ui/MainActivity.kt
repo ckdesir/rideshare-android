@@ -3,22 +3,27 @@ package com.cornellappdev.scoop.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.ExperimentalAnimationApi
+import com.cornellappdev.scoop.ui.components.general.CalendarScreen
 import com.cornellappdev.scoop.ui.navigation.MainScreen
 import com.cornellappdev.scoop.ui.theme.ScoopTheme
-import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.insets.ProvideWindowInsets
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    @OptIn(
-        ExperimentalAnimationApi::class, ExperimentalPagerApi::class
-    )
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         setContent {
-            ScoopTheme {
-                MainScreen()
+            ProvideWindowInsets {
+                ScoopTheme {
+                    MainScreen()
+                }
             }
         }
     }
 }
+
+
+
