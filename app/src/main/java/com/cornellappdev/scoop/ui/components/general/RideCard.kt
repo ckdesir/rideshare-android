@@ -26,9 +26,9 @@ import com.cornellappdev.scoop.data.models.Ride
 import com.cornellappdev.scoop.ui.theme.BorderGray
 
 /**
- * Composable that displays information about the [Trip] passed in.
+ * Composable that displays information about the [ride] passed in.
  *
- * @param ride The trip to be turned into a [RideCard]
+ * @param ride The ride to be turned into a [RideCard]
  */
 @Composable
 fun RideCard(

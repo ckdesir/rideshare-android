@@ -1,22 +1,24 @@
 package com.cornellappdev.scoop.onboarding
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.components.RightArrow
-import com.cornellappdev.scoop.ui.components.general.DenseTextField
+import com.cornellappdev.scoop.ui.components.general.UnderlinedEditText
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingView2(pagerState: PagerState) {
@@ -54,7 +56,7 @@ fun OnboardingView2(pagerState: PagerState) {
                             bottom = 10.dp
                         )
                     )
-                    DenseTextField(
+                    UnderlinedEditText(
                         value = nameText,
                         setValue = setNameText,
                         placeholderText = "Enter Name"
@@ -74,7 +76,7 @@ fun OnboardingView2(pagerState: PagerState) {
                             bottom = 10.dp
                         )
                     )
-                    DenseTextField(
+                    UnderlinedEditText(
                         value = pronounsText,
                         setValue = setPronounsText,
                         placeholderText = "Enter Pronouns"
@@ -95,7 +97,7 @@ fun OnboardingView2(pagerState: PagerState) {
                             bottom = 10.dp
                         )
                     )
-                    DenseTextField(
+                    UnderlinedEditText(
                         value = hometownText,
                         setValue = setHometownText,
                         placeholderText = "Enter Hometown"
@@ -115,7 +117,7 @@ fun OnboardingView2(pagerState: PagerState) {
                             bottom = 10.dp
                         )
                     )
-                    DenseTextField(
+                    UnderlinedEditText(
                         value = yearText,
                         setValue = setYearText,
                         placeholderText = "Enter Class Year"

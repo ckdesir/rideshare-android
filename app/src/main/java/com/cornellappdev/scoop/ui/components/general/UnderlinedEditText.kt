@@ -1,17 +1,10 @@
 package com.cornellappdev.scoop.ui.components.general
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.TextFieldDefaults.indicatorLine
@@ -27,13 +20,13 @@ import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 
 /**
- * Creates a dense TextField, e.g. a TextField with no internal padding.
+ * Creates a underlined TextField, e.g. a TextField with no internal padding.
  *
  * @param value The text to be displayed
  * @param setValue The callback that is triggered when the input service updates the text.
  *      An updated text comes as a parameter of the callback.
  * @param placeholderText The placeholder to be displayed when the text field is in focus and the input text is empty
- * @param modifier Modifier to be applied to the [DenseTextField]
+ * @param modifier Modifier to be applied to the [UnderlinedEditText]
  * @param interactionSource The InteractionSource of this text field.
  *      Helps to determine if the text field is in focus or not.
  * @param enabled Controls the enabled state of the button.
@@ -44,7 +37,7 @@ import com.cornellappdev.scoop.ui.theme.PlaceholderGray
  */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun DenseTextField(
+fun UnderlinedEditText(
     value: String,
     setValue: (String) -> Unit,
     placeholderText: String,
@@ -63,11 +56,22 @@ fun DenseTextField(
         value = value,
         enabled = enabled,
         modifier = modifier
-            .background(Color.Transparent, CircleShape)
-            .border(1.dp, Color.Black, RoundedCornerShape(10.dp))
-            .height(40.dp)
-            .fillMaxWidth(),
-        textStyle = TextStyle(color = Color.Black, fontSize = 12.sp),
+            .indicatorLine(
+                enabled = enabled,
+                isError = false,
+                interactionSource = interactionSource,
+                colors = ExposedDropdownMenuDefaults.textFieldColors(
+                    backgroundColor = Color.Transparent,
+                    cursorColor = Color.Black,
+                    focusedIndicatorColor = Color.Black,
+                    unfocusedIndicatorColor = unfocusedIndicatorColor
+                ),
+                focusedIndicatorLineThickness = 2.dp,
+                unfocusedIndicatorLineThickness = 2.dp
+            )
+            .wrapContentHeight()
+            .width(IntrinsicSize.Min),
+        textStyle = textStyle,
         onValueChange = setValue,
         interactionSource = interactionSource,
         singleLine = singleLine
@@ -95,7 +99,7 @@ fun DenseTextField(
             value = value,
             innerTextField = innerTextField,
             singleLine = singleLine,
-            contentPadding = PaddingValues(15.dp, 0.dp),
+            contentPadding = PaddingValues(0.dp),
         )
     }
 }
