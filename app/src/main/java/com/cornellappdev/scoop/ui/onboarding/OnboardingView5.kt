@@ -1,22 +1,24 @@
 package com.cornellappdev.scoop.onboarding
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.components.RightArrow
-import com.cornellappdev.scoop.ui.components.general.DenseTextField
+import com.cornellappdev.scoop.ui.components.general.UnderlinedEditText
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingView5(pagerState: PagerState) {
@@ -34,7 +36,6 @@ fun OnboardingView5(pagerState: PagerState) {
             )
             .fillMaxWidth()
     ) {
-
         Column(
             Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(25.dp)
@@ -53,7 +54,7 @@ fun OnboardingView5(pagerState: PagerState) {
                             bottom = 10.dp
                         )
                     )
-                    DenseTextField(
+                    UnderlinedEditText(
                         value = snackText,
                         setValue = setSnackText,
                         placeholderText = "enter snack"
@@ -73,7 +74,7 @@ fun OnboardingView5(pagerState: PagerState) {
                             bottom = 10.dp
                         )
                     )
-                    DenseTextField(
+                    UnderlinedEditText(
                         value = songText,
                         setValue = setSongText,
                         placeholderText = "enter song"
@@ -94,7 +95,7 @@ fun OnboardingView5(pagerState: PagerState) {
                             bottom = 10.dp
                         )
                     )
-                    DenseTextField(
+                    UnderlinedEditText(
                         value = stopText,
                         setValue = setStopText,
                         placeholderText = "enter stop"
