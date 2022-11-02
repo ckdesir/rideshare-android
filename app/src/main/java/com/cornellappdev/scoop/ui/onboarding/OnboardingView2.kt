@@ -117,6 +117,9 @@ fun OnboardingView2(pagerState: PagerState) {
                             )
                         )
                         DenseTextField(
+                            modifier = Modifier.padding(
+                                bottom = 10.dp
+                            ),
                             value = yearText,
                             setValue = setYearText,
                             placeholderText = "Enter Class Year"

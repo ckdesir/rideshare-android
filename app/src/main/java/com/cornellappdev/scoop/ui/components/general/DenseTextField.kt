@@ -1,9 +1,14 @@
 package com.cornellappdev.scoop.ui.components.general
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.TextFieldDefaults.indicatorLine
@@ -47,22 +52,11 @@ fun DenseTextField(
     BasicTextField(
         value = value,
         modifier = modifier
-            .indicatorLine(
-                enabled = enabled,
-                isError = false,
-                interactionSource = interactionSource,
-                colors = ExposedDropdownMenuDefaults.textFieldColors(
-                    backgroundColor = Color.Transparent,
-                    cursorColor = Color.Black,
-                    focusedIndicatorColor = Color.Black,
-                    unfocusedIndicatorColor = Color.Black
-                ),
-                focusedIndicatorLineThickness = 2.dp,
-                unfocusedIndicatorLineThickness = 2.dp
-            )
-            .height(32.dp)
+            .background(Color.Transparent, CircleShape)
+            .border(1.dp, Color.Black, RoundedCornerShape(10.dp))
+            .height(40.dp)
             .fillMaxWidth(),
-        textStyle = TextStyle(color = Color.Black, fontSize = 22.sp),
+        textStyle = TextStyle(color = Color.Black, fontSize = 12.sp),
         onValueChange = setValue,
         interactionSource = interactionSource,
         singleLine = singleLine
@@ -79,13 +73,13 @@ fun DenseTextField(
             placeholder = {
                 Text(
                     text = placeholderText,
-                    style = TextStyle(color = PlaceholderGray, fontSize = 22.sp),
+                    style = TextStyle(color = Color.Black, fontSize = 12.sp),
                 )
             },
             value = value,
             innerTextField = innerTextField,
             singleLine = singleLine,
-            contentPadding = PaddingValues(0.dp),
+            contentPadding = PaddingValues(15.dp, 0.dp),
         )
     }
 }
