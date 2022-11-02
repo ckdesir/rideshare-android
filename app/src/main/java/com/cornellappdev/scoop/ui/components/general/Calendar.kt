@@ -1,5 +1,6 @@
 package com.cornellappdev.scoop.ui.components.general
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -15,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.cornellappdev.scoop.R
@@ -25,8 +25,7 @@ import com.cornellappdev.scoop.ui.components.calendar.CalendarYear
 import com.cornellappdev.scoop.ui.components.calendar.Circle
 import com.cornellappdev.scoop.ui.components.calendar.SemiRect
 import com.cornellappdev.scoop.ui.theme.DarkGreen
-import com.cornellappdev.scoop.ui.theme.LightGreen
-import com.cornellappdev.scoop.ui.theme.ScoopGreen
+import com.cornellappdev.scoop.ui.theme.Green
 
 typealias CalendarWeek = List<CalendarDay>
 
@@ -55,6 +54,7 @@ fun CalendarScreen(
     )
 }
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun CalendarContent(
     selectedDates: String,
@@ -82,7 +82,7 @@ fun CalendarContent(
 @Composable
 fun SelectDateButton() {
     val calendarViewModel: CalendarViewModel = viewModel()
-    val buttonColor : Color = if (calendarViewModel.datesSelected.toString().isBlank()) LightGreen else DarkGreen
+    val buttonColor : Color = if (calendarViewModel.datesSelected.toString().isBlank()) Green else DarkGreen
     Button(
         shape = RoundedCornerShape(5.dp),
         onClick = { /* ... */ },
@@ -255,7 +255,7 @@ private fun DayContainer(
     val stateDescriptionLabel = stringResource(
         if (selected) R.string.state_descr_selected else R.string.state_descr_not_selected
     )
-    Surface(
+    Surface(onClick = onClick,
         modifier = modifier
             .size(width = CELL_SIZE, height = CELL_SIZE)
             .then(
@@ -267,11 +267,8 @@ private fun DayContainer(
                     modifier.clearAndSetSemantics { }
                 }
             ),
-        onClick = onClick,
         enabled = onClickEnabled,
-        color = backgroundColor,
-        onClickLabel = onClickLabel
-    ) {
+        color = backgroundColor) {
         content()
     }
 }
@@ -334,7 +331,7 @@ private fun LazyListScope.itemsCalendarMonth(
 }
 
 private fun DaySelectedStatus.color(theme: Colors): Color = when (this) {
-    DaySelectedStatus.Selected -> ScoopGreen
+    DaySelectedStatus.Selected -> Green
     else -> Color.Transparent
 }
 

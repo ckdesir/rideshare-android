@@ -57,22 +57,11 @@ fun DenseTextField(
         value = value,
         enabled = enabled,
         modifier = modifier
-            .indicatorLine(
-                enabled = enabled,
-                isError = false,
-                interactionSource = interactionSource,
-                colors = ExposedDropdownMenuDefaults.textFieldColors(
-                    backgroundColor = Color.Transparent,
-                    cursorColor = Color.Black,
-                    focusedIndicatorColor = Color.Black,
-                    unfocusedIndicatorColor = Color.Black
-                ),
-                focusedIndicatorLineThickness = 2.dp,
-                unfocusedIndicatorLineThickness = 2.dp
-            )
-            .height(32.dp)
+            .background(Color.Transparent, CircleShape)
+            .border(1.dp, Color.Black, RoundedCornerShape(10.dp))
+            .height(40.dp)
             .fillMaxWidth(),
-        textStyle = TextStyle(color = Color.Black, fontSize = 22.sp),
+        textStyle = TextStyle(color = Color.Black, fontSize = 12.sp),
         onValueChange = setValue,
         interactionSource = interactionSource,
         singleLine = singleLine
