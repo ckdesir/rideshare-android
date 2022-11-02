@@ -1,4 +1,4 @@
-package com.cornellappdev.scoop.onboarding
+package com.cornellappdev.scoop.ui.onboarding
 
 import OnboardingProfile
 import androidx.compose.foundation.layout.Column
@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.cornellappdev.scoop.onboarding.*
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
