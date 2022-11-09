@@ -1,6 +1,7 @@
 package com.cornellappdev.scoop.onboarding
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -24,61 +25,68 @@ fun OnboardingView4(
     pagerState: PagerState
 ) {
 
-    Scaffold() {
+    Column(
+        Modifier.background(Color.White)
+    ) {
+
+        OnboardingHeader(pagerState = pagerState, title = "During Roadtrips")
 
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+                .padding(
+                    start = 40.dp,
+                    end = 40.dp,
+                )
+                .fillMaxWidth()
         ) {
-            OnboardingHeader(pagerState = pagerState, title = "During Roadtrips ...")
 
-            Spacer(modifier = Modifier.weight(1F))
+            Column(
+                modifier = Modifier
+                    .height(500.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
 
-            var sliderPosition1 = remember { mutableStateOf(0F) }
-            var sliderPosition2 = remember { mutableStateOf(0F) }
-            Text(
-                fontFamily = FontFamily.Default,
-                text = "How talkative are you?",
-                fontSize = 20.sp,
-            )
+                var sliderPosition1 = remember { mutableStateOf(0F) }
+                var sliderPosition2 = remember { mutableStateOf(0F) }
+                Text(
+                    fontFamily = FontFamily.Default,
+                    text = "How talkative are you?",
+                    fontSize = 20.sp,
+                )
 
-            OnboardingSlider(
-                values = listOf("Quiet", " ", " ", "Talkative"),
-                sliderPosition = sliderPosition1
-            )
+                OnboardingSlider(
+                    values = listOf("Quiet", " ", " ", "Talkative"),
+                    sliderPosition = sliderPosition1
+                )
 
-            Text(
-                fontFamily = FontFamily.Default,
-                text = "Do you like music?",
-                fontSize = 20.sp,
-            )
+                Text(
+                    fontFamily = FontFamily.Default,
+                    text = "Do you like music?",
+                    fontSize = 20.sp,
+                )
 
-            OnboardingSlider(
-                values = listOf("No Music", " ", " ", "Music"),
-                sliderPosition = sliderPosition2
-            )
-
+                OnboardingSlider(
+                    values = listOf("No Music", " ", " ", "Music"),
+                    sliderPosition = sliderPosition2
+                )
+            }
             Box(
                 modifier = Modifier
                     .align(Alignment.End)
-                    .padding(
-                        end = 30.dp,
-                        top = 20.dp,
-                    )
-
+                    .padding(20.dp)
             ) {
                 RightArrow(pagerState)
             }
-
-            Spacer(modifier = Modifier.weight(1.25F))
-
+            Spacer(modifier = Modifier.height(40.dp))
+            Row(
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                OnboardingFooter(carIndex = pagerState.currentPage)
+            }
         }
-
     }
-
-
 }
 
 @Composable

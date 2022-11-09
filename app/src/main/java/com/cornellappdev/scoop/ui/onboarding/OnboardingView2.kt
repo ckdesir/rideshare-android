@@ -1,24 +1,25 @@
-package com.cornellappdev.scoop.onboarding
+package com.cornellappdev.scoop.ui.onboarding
 
-import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.components.RightArrow
-import com.cornellappdev.scoop.ui.components.general.UnderlinedEditText
+import com.cornellappdev.scoop.onboarding.OnboardingFooter
+import com.cornellappdev.scoop.onboarding.OnboardingHeader
+import com.cornellappdev.scoop.ui.components.general.DenseTextField
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingView2(pagerState: PagerState) {
@@ -28,113 +29,213 @@ fun OnboardingView2(pagerState: PagerState) {
     val (hometownText, setHometownText) = rememberSaveable { mutableStateOf("") }
     val (yearText, setYearText) = rememberSaveable { mutableStateOf("") }
 
-    Scaffold(
-
-        modifier = Modifier
-            .padding(
-                start = 40.dp,
-                end = 40.dp,
-            )
-            .fillMaxWidth()
+    Column(
+        Modifier.background(Color.White)
     ) {
+        OnboardingHeader(pagerState = pagerState, "About You")
 
         Column(
-            Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(25.dp)
+            modifier = Modifier
+                .padding(
+                    start = 40.dp,
+                    end = 40.dp,
+                )
         ) {
-            OnboardingHeader(pagerState = pagerState, "About You")
-            Spacer(modifier = Modifier.weight(1F))
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .height(500.dp),
+                verticalArrangement = Arrangement.spacedBy(25.dp),
+            ) {
 
-            Box() {
-                Column(Modifier.fillMaxWidth()) {
-                    Text(
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Default,
-                        text = "Name",
-                        fontSize = 20.sp,
-                        modifier = Modifier.padding(
-                            bottom = 10.dp
+                Spacer(modifier = Modifier.height(30.dp))
+
+                Box() {
+                    Column(Modifier.fillMaxWidth()) {
+                        Text(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Default,
+                            text = "Name",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(
+                                bottom = 10.dp
+                            )
                         )
-                    )
-                    UnderlinedEditText(
-                        value = nameText,
-                        setValue = setNameText,
-                        placeholderText = "Enter Name"
-                    )
+                        DenseTextField(
+                            value = nameText,
+                            setValue = setNameText,
+                            placeholderText = "Enter Name"
+                        )
+                    }
                 }
 
-            }
-
-            Box(Modifier.fillMaxWidth()) {
-                Column() {
-                    Text(
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Default,
-                        text = "Pronouns",
-                        fontSize = 20.sp,
-                        modifier = Modifier.padding(
-                            bottom = 10.dp
+                Box(Modifier.fillMaxWidth()) {
+                    Column() {
+                        Text(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Default,
+                            text = "Pronouns",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(
+                                bottom = 10.dp
+                            )
                         )
-                    )
-                    UnderlinedEditText(
-                        value = pronounsText,
-                        setValue = setPronounsText,
-                        placeholderText = "Enter Pronouns"
-                    )
+                        DenseTextField(
+                            value = pronounsText,
+                            setValue = setPronounsText,
+                            placeholderText = "Enter Pronouns"
+                        )
+                    }
                 }
 
-            }
-
-            Box(Modifier.fillMaxWidth()) {
-
-                Column() {
-                    Text(
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Default,
-                        text = "Name",
-                        fontSize = 20.sp,
-                        modifier = Modifier.padding(
-                            bottom = 10.dp
+                Box(Modifier.fillMaxWidth()) {
+                    Column() {
+                        Text(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Default,
+                            text = "Name",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(
+                                bottom = 10.dp
+                            )
                         )
-                    )
-                    UnderlinedEditText(
-                        value = hometownText,
-                        setValue = setHometownText,
-                        placeholderText = "Enter Hometown"
-                    )
+                        DenseTextField(
+                            value = hometownText,
+                            setValue = setHometownText,
+                            placeholderText = "Enter Hometown"
+                        )
+                    }
                 }
 
-            }
-
-            Box(Modifier.fillMaxWidth()) {
-                Column() {
-                    Text(
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Default,
-                        text = "Class Year",
-                        fontSize = 20.sp,
-                        modifier = Modifier.padding(
-                            bottom = 10.dp
+                Box(Modifier.fillMaxWidth()) {
+                    Column() {
+                        Text(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Default,
+                            text = "Class Year",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(
+                                bottom = 10.dp
+                            )
                         )
-                    )
-                    UnderlinedEditText(
-                        value = yearText,
-                        setValue = setYearText,
-                        placeholderText = "Enter Class Year"
-                    )
+                        DenseTextField(
+                            modifier = Modifier.padding(
+                                bottom = 10.dp
+                            ),
+                            value = yearText,
+                            setValue = setYearText,
+                            placeholderText = "Enter Class Year"
+                        )
+                    }
                 }
-
             }
 
             Box(
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(20.dp)
+            ) {
 
-                modifier = Modifier.align(Alignment.End)
+                Spacer(modifier = Modifier.height(30.dp))
+
+                Box() {
+                    Column(Modifier.fillMaxWidth()) {
+                        Text(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Default,
+                            text = "Name",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(
+                                bottom = 10.dp
+                            )
+                        )
+                        DenseTextField(
+                            value = nameText,
+                            setValue = setNameText,
+                            placeholderText = "Enter Name"
+                        )
+                    }
+                }
+
+                Box(Modifier.fillMaxWidth()) {
+                    Column() {
+                        Text(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Default,
+                            text = "Pronouns",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(
+                                bottom = 10.dp
+                            )
+                        )
+                        DenseTextField(
+                            value = pronounsText,
+                            setValue = setPronounsText,
+                            placeholderText = "Enter Pronouns"
+                        )
+                    }
+                }
+
+                Box(Modifier.fillMaxWidth()) {
+                    Column() {
+                        Text(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Default,
+                            text = "Name",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(
+                                bottom = 10.dp
+                            )
+                        )
+                        DenseTextField(
+                            value = hometownText,
+                            setValue = setHometownText,
+                            placeholderText = "Enter Hometown"
+                        )
+                    }
+                }
+
+                Box(Modifier.fillMaxWidth()) {
+                    Column() {
+                        Text(
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = FontFamily.Default,
+                            text = "Class Year",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(
+                                bottom = 10.dp
+                            )
+                        )
+                        DenseTextField(
+                            value = yearText,
+                            setValue = setYearText,
+                            placeholderText = "Enter Class Year"
+                        )
+                    }
+                }
+            }
+
+            Box(
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(20.dp)
             ) {
                 RightArrow(pagerState)
             }
-
-            Spacer(modifier = Modifier.weight(1.5F))
-
+            Spacer(modifier = Modifier.height(40.dp))
+            Row(
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                OnboardingFooter(carIndex = pagerState.currentPage)
+            }
+            Spacer(modifier = Modifier.height(40.dp))
+            Row(
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                OnboardingFooter(carIndex = pagerState.currentPage)
+            }
         }
     }
 }

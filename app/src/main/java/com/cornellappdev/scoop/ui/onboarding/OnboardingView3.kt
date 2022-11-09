@@ -1,14 +1,15 @@
 package com.cornellappdev.scoop.onboarding
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.RadioButton
 import androidx.compose.material.RadioButtonDefaults
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -19,48 +20,66 @@ import com.google.accompanist.pager.PagerState
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingView3(pagerState: PagerState) {
-    Scaffold {
+
+    Column(
+        Modifier.background(Color.White)
+    ) {
+        OnboardingHeader(pagerState = pagerState, "About You")
+
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+                .padding(
+                    start = 40.dp,
+                    end = 40.dp,
+                )
+                .fillMaxWidth()
         ) {
-            OnboardingHeader(pagerState = pagerState, "About You")
-            Spacer(modifier = Modifier.weight(1F))
-            Text(
-                fontFamily = FontFamily.Default,
-                text = "What’s you preferred method of contact?",
-                fontSize = 19.sp,
-            )
-            methodButtons()
+
+            Column(
+                modifier = Modifier.height(500.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+
+                Text(
+                    fontFamily = FontFamily.Default,
+                    text = "What’s you preferred method of contact?",
+                    fontSize = 16.sp,
+                )
+                MethodButtons()
+            }
+
             Box(
                 modifier = Modifier
                     .align(Alignment.End)
-                    .padding(end = 30.dp)
-
+                    .padding(20.dp)
             ) {
                 RightArrow(pagerState)
             }
-            Spacer(
-                modifier = Modifier
-                    .weight(1.5F)
-            )
+            Spacer(modifier = Modifier.height(40.dp))
+            Row(
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.Center,
+            ) {
+                OnboardingFooter(carIndex = pagerState.currentPage)
+            }
         }
-
     }
+
+
 }
 
+
 @Composable
-fun methodButtons() {
+fun MethodButtons() {
     var selected by remember { mutableStateOf("email") }
 
     Column(
         modifier = Modifier
             .padding(
-                start = 40.dp
+                start = 50.dp
             )
-            .fillMaxWidth()
+            .fillMaxWidth(),
     ) {
 
         Row(
@@ -101,15 +120,5 @@ fun methodButtons() {
             )
 
         }
-
     }
-
-
 }
-
-
-//@Preview
-//@Composable
-//fun OnboardingPreview(){
-//    OnboardingView3(pagerState)
-//}
