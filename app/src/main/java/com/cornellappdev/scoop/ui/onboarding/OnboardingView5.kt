@@ -18,6 +18,7 @@ import com.cornellappdev.scoop.ui.components.general.UnderlinedEditText
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
+
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingView5(pagerState: PagerState) {
@@ -123,7 +124,6 @@ fun OnboardingView5(pagerState: PagerState) {
             }
         }
     }
-
 }
 
 

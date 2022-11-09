@@ -25,7 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
-import com.cornellappdev.scoop.models.Search
+import com.cornellappdev.scoop.data.models.Search
 import com.cornellappdev.scoop.ui.components.general.CityPicker
 import com.cornellappdev.scoop.ui.components.post.createDatePickerDialog
 import java.text.SimpleDateFormat

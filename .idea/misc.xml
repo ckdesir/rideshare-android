@@ -21,8 +21,11 @@
         <entry key="../../../../../layout/compose-model-1647567740792.xml" value="0.165" />
         <entry key="../../../../../layout/compose-model-1647582103000.xml" value="0.1" />
         <entry key="../../../../../layout/compose-model-1651093627175.xml" value="0.1" />
+<<<<<<< HEAD
         <entry key="../../../../../layout/compose-model-1667324872184.xml" value="0.1111111111111111" />
         <entry key="../../../../../layout/compose-model-1667755065935.xml" value="0.14695945945945946" />
+=======
+>>>>>>> master
         <entry key="app/src/main/res/drawable-v24/ic_baseline_arrow_forward_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2705" />
         <entry key="app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.2705" />

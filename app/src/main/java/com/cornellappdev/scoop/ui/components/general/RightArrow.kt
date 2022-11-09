@@ -14,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.ui.theme.Green
+import androidx.compose.ui.graphics.Color
 import com.google.accompanist.pager.PagerState
 import kotlinx.coroutines.launch
 
