@@ -32,6 +32,7 @@
     <string name="stop_editing">Stop editing</string>
     <string name="profile_background">Profile Background</string>
     <string name="name_placeholder">Name</string>
+    <string name="people_icon">people icon</string>
     <string-array name="methods_of_transportation">
         <item>student driving</item>
         <item>shared taxi</item>
