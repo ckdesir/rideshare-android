@@ -1,6 +1,7 @@
 package com.cornellappdev.scoop.onboarding
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -8,12 +9,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
+import com.cornellappdev.scoop.ui.theme.Green
 import com.google.accompanist.pager.PagerState
 import kotlinx.coroutines.launch
 
@@ -79,11 +83,20 @@ fun OnboardingHeader(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            Image(
-                painterResource(R.drawable.header_line_dotted_green),
-                contentDescription = "",
-                contentScale = ContentScale.Crop,
-            )
+            val pathEffect = PathEffect.dashPathEffect(floatArrayOf(15f, 15f), 0f)
+            Canvas(
+                Modifier
+                    .fillMaxWidth()
+                    .height(2.dp)
+            ) {
+                drawLine(
+                    color = Green,
+                    start = Offset(size.width * 3 / 7, 0f),
+                    end = Offset(size.width + 100f, 0f),
+                    pathEffect = pathEffect,
+                    strokeWidth = 2f
+                )
+            }
         }
 
     }
