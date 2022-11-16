@@ -29,7 +29,7 @@ fun OnboardingView3(pagerState: PagerState) {
     Column(
         Modifier.background(Color.White)
     ) {
-        OnboardingHeader(pagerState = pagerState, "About You")
+        OnboardingHeader("About You")
 
         Column(
             modifier = Modifier

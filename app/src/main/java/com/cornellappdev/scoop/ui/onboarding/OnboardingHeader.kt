@@ -20,7 +20,6 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterialApi::class, com.google.accompanist.pager.ExperimentalPagerApi::class)
 @Composable
 fun OnboardingHeader(
-    pagerState: PagerState,
     title: String,
 ) {
     val scope = rememberCoroutineScope()
@@ -28,7 +27,8 @@ fun OnboardingHeader(
     Card(
         modifier = Modifier
             .padding(
-                bottom = 20.dp
+                bottom = 20.dp,
+                top = 30.dp
             )
             .fillMaxWidth(),
         elevation = 0.dp
@@ -42,24 +42,6 @@ fun OnboardingHeader(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
             ) {
-                Button(
-                    onClick = {
-                        scope.launch {
-                            pagerState.animateScrollToPage(pagerState.currentPage - 1)
-                        }
-                    },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
-                    border = BorderStroke(width = 0.dp, color = Color.White),
-                    elevation = ButtonDefaults.elevation(0.dp)
-                ) {
-
-                    Image(
-                        painterResource(R.drawable.ic_baseline_arrow_back_24),
-                        contentDescription = "",
-                        contentScale = ContentScale.Crop,
-                    )
-                }
-
 
                 Spacer(modifier = Modifier.weight(2F))
 

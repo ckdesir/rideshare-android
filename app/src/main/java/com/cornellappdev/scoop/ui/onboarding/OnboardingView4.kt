@@ -30,7 +30,7 @@ fun OnboardingView4(
         Modifier.background(Color.White)
     ) {
 
-        OnboardingHeader(pagerState = pagerState, title = "During Roadtrips")
+        OnboardingHeader(title = "During Roadtrips")
 
         Column(
             modifier = Modifier
@@ -78,7 +78,7 @@ fun OnboardingView4(
                 horizontalArrangement  =  Arrangement.SpaceBetween
             ) {
                 BackArrow(pagerState)
-                RightArrow(pagerState)
+                RightArrow(pagerState, true)
             }
             Spacer(modifier = Modifier.height(40.dp))
             Row(

@@ -33,7 +33,7 @@ fun OnboardingView5(pagerState: PagerState) {
             Column(
         Modifier.background(Color.White)
     ) {
-        OnboardingHeader(pagerState = pagerState, "Favorites")
+        OnboardingHeader("Favorites")
 
         Column(
             modifier = Modifier
