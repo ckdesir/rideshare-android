@@ -21,6 +21,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cornellappdev.scoop.ui.theme.Green
 
 /**
  * Creates a dense TextField, e.g. a TextField with no internal padding.
@@ -54,6 +55,10 @@ fun DenseTextField(
     )
 ) {
     OutlinedTextField(
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = Green,
+            cursorColor = Green,
+            focusedLabelColor = Green),
         value = value,
         onValueChange =setValue,
         placeholder = {Text(text=placeholderText)},

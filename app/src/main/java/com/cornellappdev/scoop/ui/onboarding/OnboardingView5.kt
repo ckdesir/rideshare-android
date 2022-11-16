@@ -12,6 +12,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
 import com.cornellappdev.scoop.ui.components.general.DenseTextField
 import com.cornellappdev.scoop.ui.components.general.UnderlinedEditText
@@ -27,7 +28,9 @@ fun OnboardingView5(pagerState: PagerState) {
     val (songText, setSongText) = rememberSaveable { mutableStateOf("") }
     val (stopText, setStopText) = rememberSaveable { mutableStateOf("") }
 
-    Column(
+    var isComplete = stopText != "" && songText != "" && snackText != ""
+
+            Column(
         Modifier.background(Color.White)
     ) {
         OnboardingHeader(pagerState = pagerState, "Favorites")
@@ -47,7 +50,7 @@ fun OnboardingView5(pagerState: PagerState) {
                 verticalArrangement = Arrangement.spacedBy(25.dp)
             ) {
 
-                Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(90.dp))
 
                 Box() {
                     Column(Modifier.fillMaxWidth()) {
@@ -83,13 +86,12 @@ fun OnboardingView5(pagerState: PagerState) {
                     }
                 }
             }
-
-            Box(
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(20.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement  =  Arrangement.SpaceBetween
             ) {
-                RightArrow(pagerState)
+                BackArrow(pagerState)
+                RightArrow(pagerState, isComplete)
             }
             Spacer(modifier = Modifier.height(40.dp))
             Row(

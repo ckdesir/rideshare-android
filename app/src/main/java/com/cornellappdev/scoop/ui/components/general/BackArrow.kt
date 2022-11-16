@@ -1,5 +1,6 @@
 package com.cornellappdev.scoop.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -15,17 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.cornellappdev.scoop.ui.theme.DarkGray
-import com.cornellappdev.scoop.ui.theme.Gray
-import com.cornellappdev.scoop.ui.theme.Green
+import com.cornellappdev.scoop.ui.theme.*
 import com.google.accompanist.pager.PagerState
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class, com.google.accompanist.pager.ExperimentalPagerApi::class)
 @Composable
-fun RightArrow(
+fun BackArrow(
     pagerState: PagerState,
-    isComplete : Boolean = false,
 ) {
     val scope = rememberCoroutineScope()
 
@@ -34,11 +32,11 @@ fun RightArrow(
             .width(95.dp)
             .height(50.dp),
         shape = RoundedCornerShape(30.dp),
-        enabled = isComplete,
-        backgroundColor = if (isComplete) Green else Gray,
+        backgroundColor = Color.White,
+        border = BorderStroke(1.dp, color = Color.Black),
         onClick = {
             scope.launch {
-                pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                pagerState.animateScrollToPage(if(pagerState.currentPage == 0) 0 else pagerState.currentPage - 1)
             }
         }
     ) {
@@ -46,10 +44,10 @@ fun RightArrow(
             modifier = Modifier.fillMaxSize()
         ) {
             Text(
-                text = "Next",
+                text = "Back",
                 modifier = Modifier.align(Alignment.Center),
                 fontWeight = FontWeight.Bold,
-                color = if (isComplete) Color.Black else DarkGray
+                color = Green
             )
         }
     }

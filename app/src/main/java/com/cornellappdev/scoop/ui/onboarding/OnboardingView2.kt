@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
 import com.cornellappdev.scoop.onboarding.OnboardingFooter
 import com.cornellappdev.scoop.onboarding.OnboardingHeader
@@ -28,6 +29,8 @@ fun OnboardingView2(pagerState: PagerState) {
     val (pronounsText, setPronounsText) = rememberSaveable { mutableStateOf("") }
     val (hometownText, setHometownText) = rememberSaveable { mutableStateOf("") }
     val (yearText, setYearText) = rememberSaveable { mutableStateOf("") }
+
+    var isComplete = nameText != "" && pronounsText != "" && hometownText != "" && yearText != ""
 
     Column(
         Modifier.background(Color.White)
@@ -48,7 +51,7 @@ fun OnboardingView2(pagerState: PagerState) {
                 verticalArrangement = Arrangement.spacedBy(25.dp),
             ) {
 
-                Spacer(modifier = Modifier.height(30.dp))
+                Spacer(modifier = Modifier.height(70.dp))
 
                 Box() {
                     Column(Modifier.fillMaxWidth()) {
@@ -97,19 +100,12 @@ fun OnboardingView2(pagerState: PagerState) {
                     }
                 }
             }
-            Box(
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(20.dp)
-            ) {
-                RightArrow(pagerState)
-            }
-            Spacer(modifier = Modifier.height(40.dp))
             Row(
-                verticalAlignment = Alignment.Bottom,
-                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement  =  Arrangement.SpaceBetween
             ) {
-                OnboardingFooter(carIndex = pagerState.currentPage)
+                BackArrow(pagerState)
+                RightArrow(pagerState, isComplete)
             }
             Spacer(modifier = Modifier.height(40.dp))
             Row(

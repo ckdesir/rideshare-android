@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
 import com.cornellappdev.scoop.onboarding.OnboardingFooter
 import com.cornellappdev.scoop.onboarding.OnboardingHeader
@@ -47,18 +48,18 @@ fun OnboardingView3(pagerState: PagerState) {
 
                 Text(
                     fontFamily = FontFamily.Default,
-                    text = "What’s you preferred method of contact?",
+                    text = "PREFERRED CONTACT METHOD",
                     fontSize = 16.sp,
                 )
                 MethodButtons()
             }
 
-            Box(
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(20.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement  =  Arrangement.SpaceBetween
             ) {
-                RightArrow(pagerState)
+                BackArrow(pagerState)
+                RightArrow(pagerState, true)
             }
             Spacer(modifier = Modifier.height(40.dp))
             Row(
@@ -69,7 +70,6 @@ fun OnboardingView3(pagerState: PagerState) {
             }
         }
     }
-
 
 }
 
@@ -95,8 +95,8 @@ fun MethodButtons() {
                 selected = selected == "email",
                 onClick = { selected = "email" },
                 colors = RadioButtonDefaults.colors(
-                    selectedColor = androidx.compose.ui.graphics.Color.Black,
-                    unselectedColor = androidx.compose.ui.graphics.Color.Gray,
+                    selectedColor = Color.Black,
+                    unselectedColor = Color.Gray,
                 )
             )
             Text(
@@ -112,8 +112,8 @@ fun MethodButtons() {
                 selected = selected == "phone",
                 onClick = { selected = "phone" },
                 colors = RadioButtonDefaults.colors(
-                    selectedColor = androidx.compose.ui.graphics.Color.Black,
-                    unselectedColor = androidx.compose.ui.graphics.Color.Gray,
+                    selectedColor = Color.Black,
+                    unselectedColor = Color.Gray,
                 )
             )
             Text(
