@@ -30,7 +30,7 @@ fun OnboardingView4(
         Modifier.background(Color.White)
     ) {
 
-        OnboardingHeader(pagerState = pagerState, title = "During Roadtrips")
+        NavHeader(pagerState = pagerState, title = "During Roadtrips")
 
         Column(
             modifier = Modifier

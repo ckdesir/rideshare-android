@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
 import com.cornellappdev.scoop.onboarding.OnboardingFooter
-import com.cornellappdev.scoop.onboarding.OnboardingHeader
+import com.cornellappdev.scoop.onboarding.NavHeader
 import com.cornellappdev.scoop.ui.components.general.DenseTextField
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
@@ -29,7 +29,7 @@ fun OnboardingView3(pagerState: PagerState) {
     Column(
         Modifier.background(Color.White)
     ) {
-        OnboardingHeader(pagerState = pagerState, title = "About You")
+        NavHeader(pagerState = pagerState, title = "About You")
 
         Column(
             modifier = Modifier
