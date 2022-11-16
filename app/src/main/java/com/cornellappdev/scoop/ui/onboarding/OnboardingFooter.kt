@@ -56,10 +56,10 @@ fun OnboardingFooter(
 
     LazyRow(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(15.dp),
     ) {
-        items(7) { index ->
-            if (index <= 5) {
+        items(6) { index ->
+            if (index <= 4) {
                 FooterImage(currIndex = index, carIndex = carIndex)
             } else {
                 Image(

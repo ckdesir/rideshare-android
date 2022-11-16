@@ -43,7 +43,7 @@ fun OnboardingProfile(pagerState: PagerState) {
         Modifier.background(Color.White)
     ) {
 
-        OnboardingHeader(title = "Profile")
+        OnboardingHeader(pagerState = pagerState, title = "Profile", hasBackArrow = true)
 
         Column(
             modifier = Modifier
