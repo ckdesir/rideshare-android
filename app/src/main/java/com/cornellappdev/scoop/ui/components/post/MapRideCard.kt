@@ -281,6 +281,7 @@ fun ProfileMiniCard(
             contentDescription = null,
             modifier = Modifier
                 .size(41.dp)
+                .align(CenterVertically)
                 .clip(CircleShape)
         )
 
