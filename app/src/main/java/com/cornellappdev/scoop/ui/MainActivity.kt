@@ -3,7 +3,6 @@ package com.cornellappdev.scoop.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.cornellappdev.scoop.ui.components.general.CalendarScreen
 import com.cornellappdev.scoop.ui.navigation.MainScreen
 import com.cornellappdev.scoop.ui.theme.ScoopTheme
 import com.google.accompanist.insets.ProvideWindowInsets
