@@ -25,10 +25,15 @@ val Roboto = FontFamily(
     Font(R.font.roboto_medium, FontWeight.Medium)
 )
 
+val Sen = FontFamily(
+    Font(R.font.sen_regular)
+)
+
 val typography = Typography(
     defaultFontFamily = FontFamily.SansSerif,
     h5 = defaultTypography.h5.copy(fontSize = 22.sp, color = Color.Black),
     subtitle1 = defaultTypography.subtitle1.copy(fontSize = 18.sp, color = Color.Black),
     subtitle2 = TextStyle(fontFamily = Rambla, fontSize = 16.sp, color = Color.Black),
-    body1 = TextStyle(fontFamily = Roboto, fontSize = 16.sp, color = Color.Black)
+    body1 = TextStyle(fontFamily = Roboto, fontSize = 16.sp, color = Color.Black),
+    h1 = TextStyle(fontFamily = Sen, fontSize = 24.sp, color = Color.Black)
 )
