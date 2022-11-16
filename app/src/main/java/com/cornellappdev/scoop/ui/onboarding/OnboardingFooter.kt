@@ -51,7 +51,7 @@ fun FooterImage(
 @OptIn(ExperimentalPagerApi::class, androidx.compose.material.ExperimentalMaterialApi::class)
 @Composable
 fun OnboardingFooter(
-    carIndex: Int
+    carIndex: Int,
 ) {
 
     LazyRow(
@@ -59,7 +59,7 @@ fun OnboardingFooter(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         items(7) { index ->
-            if (index < 6) {
+            if (index <= 5) {
                 FooterImage(currIndex = index, carIndex = carIndex)
             } else {
                 Image(

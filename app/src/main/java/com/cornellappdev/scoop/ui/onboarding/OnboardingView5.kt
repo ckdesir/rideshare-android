@@ -51,16 +51,8 @@ fun OnboardingView5(pagerState: PagerState) {
 
                 Box() {
                     Column(Modifier.fillMaxWidth()) {
-                        Text(
-                            fontWeight = FontWeight.Bold,
-                            fontFamily = FontFamily.Default,
-                            text = "Roadtrip Snack",
-                            fontSize = 20.sp,
-                            modifier = Modifier.padding(
-                                bottom = 10.dp
-                            )
-                        )
                         DenseTextField(
+                            label="Roadtrip Snack",
                             value = snackText,
                             setValue = setSnackText,
                             placeholderText = "enter snack"
@@ -70,16 +62,8 @@ fun OnboardingView5(pagerState: PagerState) {
 
                 Box(Modifier.fillMaxWidth()) {
                     Column() {
-                        Text(
-                            fontWeight = FontWeight.Bold,
-                            fontFamily = FontFamily.Default,
-                            text = "Roadtrip Song",
-                            fontSize = 20.sp,
-                            modifier = Modifier.padding(
-                                bottom = 10.dp
-                            )
-                        )
                         DenseTextField(
+                            label="Roadtrip Song",
                             value = songText,
                             setValue = setSongText,
                             placeholderText = "enter song"
@@ -90,16 +74,8 @@ fun OnboardingView5(pagerState: PagerState) {
                 Box(Modifier.fillMaxWidth()) {
 
                     Column() {
-                        Text(
-                            fontWeight = FontWeight.Bold,
-                            fontFamily = FontFamily.Default,
-                            text = "Roadtrip Stop",
-                            fontSize = 20.sp,
-                            modifier = Modifier.padding(
-                                bottom = 10.dp
-                            )
-                        )
                         DenseTextField(
+                            label="Stop",
                             value = stopText,
                             setValue = setStopText,
                             placeholderText = "enter stop"

@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -43,48 +45,23 @@ fun DenseTextField(
     setValue: (String) -> Unit,
     placeholderText: String,
     modifier: Modifier = Modifier,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    enabled: Boolean = true,
-    singleLine: Boolean = true,
-    unfocusedIndicatorColor: Color = Color.Black,
+    label: String,
+    phoneNumber: Boolean = false,
     textStyle: TextStyle = TextStyle(
         color = Color.Black,
         fontSize = 22.sp,
         textAlign = TextAlign.Start
     )
 ) {
-    BasicTextField(
+    OutlinedTextField(
         value = value,
-        enabled = enabled,
+        onValueChange =setValue,
+        placeholder = {Text(text=placeholderText)},
         modifier = modifier
-            .background(Color.Transparent, CircleShape)
-            .border(1.dp, Color.Black, RoundedCornerShape(10.dp))
-            .height(40.dp)
+            .height(65.dp)
             .fillMaxWidth(),
-        textStyle = TextStyle(color = Color.Black, fontSize = 12.sp),
-        onValueChange = setValue,
-        interactionSource = interactionSource,
-        singleLine = singleLine
-    ) { innerTextField ->
-        TextFieldDefaults.TextFieldDecorationBox(
-            colors = ExposedDropdownMenuDefaults.textFieldColors(
-                backgroundColor = Color.Transparent,
-                cursorColor = Color.Black,
-                focusedIndicatorColor = Color.Black.copy(alpha = ContentAlpha.high)
-            ),
-            enabled = enabled,
-            interactionSource = interactionSource,
-            visualTransformation = VisualTransformation.None,
-            placeholder = {
-                Text(
-                    text = placeholderText,
-                    style = TextStyle(color = Color.Black, fontSize = 12.sp),
-                )
-            },
-            value = value,
-            innerTextField = innerTextField,
-            singleLine = singleLine,
-            contentPadding = PaddingValues(15.dp, 0.dp),
-        )
-    }
+        textStyle = TextStyle(color = Color.Black, fontSize = 17.sp),
+        label={Text(text=label)},
+        keyboardOptions = KeyboardOptions(keyboardType = if (phoneNumber) KeyboardType.Phone else KeyboardType.Text)
+    )
 }
