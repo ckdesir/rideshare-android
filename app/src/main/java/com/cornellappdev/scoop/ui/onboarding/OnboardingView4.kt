@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
+import com.cornellappdev.scoop.ui.screens.NavHeader
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 

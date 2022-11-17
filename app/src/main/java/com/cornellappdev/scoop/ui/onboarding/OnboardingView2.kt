@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
 import com.cornellappdev.scoop.onboarding.OnboardingFooter
-import com.cornellappdev.scoop.onboarding.NavHeader
 import com.cornellappdev.scoop.ui.components.general.DenseTextField
+import com.cornellappdev.scoop.ui.screens.NavHeader
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
