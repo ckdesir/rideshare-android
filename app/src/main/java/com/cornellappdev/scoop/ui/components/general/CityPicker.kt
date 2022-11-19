@@ -83,15 +83,14 @@ fun CityPicker(
             if (cityState.value.isEmpty()) {
                 Text(
                     text = placeholder,
-                    style = MaterialTheme.typography.h5.copy(color = placeholderColor)
+                    style = MaterialTheme.typography.body1.copy(color = placeholderColor)
                 )
             } else {
                 Text(
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     text = cityState.value,
-                    style = if (enabled) MaterialTheme.typography.h5
-                    else disabledTextStyle,
+                    style = MaterialTheme.typography.body1
                 )
             }
 

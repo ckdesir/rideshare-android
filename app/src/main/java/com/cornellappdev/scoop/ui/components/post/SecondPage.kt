@@ -80,8 +80,8 @@ fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                 .wrapContentHeight()
                 .fillMaxWidth()
                 .padding(horizontal = 37.dp)
+                .padding(top = 50.dp)
         ) {
-
             NumberOfTravelersSection(min_travelers, higherRangeNumTravelers)
             DateOfTripSection(dateText, setDateText, dateFormatter)
             TimeOfTripSection(timeText, setTimeText, timeFormatter)

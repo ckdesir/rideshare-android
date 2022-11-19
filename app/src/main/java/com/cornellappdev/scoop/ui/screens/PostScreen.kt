@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
+import com.cornellappdev.scoop.ui.components.post.FirstPage
 import com.cornellappdev.scoop.ui.components.post.SecondPage
 import com.cornellappdev.scoop.ui.components.post.ThirdPage
 import com.cornellappdev.scoop.ui.theme.DarkGray
@@ -37,7 +38,7 @@ import kotlinx.coroutines.launch
 fun PostScreen(onPostNewTrip: (Ride) -> Unit) {
     val pagerState = rememberPagerState(1)
     val coroutineScope = rememberCoroutineScope()
-    val tripState = remember {
+    val rideState = remember {
         mutableStateOf(
             Ride()
         )
@@ -71,11 +72,15 @@ fun PostScreen(onPostNewTrip: (Ride) -> Unit) {
                 ) {
                     when (page) {
                         0 -> {}
-                        1 -> SecondPage(
+                        1 -> FirstPage(
                             proceedToPageIndex(coroutineScope, page + 1, pagerState),
-                            tripState
+                            rideState
                         )
-                        2 -> ThirdPage(tripState.value)
+                        2 -> SecondPage(
+                            proceedToPageIndex(coroutineScope, page + 1, pagerState),
+                            rideState
+                        )
+                        3 -> ThirdPage(rideState.value)
                     }
                 }
             }
@@ -94,7 +99,7 @@ fun PostScreen(onPostNewTrip: (Ride) -> Unit) {
         }
 
         AnimatedVisibility(
-            visible = pagerState.currentPage == 2,
+            visible = pagerState.currentPage == 3,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 40.dp)
@@ -102,7 +107,7 @@ fun PostScreen(onPostNewTrip: (Ride) -> Unit) {
         ) {
             Button(
                 shape = RoundedCornerShape(30.dp),
-                onClick = { onPostNewTrip(tripState.value) },
+                onClick = { onPostNewTrip(rideState.value) },
                 colors = ButtonDefaults.outlinedButtonColors(
                     backgroundColor = LightGray,
                     contentColor = Color.Black

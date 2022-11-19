@@ -111,6 +111,7 @@ dependencies {
 
     //Hilt
     implementation "com.google.dagger:hilt-android:2.42"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
     kapt "com.google.dagger:hilt-android-compiler:2.42"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
     implementation "com.google.accompanist:accompanist-pager:0.26.4-beta"

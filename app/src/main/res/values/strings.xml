@@ -37,4 +37,5 @@
         <item>student driving</item>
         <item>shared taxi</item>
     </string-array>
+    <string name="title_activity_first_page">FirstPage</string>
 </resources>
