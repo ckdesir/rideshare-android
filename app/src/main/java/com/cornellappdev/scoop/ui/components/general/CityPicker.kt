@@ -3,13 +3,16 @@ package com.cornellappdev.scoop.ui.components.general
 import android.app.Activity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
@@ -42,6 +45,7 @@ import java.util.*
 fun CityPicker(
     cityState: MutableState<String>,
     placeholder: String,
+    icon: ImageVector,
     modifier: Modifier = Modifier,
     placeholderColor: Color = PlaceholderGray,
     enabled: Boolean = true,
@@ -73,29 +77,50 @@ fun CityPicker(
                 }
             }
         }
-
-    TextButton(
-        enabled = enabled,
-        modifier = modifier,
-        contentPadding = PaddingValues(0.dp),
-        onClick = { launcher.launch(intent) }) {
-        Column {
-            if (cityState.value.isEmpty()) {
-                Text(
-                    text = placeholder,
-                    style = MaterialTheme.typography.body1.copy(color = placeholderColor)
-                )
-            } else {
-                Text(
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    text = cityState.value,
-                    style = MaterialTheme.typography.body1
-                )
-            }
-
-            if (!disableDivider) {
-                Divider(color = Color.Black, thickness = 2.dp)
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .border(
+                1.dp,
+                Color.Gray,
+                shape = RoundedCornerShape(4.dp)
+            )
+            .clickable { launcher.launch(intent) }
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(start = 10.dp)
+        ) {
+            Icon(
+                icon,
+                null,
+                modifier = Modifier
+                    .padding(vertical = 15.dp)
+            )
+            Spacer(
+                modifier = Modifier.width(5.dp)
+            )
+            Column(
+                modifier = Modifier.fillMaxHeight(),
+                verticalArrangement = Arrangement.Center
+            ) {
+                if (cityState.value.isEmpty()) {
+                    Text(
+                        text = placeholder,
+                        style = MaterialTheme.typography.body1.copy(color = placeholderColor)
+                    )
+                } else {
+                    Text(
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1,
+                        text = cityState.value,
+                        style = MaterialTheme.typography.body1
+                    )
+                }
+                if (!disableDivider) {
+                    Divider(color = Color.Black, thickness = 2.dp)
+                }
             }
         }
     }

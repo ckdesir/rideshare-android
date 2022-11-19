@@ -105,6 +105,7 @@ fun SearchCard(
                                     align(Alignment.CenterVertically)
                                 }
                             },
+                            icon = Icons.Outlined.NearMe, // TODO: change
                             placeholder = "", // CityPicker should never be empty.
                             enabled = isEditing.value,
                             disabledTextStyle = MaterialTheme.typography.subtitle1,
@@ -163,6 +164,7 @@ fun SearchCard(
                                 align(Alignment.CenterVertically)
                             }
                         },
+                        icon = Icons.Outlined.NearMe, // TODO: change
                         placeholder = "",
                         enabled = isEditing.value,
                         disabledTextStyle = MaterialTheme.typography.subtitle1,

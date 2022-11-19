@@ -1,6 +1,5 @@
 package com.cornellappdev.scoop.ui.components.post
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
@@ -16,12 +15,12 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.data.models.Ride
 import com.cornellappdev.scoop.ui.components.general.CityPicker
+import com.cornellappdev.scoop.ui.theme.Green
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -69,24 +68,28 @@ fun FirstPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
             Spacer(
                 modifier = Modifier.height(24.dp)
             )
-            LocationSection(
-                location = departureText,
+            CityPicker(
+                cityState = departureText,
                 placeholder = "Departure location",
-                Icons.Filled.NearMe,
+                icon = Icons.Filled.NearMe,
                 modifier = Modifier.onFocusChanged {
                     rideState.value.departureLocation = departureText.value
-                }
+                },
+                disableDivider = true,
+                placeholderColor = Color(0xFF001E2D),
             )
             Spacer(
                 modifier = Modifier.height(24.dp)
             )
-            LocationSection(
-                location = arrivalText,
+            CityPicker(
+                cityState = arrivalText,
                 placeholder = "Arrival location",
-                Icons.Filled.Place,
+                icon = Icons.Filled.Place,
                 modifier = Modifier.onFocusChanged {
                     rideState.value.arrivalLocation = arrivalText.value
-                }
+                },
+                disableDivider = true,
+                placeholderColor = Color(0xFF001E2D),
             )
 
             Column(
@@ -170,11 +173,14 @@ fun TransportationSection(
                         onClick = { setTypeText(item); selectedValue.value = item },
                         role = Role.RadioButton
                     )
-                    .padding(14.dp)
+                    .padding(10.dp)
             ) {
                 RadioButton(
                     selected = isSelectedItem(item),
-                    onClick = null
+                    onClick = null,
+                    colors = RadioButtonDefaults.colors(
+                        selectedColor = Green
+                    )
                 )
                 Spacer(
                     modifier = Modifier.width(14.dp)
@@ -185,47 +191,6 @@ fun TransportationSection(
                     modifier = Modifier.fillMaxWidth()
                 )
             }
-        }
-    }
-}
-
-@Composable
-fun LocationSection(
-    location: MutableState<String>,
-    placeholder: String,
-    icon: ImageVector,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .border(
-                1.dp,
-                Color.Gray,
-                shape = RoundedCornerShape(4.dp)
-            )
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(start = 10.dp)
-        ) {
-            Icon(
-                icon,
-                null,
-                modifier = Modifier
-                    .padding(vertical = 15.dp)
-            )
-            Spacer(
-                modifier = Modifier.width(5.dp)
-            )
-            CityPicker(
-                cityState = location,
-                placeholder = placeholder,
-                disableDivider = true,
-                placeholderColor = Color(0xFF001E2D),
-                modifier = Modifier.align(CenterVertically)
-            )
         }
     }
 }
