@@ -58,7 +58,7 @@ fun DenseTextField(
         enabled = enabled,
         modifier = modifier
             .background(Color.Transparent, CircleShape)
-            .border(1.dp, Color.Black, RoundedCornerShape(10.dp))
+            .border(1.dp, Color.Black, RoundedCornerShape(4.dp))
             .height(40.dp)
             .fillMaxWidth(),
         textStyle = TextStyle(color = Color.Black, fontSize = 12.sp),

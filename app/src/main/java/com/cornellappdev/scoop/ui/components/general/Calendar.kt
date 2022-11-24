@@ -20,12 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.ui.components.calendar.*
-import com.google.accompanist.insets.statusBarsHeight
-import com.cornellappdev.scoop.ui.components.calendar.CalendarYear
-import com.cornellappdev.scoop.ui.components.calendar.Circle
-import com.cornellappdev.scoop.ui.components.calendar.SemiRect
 import com.cornellappdev.scoop.ui.theme.DarkGreen
 import com.cornellappdev.scoop.ui.theme.Green
+import com.google.accompanist.insets.statusBarsHeight
 
 typealias CalendarWeek = List<CalendarDay>
 

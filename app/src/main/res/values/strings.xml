@@ -2,7 +2,7 @@
     <string name="app_name">Scoop</string>
     <string name="trip_posted">Your trip has\nbeen posted!</string>
     <string name="post_trip">Post trip</string>
-    <string name="num_of_travelers">Number of travelers</string>
+    <string name="num_of_travelers">NUMBER OF TRAVELERS</string>
     <string name="to">to</string>
     <string name="date_of_trip">Date of trip</string>
     <string name="time_of_trip">Time of trip</string>

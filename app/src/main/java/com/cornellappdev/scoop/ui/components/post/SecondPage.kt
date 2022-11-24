@@ -6,7 +6,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.CalendarToday
-import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -22,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
 import com.cornellappdev.scoop.ui.components.general.BuildMessage
+import com.cornellappdev.scoop.ui.components.general.DenseTextField
 import com.cornellappdev.scoop.ui.components.general.UnderlinedEditText
 import com.cornellappdev.scoop.ui.theme.Gray
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
@@ -40,10 +40,10 @@ fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
     val dateAndTimeFormatter =
         SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
     val (detailsText, setDetailsText) = rememberSaveable { mutableStateOf(rideState.value.description.orEmpty()) }
-    val min_travelers =
-        rememberSaveable { mutableStateOf((rideState.value.minTravelers ?: 1)) }
-    val higherRangeNumTravelers =
-        rememberSaveable { mutableStateOf((rideState.value.maxTravelers ?: 1)) }
+    val (minTravelers, setMinTravelers) =
+        rememberSaveable { mutableStateOf((rideState.value.minTravelers.toString())) }
+    val (maxTravelers, setMaxTravelers) =
+        rememberSaveable { mutableStateOf((rideState.value.maxTravelers.toString())) }
     val (dateText, setDateText) = rememberSaveable { mutableStateOf(rideState.value.dateOfTrip.orEmpty()) }
     val (timeText, setTimeText) = rememberSaveable { mutableStateOf(rideState.value.timeOfTrip.orEmpty()) }
     var showInvalidRangeMessage by rememberSaveable { mutableStateOf(false) }
@@ -82,9 +82,12 @@ fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                 .padding(horizontal = 37.dp)
                 .padding(top = 50.dp)
         ) {
-            NumberOfTravelersSection(min_travelers, higherRangeNumTravelers)
             DateOfTripSection(dateText, setDateText, dateFormatter)
             TimeOfTripSection(timeText, setTimeText, timeFormatter)
+            NumberOfTravelersSection(
+                minTravelers,
+                setMinTravelers, maxTravelers, setMaxTravelers
+            )
             OtherDetailsSection(detailsText, setDetailsText)
 
             Column(
@@ -100,7 +103,7 @@ fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                     enabled = proceedEnabled,
                     onClick = {
                         when {
-                            min_travelers.value > higherRangeNumTravelers.value -> {
+                            Integer.valueOf(minTravelers) > Integer.valueOf(maxTravelers) -> {
                                 showInvalidRangeMessage = true
                                 proceedEnabled = false
                                 coroutineScope.launch {
@@ -126,8 +129,8 @@ fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                             else -> {
                                 // Updates trip state with details collected on SecondPage
                                 val trip = rideState.value
-                                trip.minTravelers = min_travelers.value
-                                trip.maxTravelers = higherRangeNumTravelers.value
+                                trip.minTravelers = Integer.valueOf(minTravelers)
+                                trip.maxTravelers = Integer.valueOf(maxTravelers)
                                 trip.dateOfTrip = dateText
                                 trip.timeOfTrip = timeText
                                 trip.description = detailsText
@@ -160,38 +163,31 @@ fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
 
 @Composable
 fun NumberOfTravelersSection(
-    min_travelers: MutableState<Int>,
-    higherRangeNumTravelers: MutableState<Int>
+    minTravelers: String, setMinTravelers: (String) -> Unit,
+    maxTravelers: String, setMaxTravelers: (String) -> Unit
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(
             text = stringResource(R.string.num_of_travelers),
-            fontSize = 22.sp,
+            style = MaterialTheme.typography.subtitle2,
             modifier = Modifier.padding(bottom = 12.dp)
         )
         Row {
-            Icon(
-                Icons.Outlined.Group,
-                modifier = Modifier
-                    .size(32.dp)
-                    .align(Alignment.CenterVertically),
-                contentDescription = stringResource(R.string.travelers_icon_description)
+            DenseTextField(
+                value = minTravelers,
+                setValue = setMinTravelers,
+                placeholderText = "Minimum",
+                modifier = Modifier.weight(1f)
             )
-            NumberPicker(
-                state = min_travelers,
-                modifier = Modifier.padding(start = 13.dp),
-                range = 1..10,
+            Spacer(
+                modifier = Modifier.width(15.dp)
             )
-            Text(
-                text = stringResource(R.string.to),
-                modifier = Modifier
-                    .padding(horizontal = 14.dp)
-                    .align(Alignment.Bottom),
-                fontSize = 22.sp
-            )
-            NumberPicker(
-                state = higherRangeNumTravelers,
-                range = 1..10,
+            DenseTextField(
+                value = if (maxTravelers != "null") maxTravelers else "",
+                setValue = setMaxTravelers,
+                placeholderText = "Maximum",
+                unfocusedIndicatorColor = Color(0xff001E2D),
+                modifier = Modifier.weight(1f)
             )
         }
     }
