@@ -47,9 +47,7 @@ fun NavHeader(
                 Button(
                     onClick = {
                         scope.launch {
-                            withContext(Dispatchers.IO){
-                                backFunction()
-                            }
+                            backFunction()
                         }
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),

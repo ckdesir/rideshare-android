@@ -43,9 +43,7 @@ fun RightArrow(
         onClick = {
             Log.d("PAGERSTATE", "button Clicked")
             scope.launch {
-                withContext(Dispatchers.IO) {
-                    nextFunction()
-                }
+                nextFunction()
             }
         }
     ) {
