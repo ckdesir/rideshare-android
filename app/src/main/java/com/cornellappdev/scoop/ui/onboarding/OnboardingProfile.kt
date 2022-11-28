@@ -20,11 +20,13 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.onboarding.OnboardingFooter
-import com.cornellappdev.scoop.onboarding.OnboardingHeader
-import com.cornellappdev.scoop.ui.theme.DarkGray
+import com.cornellappdev.scoop.onboarding.NavHeader
 import com.cornellappdev.scoop.ui.theme.DarkGreen
 import com.cornellappdev.scoop.ui.theme.Gray
 import com.cornellappdev.scoop.ui.theme.Green
@@ -40,7 +42,7 @@ fun OnboardingProfile(pagerState: PagerState) {
         Modifier.background(Color.White)
     ) {
 
-        OnboardingHeader(pagerState = pagerState, title = "Profile")
+        NavHeader(pagerState = pagerState, title = "Profile", hasBackArrow = true)
 
         Column(
             modifier = Modifier
@@ -56,7 +58,7 @@ fun OnboardingProfile(pagerState: PagerState) {
 
             Column(
                 modifier = Modifier
-                    .height(570.dp)
+                    .height(540.dp)
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
@@ -69,23 +71,12 @@ fun OnboardingProfile(pagerState: PagerState) {
                     modifier = Modifier.height(100.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-
                     Button(
                         onClick = { /*TODO*/ },
-                        modifier = Modifier.width(160.dp),
-                        elevation = ButtonDefaults.elevation(
-                            defaultElevation = 6.dp,
-                            pressedElevation = 8.dp,
-                            disabledElevation = 0.dp
-                        ),
-                        colors = ButtonDefaults.buttonColors(backgroundColor = DarkGray),
-                    )
-                    {
-                        Text(text = "Add photo later", color = Color.White)
-                    }
-                    Button(
-                        onClick = { /*TODO*/ },
-                        modifier = Modifier.width(160.dp),
+                        shape = RoundedCornerShape(50),
+                        modifier = Modifier
+                            .width(300.dp)
+                            .height(50.dp),
                         elevation = ButtonDefaults.elevation(
                             defaultElevation = 6.dp,
                             pressedElevation = 8.dp,
@@ -94,8 +85,16 @@ fun OnboardingProfile(pagerState: PagerState) {
                         colors = ButtonDefaults.buttonColors(backgroundColor = DarkGreen)
                     )
                     {
-                        Text(text = "Upload", color = Color.White)
+                        Text(text = "Upload A Photo", color = Color.White, fontWeight = FontWeight.Bold)
                     }
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Text(
+                        text = "Add later",
+                        color = Green,
+                        fontWeight = FontWeight.Bold,
+                        style = TextStyle(textDecoration = TextDecoration.Underline),
+
+                    )
                 }
             }
             Row(

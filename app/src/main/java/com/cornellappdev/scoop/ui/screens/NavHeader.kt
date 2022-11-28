@@ -1,4 +1,4 @@
-package com.cornellappdev.scoop.onboarding
+package com.cornellappdev.scoop.ui.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
@@ -16,6 +16,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.ui.theme.Green
 import com.google.accompanist.pager.PagerState
@@ -23,9 +24,10 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class, com.google.accompanist.pager.ExperimentalPagerApi::class)
 @Composable
-fun OnboardingHeader(
-    pagerState: PagerState,
+fun NavHeader(
+    pagerState: PagerState?,
     title: String,
+    navController: NavController?
 ) {
     val scope = rememberCoroutineScope()
 
@@ -49,7 +51,12 @@ fun OnboardingHeader(
                 Button(
                     onClick = {
                         scope.launch {
-                            pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                            if (pagerState != null) {
+                                pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                            }
+                            else{
+                                navController?.popBackStack()
+                            }
                         }
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
