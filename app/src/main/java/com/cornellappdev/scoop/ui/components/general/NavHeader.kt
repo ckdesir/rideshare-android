@@ -20,13 +20,15 @@ import androidx.navigation.NavController
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.ui.theme.Green
 import com.google.accompanist.pager.PagerState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterialApi::class, com.google.accompanist.pager.ExperimentalPagerApi::class)
 @Composable
 fun NavHeader(
     title: String,
-    pagerState: PagerState,
+    backFunction: suspend () -> Unit,
     hasBackArrow: Boolean = false,
 ) {
     val scope = rememberCoroutineScope()
@@ -45,7 +47,9 @@ fun NavHeader(
                 Button(
                     onClick = {
                         scope.launch {
-                            pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                            withContext(Dispatchers.IO){
+                                backFunction()
+                            }
                         }
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),

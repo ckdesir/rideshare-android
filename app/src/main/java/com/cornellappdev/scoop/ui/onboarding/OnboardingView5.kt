@@ -28,8 +28,7 @@ fun OnboardingView5(pagerState: PagerState) {
 
             Column(
         Modifier.background(Color.White)
-    ) {
-        NavHeader(pagerState = pagerState, title = "Favorites")
+    ) { NavHeader(backFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage - 1) }, title = "Profile", hasBackArrow = false)
 
         Column(
             modifier = Modifier
@@ -87,7 +86,8 @@ fun OnboardingView5(pagerState: PagerState) {
                 horizontalArrangement  =  Arrangement.SpaceBetween
             ) {
                 BackArrow(pagerState)
-                RightArrow(pagerState, isComplete)
+                RightArrow( nextFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                }, isComplete)
             }
             Spacer(modifier = Modifier.height(40.dp))
             Row(
