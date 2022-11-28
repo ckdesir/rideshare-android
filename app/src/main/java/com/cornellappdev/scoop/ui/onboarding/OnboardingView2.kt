@@ -1,5 +1,6 @@
 package com.cornellappdev.scoop.ui.onboarding
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -12,8 +13,8 @@ import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
 import com.cornellappdev.scoop.onboarding.OnboardingFooter
-import com.cornellappdev.scoop.onboarding.NavHeader
 import com.cornellappdev.scoop.ui.components.general.DenseTextField
+import com.cornellappdev.scoop.ui.screens.NavHeader
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
@@ -31,7 +32,7 @@ fun OnboardingView2(pagerState: PagerState) {
     Column(
         Modifier.background(Color.White)
     ) {
-        NavHeader(pagerState = pagerState, title = "About You")
+        NavHeader(backFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage - 1) }, title = "Profile", hasBackArrow = false)
 
         Column(
             modifier = Modifier
@@ -101,7 +102,8 @@ fun OnboardingView2(pagerState: PagerState) {
                 horizontalArrangement  =  Arrangement.SpaceBetween
             ) {
                 BackArrow(pagerState)
-                RightArrow(pagerState, isComplete)
+                RightArrow( suspend { pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                }, isComplete)
             }
             Spacer(modifier = Modifier.height(40.dp))
             Row(

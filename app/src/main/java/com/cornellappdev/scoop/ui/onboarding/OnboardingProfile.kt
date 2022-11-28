@@ -26,7 +26,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.onboarding.OnboardingFooter
-import com.cornellappdev.scoop.onboarding.NavHeader
+import com.cornellappdev.scoop.ui.screens.NavHeader
 import com.cornellappdev.scoop.ui.theme.DarkGreen
 import com.cornellappdev.scoop.ui.theme.Gray
 import com.cornellappdev.scoop.ui.theme.Green
@@ -42,7 +42,7 @@ fun OnboardingProfile(pagerState: PagerState) {
         Modifier.background(Color.White)
     ) {
 
-        NavHeader(pagerState = pagerState, title = "Profile", hasBackArrow = true)
+        NavHeader(backFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage - 1) }, title = "Profile", hasBackArrow = false)
 
         Column(
             modifier = Modifier

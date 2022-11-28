@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
+import com.cornellappdev.scoop.ui.screens.NavHeader
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
@@ -30,7 +31,7 @@ fun OnboardingView4(
         Modifier.background(Color.White)
     ) {
 
-        NavHeader(pagerState = pagerState, title = "During Roadtrips")
+        NavHeader(backFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage - 1) }, title = "Profile", hasBackArrow = false)
 
         Column(
             modifier = Modifier
@@ -78,7 +79,7 @@ fun OnboardingView4(
                 horizontalArrangement  =  Arrangement.SpaceBetween
             ) {
                 BackArrow(pagerState)
-                RightArrow(pagerState, true)
+                RightArrow(suspend { pagerState.animateScrollToPage(pagerState.currentPage + 1) }, true)
             }
             Spacer(modifier = Modifier.height(40.dp))
             Row(
