@@ -1,4 +1,4 @@
-package com.cornellappdev.scoop.onboarding
+package com.cornellappdev.scoop.ui.onboarding
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -7,13 +7,18 @@ import androidx.compose.material.RadioButton
 import androidx.compose.material.RadioButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
+import com.cornellappdev.scoop.onboarding.OnboardingFooter
+import com.cornellappdev.scoop.onboarding.NavHeader
+import com.cornellappdev.scoop.ui.components.general.DenseTextField
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
@@ -24,7 +29,7 @@ fun OnboardingView3(pagerState: PagerState) {
     Column(
         Modifier.background(Color.White)
     ) {
-        OnboardingHeader(pagerState = pagerState, "About You")
+        NavHeader(pagerState = pagerState, title = "About You")
 
         Column(
             modifier = Modifier
@@ -43,18 +48,18 @@ fun OnboardingView3(pagerState: PagerState) {
 
                 Text(
                     fontFamily = FontFamily.Default,
-                    text = "What’s you preferred method of contact?",
+                    text = "PREFERRED CONTACT METHOD",
                     fontSize = 16.sp,
                 )
                 MethodButtons()
             }
 
-            Box(
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(20.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement  =  Arrangement.SpaceBetween
             ) {
-                RightArrow(pagerState)
+                BackArrow(pagerState)
+                RightArrow(pagerState, true)
             }
             Spacer(modifier = Modifier.height(40.dp))
             Row(
@@ -66,13 +71,13 @@ fun OnboardingView3(pagerState: PagerState) {
         }
     }
 
-
 }
 
 
 @Composable
 fun MethodButtons() {
     var selected by remember { mutableStateOf("email") }
+    val (phoneText, setPhoneText) = rememberSaveable { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -90,8 +95,8 @@ fun MethodButtons() {
                 selected = selected == "email",
                 onClick = { selected = "email" },
                 colors = RadioButtonDefaults.colors(
-                    selectedColor = androidx.compose.ui.graphics.Color.Black,
-                    unselectedColor = androidx.compose.ui.graphics.Color.Gray,
+                    selectedColor = Color.Black,
+                    unselectedColor = Color.Gray,
                 )
             )
             Text(
@@ -107,17 +112,33 @@ fun MethodButtons() {
                 selected = selected == "phone",
                 onClick = { selected = "phone" },
                 colors = RadioButtonDefaults.colors(
-                    selectedColor = androidx.compose.ui.graphics.Color.Black,
-                    unselectedColor = androidx.compose.ui.graphics.Color.Gray,
+                    selectedColor = Color.Black,
+                    unselectedColor = Color.Gray,
                 )
             )
             Text(
-                text = "Phone Number",
+                text = "Phone",
                 modifier = Modifier
                     .clickable(onClick = { selected = "phone" })
                     .padding(start = 2.dp),
                 fontSize = 15.sp,
             )
+        }
+
+        if(selected == "phone"){
+
+            Row(
+                modifier =
+                    Modifier.padding(20.dp, 0.dp, 0.dp, 0.dp)
+            ) {
+                DenseTextField(
+                    label="Phone",
+                    value = phoneText,
+                    setValue = setPhoneText,
+                    placeholderText = "000-000-0000",
+                    phoneNumber = true
+                )
+            }
 
         }
     }

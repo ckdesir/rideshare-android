@@ -2,19 +2,15 @@ package com.cornellappdev.scoop.onboarding
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
 import com.cornellappdev.scoop.ui.components.general.DenseTextField
-import com.cornellappdev.scoop.ui.components.general.UnderlinedEditText
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
@@ -27,10 +23,12 @@ fun OnboardingView5(pagerState: PagerState) {
     val (songText, setSongText) = rememberSaveable { mutableStateOf("") }
     val (stopText, setStopText) = rememberSaveable { mutableStateOf("") }
 
-    Column(
+    var isComplete = stopText != "" && songText != "" && snackText != ""
+
+            Column(
         Modifier.background(Color.White)
     ) {
-        OnboardingHeader(pagerState = pagerState, "Favorites")
+        NavHeader(pagerState = pagerState, title = "Favorites")
 
         Column(
             modifier = Modifier
@@ -47,20 +45,12 @@ fun OnboardingView5(pagerState: PagerState) {
                 verticalArrangement = Arrangement.spacedBy(25.dp)
             ) {
 
-                Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(90.dp))
 
                 Box() {
                     Column(Modifier.fillMaxWidth()) {
-                        Text(
-                            fontWeight = FontWeight.Bold,
-                            fontFamily = FontFamily.Default,
-                            text = "Roadtrip Snack",
-                            fontSize = 20.sp,
-                            modifier = Modifier.padding(
-                                bottom = 10.dp
-                            )
-                        )
                         DenseTextField(
+                            label="Roadtrip Snack",
                             value = snackText,
                             setValue = setSnackText,
                             placeholderText = "enter snack"
@@ -70,16 +60,8 @@ fun OnboardingView5(pagerState: PagerState) {
 
                 Box(Modifier.fillMaxWidth()) {
                     Column() {
-                        Text(
-                            fontWeight = FontWeight.Bold,
-                            fontFamily = FontFamily.Default,
-                            text = "Roadtrip Song",
-                            fontSize = 20.sp,
-                            modifier = Modifier.padding(
-                                bottom = 10.dp
-                            )
-                        )
                         DenseTextField(
+                            label="Roadtrip Song",
                             value = songText,
                             setValue = setSongText,
                             placeholderText = "enter song"
@@ -90,16 +72,8 @@ fun OnboardingView5(pagerState: PagerState) {
                 Box(Modifier.fillMaxWidth()) {
 
                     Column() {
-                        Text(
-                            fontWeight = FontWeight.Bold,
-                            fontFamily = FontFamily.Default,
-                            text = "Roadtrip Stop",
-                            fontSize = 20.sp,
-                            modifier = Modifier.padding(
-                                bottom = 10.dp
-                            )
-                        )
                         DenseTextField(
+                            label="Stop",
                             value = stopText,
                             setValue = setStopText,
                             placeholderText = "enter stop"
@@ -107,13 +81,12 @@ fun OnboardingView5(pagerState: PagerState) {
                     }
                 }
             }
-
-            Box(
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(20.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement  =  Arrangement.SpaceBetween
             ) {
-                RightArrow(pagerState)
+                BackArrow(pagerState)
+                RightArrow(pagerState, isComplete)
             }
             Spacer(modifier = Modifier.height(40.dp))
             Row(

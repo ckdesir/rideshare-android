@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
@@ -29,7 +30,7 @@ fun OnboardingView4(
         Modifier.background(Color.White)
     ) {
 
-        OnboardingHeader(pagerState = pagerState, title = "During Roadtrips")
+        NavHeader(pagerState = pagerState, title = "During Roadtrips")
 
         Column(
             modifier = Modifier
@@ -43,7 +44,7 @@ fun OnboardingView4(
             Column(
                 modifier = Modifier
                     .height(500.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Center
             ) {
 
@@ -51,10 +52,11 @@ fun OnboardingView4(
                 var sliderPosition2 = remember { mutableStateOf(0F) }
                 Text(
                     fontFamily = FontFamily.Default,
-                    text = "How talkative are you?",
-                    fontSize = 20.sp,
+                    text = "HOW TALKTATIVE ARE YOU?",
+                    fontSize = 15.sp,
                 )
-
+                
+                Spacer(modifier = Modifier.height(10.dp))
                 OnboardingSlider(
                     values = listOf("Quiet", " ", " ", "Talkative"),
                     sliderPosition = sliderPosition1
@@ -62,8 +64,8 @@ fun OnboardingView4(
 
                 Text(
                     fontFamily = FontFamily.Default,
-                    text = "Do you like music?",
-                    fontSize = 20.sp,
+                    text = "DO YOU LIKE LISTENING TO MUSIC?",
+                    fontSize = 15.sp,
                 )
 
                 OnboardingSlider(
@@ -71,12 +73,12 @@ fun OnboardingView4(
                     sliderPosition = sliderPosition2
                 )
             }
-            Box(
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(20.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement  =  Arrangement.SpaceBetween
             ) {
-                RightArrow(pagerState)
+                BackArrow(pagerState)
+                RightArrow(pagerState, true)
             }
             Spacer(modifier = Modifier.height(40.dp))
             Row(
