@@ -50,8 +50,7 @@ fun NavHeader(
                             backFunction()
                         }
                     },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
-                    border = BorderStroke(width = 0.dp, color = Color.White),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
                     elevation = ButtonDefaults.elevation(0.dp)
                 ) {
 
