@@ -177,6 +177,7 @@ fun NumberOfTravelersSection(
                 value = minTravelers,
                 setValue = setMinTravelers,
                 placeholderText = "Minimum",
+                label = "Minimum",
                 modifier = Modifier.weight(1f)
             )
             Spacer(
@@ -186,7 +187,7 @@ fun NumberOfTravelersSection(
                 value = if (maxTravelers != "null") maxTravelers else "",
                 setValue = setMaxTravelers,
                 placeholderText = "Maximum",
-                unfocusedIndicatorColor = Color(0xff001E2D),
+                label = "Maximum",
                 modifier = Modifier.weight(1f)
             )
         }

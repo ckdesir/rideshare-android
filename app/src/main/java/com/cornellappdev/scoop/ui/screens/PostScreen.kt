@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
+import com.cornellappdev.scoop.ui.components.post.FirstPage
 import com.cornellappdev.scoop.ui.components.post.SecondPage
 import com.cornellappdev.scoop.ui.components.post.ThirdPage
 import com.cornellappdev.scoop.ui.theme.DarkGray
@@ -71,7 +72,7 @@ fun PostScreen(onPostNewTrip: (Ride) -> Unit) {
                 ) {
                     when (page) {
                         0 -> {}
-                        1 -> SecondPage( // todo: fix this back to FirstPage
+                        1 -> FirstPage(
                             proceedToPageIndex(coroutineScope, page + 1, pagerState),
                             rideState
                         )
@@ -126,7 +127,7 @@ fun PostScreen(onPostNewTrip: (Ride) -> Unit) {
         when (pagerState.currentPage) {
             1 -> proceedToPageIndex(
                 coroutineScope,
-                pagerState.currentPage - 1,
+                0,
                 pagerState
             ).invoke()
             2 -> proceedToPageIndex(
