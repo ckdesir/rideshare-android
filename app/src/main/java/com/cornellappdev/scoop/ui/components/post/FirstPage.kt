@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.RideType
 import com.cornellappdev.scoop.data.models.rideTypeToString
+import com.cornellappdev.scoop.data.models.stringToRideType
 import com.cornellappdev.scoop.ui.components.general.CityPicker
 import com.cornellappdev.scoop.ui.theme.Green
 import com.cornellappdev.scoop.ui.viewmodel.PostScreenViewModel
@@ -75,7 +76,6 @@ fun FirstPage(
             TransportationSection(
                 postScreenViewModel,
                 proceedEnabled,
-                typeText,
                 modifier = Modifier.onFocusChanged {
                     proceedEnabled.value = postScreenViewModel.ride.departureLocationName != ""
                             && postScreenViewModel.ride.arrivalLocationName != ""
@@ -191,18 +191,21 @@ fun FirstPage(
 fun TransportationSection(
     postScreenViewModel: PostScreenViewModel,
     proceedEnabled: MutableState<Boolean>,
-    typeText: MutableState<String>,
     modifier: Modifier = Modifier
 ) {
     val items = listOf("Student driver", "Taxi")
-    // var selectedValue by remember { mutableStateOf(postScreenViewModel.ride.type) }
-//    val isSelectedItem: (String) -> Boolean = {
-//        typeText.value == when (it) {
-//            "Student driver" -> "studentdriver"
-//            "Taxi" -> "rideshare"
-//            else -> "asdf"
-//        }
-//    }
+    val selectedValue = rememberSaveable {
+        mutableStateOf(
+            postScreenViewModel.ride.type
+        )
+    }
+    val isSelectedItem: (String) -> Boolean = {
+        rideTypeToString(selectedValue.value) == when (it) {
+            "Student driver" -> "studentdriver"
+            "Taxi" -> "rideshare"
+            else -> "asdf"
+        }
+    }
 
     Column {
         Text(
@@ -217,56 +220,48 @@ fun TransportationSection(
                 verticalAlignment = CenterVertically,
                 modifier = modifier
                     .selectable(
-                        selected = rideTypeToString(postScreenViewModel.ride.type) == when (item) {
-                            "Student driver" -> "studentdriver"
-                            "Taxi" -> "rideshare"
-                            else -> "asdf"
-                        },
+                        selected = isSelectedItem(item),
                         interactionSource = MutableInteractionSource(),
                         indication = null,
                         onClick = {
-                            Log.d(
-                                "button initial value",
-                                postScreenViewModel.ride.type.toString()
-                            )
-                            Log.d(
-                                "button initial value",
-                                rideTypeToString(postScreenViewModel.ride.type)
-                            )
+//                            Log.d(
+//                                "button initial value",
+//                                postScreenViewModel.ride.type.toString()
+//                            )
+//                            Log.d(
+//                                "button initial value",
+//                                rideTypeToString(postScreenViewModel.ride.type)
+//                            )
                             val type = when (item) {
                                 "Student driver" -> "studentdriver"
                                 "Taxi" -> "rideshare"
                                 else -> ""
                             }
                             postScreenViewModel.setType(type)
-                            // selectedValue = stringToRideType(type)
+                            selectedValue.value = stringToRideType(type)
                             proceedEnabled.value =
                                 postScreenViewModel.ride.departureLocationName != ""
                                         && postScreenViewModel.ride.arrivalLocationName != ""
                                         && postScreenViewModel.ride.type != null
-                            Log.d(
-                                "button clicked",
-                                (postScreenViewModel.ride.type != null).toString()
-                            )
-                            Log.d(
-                                "button ride type",
-                                rideTypeToString(postScreenViewModel.ride.type)
-                            )
-                            Log.d(
-                                "button item",
-                                item
-                            )
+//                            Log.d(
+//                                "button clicked",
+//                                (postScreenViewModel.ride.type != null).toString()
+//                            )
+//                            Log.d(
+//                                "button ride type",
+//                                rideTypeToString(postScreenViewModel.ride.type)
+//                            )
+//                            Log.d(
+//                                "button item",
+//                                item
+//                            )
                         },
                         role = Role.RadioButton
                     )
                     .padding(10.dp)
             ) {
                 RadioButton(
-                    selected = rideTypeToString(postScreenViewModel.ride.type) == when (item) {
-                        "Student driver" -> "studentdriver"
-                        "Taxi" -> "rideshare"
-                        else -> "asdf"
-                    },
+                    selected = isSelectedItem(item),
                     onClick = null,
                     colors = RadioButtonDefaults.colors(
                         selectedColor = Green
