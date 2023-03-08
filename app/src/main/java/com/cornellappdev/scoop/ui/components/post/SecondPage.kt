@@ -39,18 +39,24 @@ import java.util.*
 @Composable
 fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenViewModel) {
     val dateFormatter =
-        SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
+        SimpleDateFormat(stringResource(R.string.date_format), Locale.getDefault())
     val timeFormatter =
-        SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
+        SimpleDateFormat(stringResource(R.string.time_format), Locale.getDefault())
     val dateAndTimeFormatter =
         SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
-    val (detailsText, setDetailsText) = rememberSaveable { mutableStateOf(postScreenViewModel.ride.description.orEmpty()) }
+    val (detailsText, setDetailsText) = rememberSaveable {
+        mutableStateOf(postScreenViewModel.ride.description.orEmpty())
+    }
     val (minTravelers, setMinTravelers) =
         rememberSaveable { mutableStateOf((postScreenViewModel.ride.minTravelers.toString())) }
     val (maxTravelers, setMaxTravelers) =
         rememberSaveable { mutableStateOf((postScreenViewModel.ride.maxTravelers.toString())) }
-    val (datetimeText, setDatetimeText) = rememberSaveable { mutableStateOf(postScreenViewModel.ride.datetime.orEmpty()) }
-    val (timeText, setTimeText) = rememberSaveable { mutableStateOf(postScreenViewModel.ride.datetime.orEmpty()) }
+    val (dateText, setDateText) = rememberSaveable {
+        mutableStateOf(postScreenViewModel.ride.datetime?.substringBefore(' ').orEmpty())
+    }
+    val (timeText, setTimeText) = rememberSaveable {
+        mutableStateOf(postScreenViewModel.ride.datetime?.substringAfter(' ').orEmpty())
+    }
     // TODO: merge date and time and figure out how to separate if design wants that
     var showInvalidRangeMessage by rememberSaveable { mutableStateOf(false) }
     var showInvalidDateMessage by rememberSaveable { mutableStateOf(false) }
@@ -88,7 +94,7 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                 .padding(horizontal = 37.dp)
                 .padding(top = 50.dp)
         ) {
-            DateOfTripSection(datetimeText, setDatetimeText, dateFormatter)
+            DateOfTripSection(dateText, setDateText, dateFormatter)
             TimeOfTripSection(timeText, setTimeText, timeFormatter)
             NumberOfTravelersSection(
                 minTravelers,
@@ -116,14 +122,14 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                                     disableMessage()
                                 }
                             }
-                            datetimeText.isEmpty() -> {
+                            dateText.isEmpty() -> {
                                 showInvalidDateMessage = true
                                 proceedEnabled = false
                                 coroutineScope.launch {
                                     disableMessage()
                                 }
                             }
-                            timeText.isEmpty() || dateAndTimeFormatter.parse("$datetimeText $timeText")
+                            timeText.isEmpty() || dateAndTimeFormatter.parse("$dateText $timeText")
                                 ?.before(Date()) == true
                             -> {
                                 showInvalidTimeMessage = true
@@ -136,7 +142,7 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                                 // Updates trip state with details collected on SecondPage
                                 postScreenViewModel.setMaxTravelers(Integer.valueOf(minTravelers))
                                 postScreenViewModel.setMaxTravelers(Integer.valueOf(maxTravelers))
-                                postScreenViewModel.setDatetime(datetimeText)
+                                postScreenViewModel.setDatetime("$dateText $timeText")
                                 postScreenViewModel.setDescription(detailsText)
                                 onProceedClicked()
                             }

@@ -80,7 +80,7 @@ fun FirstPage(
                     proceedEnabled.value = postScreenViewModel.ride.departureLocationName != ""
                             && postScreenViewModel.ride.arrivalLocationName != ""
                             && postScreenViewModel.ride.type != null
-                    Log.d("type changes", (postScreenViewModel.ride.type != null).toString())
+//                    Log.d("type changes", (postScreenViewModel.ride.type != null).toString())
                 }
             )
             Spacer(
@@ -158,7 +158,18 @@ fun FirstPage(
                     enabled = proceedEnabled.value,
                     onClick = {
                         // Updates trip state with details collected on FirstPage
-                        Log.d("FirstPage", "Departure value: $departureText.value")
+                        Log.d(
+                            "Posting Flow FirstPage",
+                            "Departure value: ${postScreenViewModel.ride.departureLocationName}"
+                        )
+                        Log.d(
+                            "Posting Flow FirstPage",
+                            "Arrival value: ${postScreenViewModel.ride.arrivalLocationName}"
+                        )
+                        Log.d(
+                            "Posting Flow FirstPage",
+                            "Type value: ${rideTypeToString(postScreenViewModel.ride.type)}"
+                        )
                         val ride = postScreenViewModel.ride
                         ride.type = when (typeText.value) {
                             "rideshare" -> RideType.RIDESHARE
