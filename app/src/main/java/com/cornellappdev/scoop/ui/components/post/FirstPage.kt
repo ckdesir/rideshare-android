@@ -23,7 +23,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.R
-import com.cornellappdev.scoop.data.models.RideType
 import com.cornellappdev.scoop.data.models.rideTypeToString
 import com.cornellappdev.scoop.data.models.stringToRideType
 import com.cornellappdev.scoop.ui.components.general.CityPicker
@@ -39,11 +38,6 @@ fun FirstPage(
     onProceedClicked: () -> Unit,
     postScreenViewModel: PostScreenViewModel
 ) {
-    val typeText = rememberSaveable {
-        mutableStateOf(
-            rideTypeToString(postScreenViewModel.ride.type)
-        )
-    }
     val departureText = rememberSaveable {
         mutableStateOf(
             postScreenViewModel.ride.departureLocationName.orEmpty()
@@ -61,6 +55,11 @@ fun FirstPage(
                     && postScreenViewModel.ride.type != null
         )
     }
+    val updateProceedEnabled = {
+        proceedEnabled.value = postScreenViewModel.ride.departureLocationName != ""
+                && postScreenViewModel.ride.arrivalLocationName != ""
+                && postScreenViewModel.ride.type != null
+    }
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -77,9 +76,7 @@ fun FirstPage(
                 postScreenViewModel,
                 proceedEnabled,
                 modifier = Modifier.onFocusChanged {
-                    proceedEnabled.value = postScreenViewModel.ride.departureLocationName != ""
-                            && postScreenViewModel.ride.arrivalLocationName != ""
-                            && postScreenViewModel.ride.type != null
+                    updateProceedEnabled()
 //                    Log.d("type changes", (postScreenViewModel.ride.type != null).toString())
                 }
             )
@@ -98,9 +95,7 @@ fun FirstPage(
                 onCityChanged = { name, placeId ->
                     postScreenViewModel.setDepartureName(name)
                     postScreenViewModel.setDeparturePlaceId(placeId)
-                    proceedEnabled.value = postScreenViewModel.ride.departureLocationName != ""
-                            && postScreenViewModel.ride.arrivalLocationName != ""
-                            && postScreenViewModel.ride.type != null
+                    updateProceedEnabled()
 //                    Log.d(
 //                        "departure not null",
 //                        (postScreenViewModel.ride.departureLocationName != null).toString()
@@ -126,9 +121,7 @@ fun FirstPage(
                 onCityChanged = { name, placeId ->
                     postScreenViewModel.setArrivalName(name)
                     postScreenViewModel.setArrivalPlaceId(placeId)
-                    proceedEnabled.value = postScreenViewModel.ride.departureLocationName != null
-                            && postScreenViewModel.ride.arrivalLocationName != null
-                            && postScreenViewModel.ride.type != null
+                    updateProceedEnabled()
 //                    Log.d(
 //                        "arrival not null",
 //                        (postScreenViewModel.ride.arrivalLocationName != null).toString()
@@ -157,7 +150,6 @@ fun FirstPage(
                     shape = RoundedCornerShape(26.dp),
                     enabled = proceedEnabled.value,
                     onClick = {
-                        // Updates trip state with details collected on FirstPage
                         Log.d(
                             "Posting Flow FirstPage",
                             "Departure value: ${postScreenViewModel.ride.departureLocationName}"
@@ -170,14 +162,6 @@ fun FirstPage(
                             "Posting Flow FirstPage",
                             "Type value: ${rideTypeToString(postScreenViewModel.ride.type)}"
                         )
-                        val ride = postScreenViewModel.ride
-                        ride.type = when (typeText.value) {
-                            "rideshare" -> RideType.RIDESHARE
-                            "studentdriver" -> RideType.STUDENT
-                            else -> null
-                        }
-                        // don't know if this works ideally we can set things before next button
-                        // postScreenViewModel.setRide(ride)
                         onProceedClicked()
                     },
                     contentPadding = PaddingValues(10.dp),
@@ -217,6 +201,13 @@ fun TransportationSection(
             else -> "asdf"
         }
     }
+    val updateProceedEnabled = {
+        proceedEnabled.value = postScreenViewModel.ride.departureLocationName != ""
+                && postScreenViewModel.ride.arrivalLocationName != ""
+                && postScreenViewModel.ride.type != null
+    }
+
+    // postScreenViewModel.setType()
 
     Column {
         Text(
@@ -250,10 +241,7 @@ fun TransportationSection(
                             }
                             postScreenViewModel.setType(type)
                             selectedValue.value = stringToRideType(type)
-                            proceedEnabled.value =
-                                postScreenViewModel.ride.departureLocationName != ""
-                                        && postScreenViewModel.ride.arrivalLocationName != ""
-                                        && postScreenViewModel.ride.type != null
+                            updateProceedEnabled()
 //                            Log.d(
 //                                "button clicked",
 //                                (postScreenViewModel.ride.type != null).toString()

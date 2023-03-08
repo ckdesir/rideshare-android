@@ -97,8 +97,7 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
             DateOfTripSection(dateText, setDateText, dateFormatter)
             TimeOfTripSection(timeText, setTimeText, timeFormatter)
             NumberOfTravelersSection(
-                minTravelers,
-                setMinTravelers, maxTravelers, setMaxTravelers
+                minTravelers, setMinTravelers, maxTravelers, setMaxTravelers
             )
             OtherDetailsSection(detailsText, setDetailsText)
 
@@ -114,8 +113,20 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                     shape = RoundedCornerShape(30.dp),
                     enabled = proceedEnabled,
                     onClick = {
+                        var numMinTravelers = 0
+                        var numMaxTravelers = 10
+                        try {
+                            numMinTravelers = Integer.valueOf(minTravelers)
+                            numMaxTravelers = Integer.valueOf(maxTravelers)
+                        } catch (nfe: NumberFormatException) {
+                            showInvalidRangeMessage = true
+                            proceedEnabled = false
+                            coroutineScope.launch {
+                                disableMessage()
+                            }
+                        }
                         when {
-                            Integer.valueOf(minTravelers) > Integer.valueOf(maxTravelers) -> {
+                            numMinTravelers > numMaxTravelers -> {
                                 showInvalidRangeMessage = true
                                 proceedEnabled = false
                                 coroutineScope.launch {
@@ -139,9 +150,9 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                                 }
                             }
                             else -> {
-                                // Updates trip state with details collected on SecondPage
-                                postScreenViewModel.setMaxTravelers(Integer.valueOf(minTravelers))
-                                postScreenViewModel.setMaxTravelers(Integer.valueOf(maxTravelers))
+                                // Updates view model with details collected on SecondPage
+                                postScreenViewModel.setMinTravelers(numMinTravelers)
+                                postScreenViewModel.setMaxTravelers(numMaxTravelers)
                                 postScreenViewModel.setDatetime("$dateText $timeText")
                                 postScreenViewModel.setDescription(detailsText)
                                 onProceedClicked()
@@ -179,24 +190,26 @@ fun NumberOfTravelersSection(
         Text(
             text = stringResource(R.string.num_of_travelers),
             style = MaterialTheme.typography.subtitle2,
-            modifier = Modifier.padding(bottom = 12.dp)
+            modifier = Modifier.padding(bottom = 8.dp)
         )
         Row {
             DenseTextField(
-                value = minTravelers,
+                value = if (minTravelers == "null") "" else minTravelers,
                 setValue = setMinTravelers,
                 placeholderText = "Minimum",
                 label = "Minimum",
+                singleLine = true,
                 modifier = Modifier.weight(1f)
             )
             Spacer(
                 modifier = Modifier.width(15.dp)
             )
             DenseTextField(
-                value = if (maxTravelers != "null") maxTravelers else "",
+                value = if (maxTravelers == "null") "" else maxTravelers,
                 setValue = setMaxTravelers,
                 placeholderText = "Maximum",
                 label = "Maximum",
+                singleLine = true,
                 modifier = Modifier.weight(1f)
             )
         }
