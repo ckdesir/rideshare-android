@@ -32,8 +32,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 
 /** This composable makes the bottom nav bar and base layer on which different screens are shown. */
 @Composable
-fun MainScreen(
-) {
+fun MainScreen() {
     val navController = rememberNavController()
     navController.currentBackStackEntryAsState()
     val bottomNavTabList = BottomNavTab.bottomNavTabList
@@ -160,8 +159,9 @@ fun MainScreenNavigationConfigurations(
             setShowBottomBar(false)
             PostScreen(
                 onPostNewTrip = {
-                    Log.d("Trip", it.arrivalLocation!!)
-                })
+                    Log.d("Trip", it.arrivalLocationName!!)
+                }
+            )
         }
     }
 }

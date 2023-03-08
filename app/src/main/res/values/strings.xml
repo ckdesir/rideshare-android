@@ -38,4 +38,5 @@
         <item>shared taxi</item>
     </string-array>
     <string name="title_activity_first_page">FirstPage</string>
+    <string name="transportation_method">TRANSPORTATION METHOD</string>
 </resources>

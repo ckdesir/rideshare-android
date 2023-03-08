@@ -19,33 +19,39 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
-import com.cornellappdev.scoop.data.models.Ride
 import com.cornellappdev.scoop.ui.components.general.BuildMessage
 import com.cornellappdev.scoop.ui.components.general.DenseTextField
 import com.cornellappdev.scoop.ui.components.general.UnderlinedEditText
 import com.cornellappdev.scoop.ui.theme.Gray
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
+import com.cornellappdev.scoop.ui.viewmodel.PostScreenViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
+// TODO: Change SecondPage to high fidelity designs using DenseTextField
+/**
+ * This composable creates the second page of the posting a ride flow which handles date and time
+ * as well as minimum and maximum travelers.
+ */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
+fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenViewModel) {
     val dateFormatter =
         SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
     val timeFormatter =
         SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
     val dateAndTimeFormatter =
         SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
-    val (detailsText, setDetailsText) = rememberSaveable { mutableStateOf(rideState.value.description.orEmpty()) }
+    val (detailsText, setDetailsText) = rememberSaveable { mutableStateOf(postScreenViewModel.ride.description.orEmpty()) }
     val (minTravelers, setMinTravelers) =
-        rememberSaveable { mutableStateOf((rideState.value.minTravelers.toString())) }
+        rememberSaveable { mutableStateOf((postScreenViewModel.ride.minTravelers.toString())) }
     val (maxTravelers, setMaxTravelers) =
-        rememberSaveable { mutableStateOf((rideState.value.maxTravelers.toString())) }
-    val (dateText, setDateText) = rememberSaveable { mutableStateOf(rideState.value.dateOfTrip.orEmpty()) }
-    val (timeText, setTimeText) = rememberSaveable { mutableStateOf(rideState.value.timeOfTrip.orEmpty()) }
+        rememberSaveable { mutableStateOf((postScreenViewModel.ride.maxTravelers.toString())) }
+    val (datetimeText, setDatetimeText) = rememberSaveable { mutableStateOf(postScreenViewModel.ride.datetime.orEmpty()) }
+    val (timeText, setTimeText) = rememberSaveable { mutableStateOf(postScreenViewModel.ride.datetime.orEmpty()) }
+    // TODO: merge date and time and figure out how to separate if design wants that
     var showInvalidRangeMessage by rememberSaveable { mutableStateOf(false) }
     var showInvalidDateMessage by rememberSaveable { mutableStateOf(false) }
     var showInvalidTimeMessage by rememberSaveable { mutableStateOf(false) }
@@ -82,7 +88,7 @@ fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                 .padding(horizontal = 37.dp)
                 .padding(top = 50.dp)
         ) {
-            DateOfTripSection(dateText, setDateText, dateFormatter)
+            DateOfTripSection(datetimeText, setDatetimeText, dateFormatter)
             TimeOfTripSection(timeText, setTimeText, timeFormatter)
             NumberOfTravelersSection(
                 minTravelers,
@@ -110,14 +116,14 @@ fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                                     disableMessage()
                                 }
                             }
-                            dateText.isEmpty() -> {
+                            datetimeText.isEmpty() -> {
                                 showInvalidDateMessage = true
                                 proceedEnabled = false
                                 coroutineScope.launch {
                                     disableMessage()
                                 }
                             }
-                            timeText.isEmpty() || dateAndTimeFormatter.parse("$dateText $timeText")
+                            timeText.isEmpty() || dateAndTimeFormatter.parse("$datetimeText $timeText")
                                 ?.before(Date()) == true
                             -> {
                                 showInvalidTimeMessage = true
@@ -128,13 +134,10 @@ fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                             }
                             else -> {
                                 // Updates trip state with details collected on SecondPage
-                                val trip = rideState.value
-                                trip.minTravelers = Integer.valueOf(minTravelers)
-                                trip.maxTravelers = Integer.valueOf(maxTravelers)
-                                trip.dateOfTrip = dateText
-                                trip.timeOfTrip = timeText
-                                trip.description = detailsText
-                                rideState.value = trip
+                                postScreenViewModel.setMaxTravelers(Integer.valueOf(minTravelers))
+                                postScreenViewModel.setMaxTravelers(Integer.valueOf(maxTravelers))
+                                postScreenViewModel.setDatetime(datetimeText)
+                                postScreenViewModel.setDescription(detailsText)
                                 onProceedClicked()
                             }
                         }

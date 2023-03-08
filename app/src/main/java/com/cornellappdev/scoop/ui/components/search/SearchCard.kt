@@ -109,15 +109,16 @@ fun SearchCard(
                             placeholder = "", // CityPicker should never be empty.
                             enabled = isEditing.value,
                             disabledTextStyle = MaterialTheme.typography.subtitle1,
-                            disableDivider = !isEditing.value
-                        ) {
-                            if (search.value.departureLocation != it) {
-                                search.value.departureLocation = it
+                            disableDivider = !isEditing.value,
+                            onCityChanged = { it, _ ->
+                                if (search.value.departureLocation != it) {
+                                    search.value.departureLocation = it
 
-                                /** TODO: Networking for searching for rides should be inserted here and passed into callback. */
-                                onSearchCompleted(listOf())
+                                    // TODO: Networking for searching for rides should be inserted here and passed into callback.
+                                    onSearchCompleted(listOf())
+                                }
                             }
-                        }
+                        )
                     }
 
                     Icon(
@@ -168,15 +169,16 @@ fun SearchCard(
                         placeholder = "",
                         enabled = isEditing.value,
                         disabledTextStyle = MaterialTheme.typography.subtitle1,
-                        disableDivider = !isEditing.value
-                    ) {
-                        if (search.value.arrivalLocation != it) {
-                            search.value.arrivalLocation = it
+                        disableDivider = !isEditing.value,
+                        onCityChanged = { it, _ ->
+                            if (search.value.arrivalLocation != it) {
+                                search.value.arrivalLocation = it
 
-                            /** TODO: Networking for searching for rides should be inserted here and passed into callback. */
-                            onSearchCompleted(listOf())
+                                /** TODO: Networking for searching for rides should be inserted here and passed into callback. */
+                                onSearchCompleted(listOf())
+                            }
                         }
-                    }
+                    )
                 }
 
                 Row(modifier = Modifier.padding(top = if (isEditing.value) 17.dp else 0.dp)) {

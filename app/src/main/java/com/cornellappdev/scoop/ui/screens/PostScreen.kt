@@ -1,5 +1,6 @@
 package com.cornellappdev.scoop.ui.screens
 
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
 import com.cornellappdev.scoop.ui.components.post.FirstPage
@@ -27,15 +29,27 @@ import com.cornellappdev.scoop.ui.components.post.SecondPage
 import com.cornellappdev.scoop.ui.components.post.ThirdPage
 import com.cornellappdev.scoop.ui.theme.DarkGray
 import com.cornellappdev.scoop.ui.theme.LightGray
+import com.cornellappdev.scoop.ui.viewmodel.PostScreenViewModel
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+
+/*
+PostScreen holds the FirstPage, SecondPage, and ThirdPage during the
+posting flow and passes the rideState back and forth between the other pages
+so that they can update the ride's data (We need to change this into a
+MVVM (Model View ViewModel) design pattern with a ViewModel for the
+PostScreen to network and pass data back and forth.
+ */
 
 @OptIn(
     ExperimentalAnimationApi::class, ExperimentalPagerApi::class
 )
 @Composable
-fun PostScreen(onPostNewTrip: (Ride) -> Unit) {
+fun PostScreen(
+    onPostNewTrip: (Ride) -> Unit,
+    postScreenViewModel: PostScreenViewModel = hiltViewModel()
+) {
     val pagerState = rememberPagerState(1)
     val coroutineScope = rememberCoroutineScope()
     val rideState = remember {
@@ -74,11 +88,11 @@ fun PostScreen(onPostNewTrip: (Ride) -> Unit) {
                         0 -> {}
                         1 -> FirstPage(
                             proceedToPageIndex(coroutineScope, page + 1, pagerState),
-                            rideState
+                            postScreenViewModel
                         )
                         2 -> SecondPage(
                             proceedToPageIndex(coroutineScope, page + 1, pagerState),
-                            rideState
+                            postScreenViewModel
                         )
                         3 -> ThirdPage(rideState.value)
                     }
@@ -154,6 +168,7 @@ fun proceedToPageIndex(
     pagerState: PagerState
 ): () -> Unit {
     return {
+        Log.d("pagerTest", pageIndex.toString())
         coroutineScope.launch {
             pagerState.scrollToPage(pageIndex)
         }

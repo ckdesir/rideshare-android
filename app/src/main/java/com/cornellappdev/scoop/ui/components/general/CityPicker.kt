@@ -47,11 +47,11 @@ fun CityPicker(
     placeholder: String,
     icon: ImageVector,
     modifier: Modifier = Modifier,
+    onCityChanged: (String, String) -> Unit = { _, _ -> },
     placeholderColor: Color = PlaceholderGray,
     enabled: Boolean = true,
     disabledTextStyle: TextStyle = TextStyle(color = Color.Black, fontSize = 22.sp),
     disableDivider: Boolean = false,
-    onCityChanged: (String) -> Unit = {}
 ) {
     if (!Places.isInitialized()) {
         Places.initialize(LocalContext.current, BuildConfig.PLACES_API_KEY, Locale.US)
@@ -72,7 +72,7 @@ fun CityPicker(
                     val place = Autocomplete.getPlaceFromIntent(result.data!!)
                     if (place.address!! != cityState.value) {
                         cityState.value = place.address!!
-                        onCityChanged(place.address!!)
+                        onCityChanged(place.address!!, place.id!!)
                     }
                 }
             }

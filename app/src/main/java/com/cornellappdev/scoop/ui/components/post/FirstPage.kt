@@ -1,5 +1,6 @@
 package com.cornellappdev.scoop.ui.components.post
 
+import android.util.Log
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
@@ -15,36 +16,47 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
-import com.cornellappdev.scoop.data.models.Ride
+import com.cornellappdev.scoop.R
+import com.cornellappdev.scoop.data.models.RideType
+import com.cornellappdev.scoop.data.models.rideTypeToString
 import com.cornellappdev.scoop.ui.components.general.CityPicker
 import com.cornellappdev.scoop.ui.theme.Green
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.cornellappdev.scoop.ui.viewmodel.PostScreenViewModel
 
+/**
+ * This composable creates the first page of the posting a ride flow which contains the type of
+ * ride (either shared uber or driving) as well as the departure and arrival locations.
+ */
 @Composable
-fun FirstPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
-    val (typeText, setTypeText) = rememberSaveable { mutableStateOf(rideState.value.type.orEmpty()) }
+fun FirstPage(
+    onProceedClicked: () -> Unit,
+    postScreenViewModel: PostScreenViewModel
+) {
+    val typeText = rememberSaveable {
+        mutableStateOf(
+            rideTypeToString(postScreenViewModel.ride.type)
+        )
+    }
     val departureText = rememberSaveable {
-        mutableStateOf(rideState.value.departureLocation.orEmpty())
+        mutableStateOf(
+            postScreenViewModel.ride.departureLocationName.orEmpty()
+        )
     }
     val arrivalText = rememberSaveable {
-        mutableStateOf(rideState.value.arrivalLocation.orEmpty())
+        mutableStateOf(
+            postScreenViewModel.ride.arrivalLocationName.orEmpty()
+        )
     }
-    var showInvalidTypeMessage by rememberSaveable { mutableStateOf(false) }
-    var proceedEnabled by rememberSaveable { mutableStateOf(false) }
-    val coroutineScope = rememberCoroutineScope()
-
-    suspend fun disableMessage() {
-        delay(3000L)
-        when {
-            showInvalidTypeMessage -> {
-                showInvalidTypeMessage = false
-                proceedEnabled = true
-            }
-        }
+    val proceedEnabled = rememberSaveable {
+        mutableStateOf(
+            postScreenViewModel.ride.departureLocationName != ""
+                    && postScreenViewModel.ride.arrivalLocationName != ""
+                    && postScreenViewModel.ride.type != null
+        )
     }
 
     Box(
@@ -59,10 +71,14 @@ fun FirstPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                 .padding(top = 240.dp)
         ) {
             TransportationSection(
+                postScreenViewModel,
+                proceedEnabled,
                 typeText,
-                setTypeText,
                 modifier = Modifier.onFocusChanged {
-                    rideState.value.type = typeText
+                    proceedEnabled.value = postScreenViewModel.ride.departureLocationName != null
+                            && postScreenViewModel.ride.arrivalLocationName != null
+                            && postScreenViewModel.ride.type != null
+                    Log.d("type changes", (postScreenViewModel.ride.type != null).toString())
                 }
             )
             Spacer(
@@ -73,10 +89,25 @@ fun FirstPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                 placeholder = "Departure location",
                 icon = Icons.Filled.NearMe,
                 modifier = Modifier.onFocusChanged {
-                    rideState.value.departureLocation = departureText.value
+                    postScreenViewModel.setDepartureName(departureText.value)
                 },
                 disableDivider = true,
                 placeholderColor = Color(0xFF001E2D),
+                onCityChanged = { name, placeId ->
+                    postScreenViewModel.setDepartureName(name)
+                    postScreenViewModel.setDeparturePlaceId(placeId)
+                    proceedEnabled.value = postScreenViewModel.ride.departureLocationName != null
+                            && postScreenViewModel.ride.arrivalLocationName != null
+                            && postScreenViewModel.ride.type != null
+//                    Log.d(
+//                        "departure not null",
+//                        (postScreenViewModel.ride.departureLocationName != null).toString()
+//                    )
+//                    Log.d(
+//                        "proceed next first page enabled",
+//                        proceedEnabled.toString()
+//                    )
+                }
             )
             Spacer(
                 modifier = Modifier.height(24.dp)
@@ -86,10 +117,25 @@ fun FirstPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                 placeholder = "Arrival location",
                 icon = Icons.Filled.Place,
                 modifier = Modifier.onFocusChanged {
-                    rideState.value.arrivalLocation = arrivalText.value
+                    postScreenViewModel.setArrivalName(arrivalText.value)
                 },
                 disableDivider = true,
                 placeholderColor = Color(0xFF001E2D),
+                onCityChanged = { name, placeId ->
+                    postScreenViewModel.setArrivalName(name)
+                    postScreenViewModel.setArrivalPlaceId(placeId)
+                    proceedEnabled.value = postScreenViewModel.ride.departureLocationName != null
+                            && postScreenViewModel.ride.arrivalLocationName != null
+                            && postScreenViewModel.ride.type != null
+//                    Log.d(
+//                        "arrival not null",
+//                        (postScreenViewModel.ride.arrivalLocationName != null).toString()
+//                    )
+//                    Log.d(
+//                        "proceed next first page enabled",
+//                        proceedEnabled.toString()
+//                    )
+                }
             )
 
             Column(
@@ -107,24 +153,19 @@ fun FirstPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                         .width(86.dp)
                         .height(51.dp),
                     shape = RoundedCornerShape(26.dp),
-                    enabled = proceedEnabled,
+                    enabled = proceedEnabled.value,
                     onClick = {
-                        when (typeText) {
-                            null -> {
-                                showInvalidTypeMessage = true
-                                proceedEnabled = false
-                                coroutineScope.launch {
-                                    disableMessage()
-                                }
-                            }
-                            else -> {
-                                // Updates trip state with details collected on FirstPage
-                                val ride = rideState.value
-                                ride.type = typeText
-                                rideState.value = ride
-                                onProceedClicked()
-                            }
+                        // Updates trip state with details collected on FirstPage
+                        Log.d("Departure changes")
+                        val ride = postScreenViewModel.ride
+                        ride.type = when (typeText.value) {
+                            "rideshare" -> RideType.RIDESHARE
+                            "studentdriver" -> RideType.STUDENT
+                            else -> null
                         }
+                        // don't know if this works ideally we can set things before next button
+                        // postScreenViewModel.setRide(ride)
+                        onProceedClicked()
                     },
                     contentPadding = PaddingValues(10.dp),
                     colors = ButtonDefaults.buttonColors(
@@ -135,7 +176,7 @@ fun FirstPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                     Text(
                         "Next",
                         style = MaterialTheme.typography.body1,
-                        color = (if (proceedEnabled) Color.Black else Color(0xFF001E2D)),
+                        color = (if (proceedEnabled.value) Color.Black else Color(0xFF001E2D)),
                         fontWeight = Bold
                     )
                 }
@@ -146,17 +187,24 @@ fun FirstPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
 
 @Composable
 fun TransportationSection(
-    typeText: String,
-    setTypeText: (String) -> Unit,
+    postScreenViewModel: PostScreenViewModel,
+    proceedEnabled: MutableState<Boolean>,
+    typeText: MutableState<String>,
     modifier: Modifier = Modifier
 ) {
     val items = listOf("Student driver", "Taxi")
-    val selectedValue = remember { mutableStateOf(typeText) }
-    val isSelectedItem: (String) -> Boolean = { selectedValue.value == it }
+    // var selectedValue by remember { mutableStateOf(postScreenViewModel.ride.type) }
+//    val isSelectedItem: (String) -> Boolean = {
+//        typeText.value == when (it) {
+//            "Student driver" -> "studentdriver"
+//            "Taxi" -> "rideshare"
+//            else -> "asdf"
+//        }
+//    }
 
     Column {
         Text(
-            "TRANSPORTATION METHOD",
+            stringResource(R.string.transportation_method),
             style = MaterialTheme.typography.subtitle2
         )
         Spacer(
@@ -167,16 +215,56 @@ fun TransportationSection(
                 verticalAlignment = CenterVertically,
                 modifier = modifier
                     .selectable(
-                        selected = isSelectedItem(item),
+                        selected = rideTypeToString(postScreenViewModel.ride.type) == when (item) {
+                            "Student driver" -> "studentdriver"
+                            "Taxi" -> "rideshare"
+                            else -> "asdf"
+                        },
                         interactionSource = MutableInteractionSource(),
                         indication = null,
-                        onClick = { setTypeText(item); selectedValue.value = item },
+                        onClick = {
+                            Log.d(
+                                "button initial value",
+                                postScreenViewModel.ride.type.toString()
+                            )
+                            Log.d(
+                                "button initial value",
+                                rideTypeToString(postScreenViewModel.ride.type)
+                            )
+                            val type = when (item) {
+                                "Student driver" -> "studentdriver"
+                                "Taxi" -> "rideshare"
+                                else -> ""
+                            }
+                            postScreenViewModel.setType(type)
+                            // selectedValue = stringToRideType(type)
+                            proceedEnabled.value =
+                                postScreenViewModel.ride.departureLocationName != null
+                                        && postScreenViewModel.ride.arrivalLocationName != null
+                                        && postScreenViewModel.ride.type != null
+                            Log.d(
+                                "button clicked",
+                                (postScreenViewModel.ride.type != null).toString()
+                            )
+                            Log.d(
+                                "button ride type",
+                                rideTypeToString(postScreenViewModel.ride.type)
+                            )
+                            Log.d(
+                                "button item",
+                                item
+                            )
+                        },
                         role = Role.RadioButton
                     )
                     .padding(10.dp)
             ) {
                 RadioButton(
-                    selected = isSelectedItem(item),
+                    selected = rideTypeToString(postScreenViewModel.ride.type) == when (item) {
+                        "Student driver" -> "studentdriver"
+                        "Taxi" -> "rideshare"
+                        else -> "asdf"
+                    },
                     onClick = null,
                     colors = RadioButtonDefaults.colors(
                         selectedColor = Green

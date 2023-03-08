@@ -22,12 +22,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
+import com.cornellappdev.scoop.data.models.RideType
 
 @Composable
 fun BottomSheet(ride: Ride) {
     Column(modifier = Modifier.padding(top = 28.dp, start = 40.dp, end = 40.dp)) {
         Text(
-            text = "Trip to ${ride.arrivalLocation}",
+            text = "Trip to ${ride.arrivalLocationName}",
             style = TextStyle(color = Color.Black, fontSize = 25.sp),
             modifier = Modifier.padding(bottom = 5.dp)
         )
@@ -47,9 +48,14 @@ fun BottomSheet(ride: Ride) {
                     .align(Alignment.CenterVertically),
                 contentDescription = stringResource(R.string.details_icon_description)
             )
+            val typeText = when (ride.type) {
+                RideType.RIDESHARE -> "rideshare"
+                RideType.STUDENT -> "studentdriver"
+                else -> ""
+            }
             ride.type?.let {
                 Text(
-                    it,
+                    typeText,
                     modifier = Modifier.align(Alignment.CenterVertically),
                     style = TextStyle(color = Color.Black, fontSize = 18.sp),
                 )
@@ -66,7 +72,7 @@ fun BottomSheet(ride: Ride) {
                         .align(Alignment.CenterVertically),
                     contentDescription = stringResource(R.string.details_icon_description)
                 )
-                ride.departureLocation?.let {
+                ride.departureLocationName?.let {
                     Text(
                         it,
                         modifier = Modifier.align(Alignment.CenterVertically),
@@ -99,7 +105,7 @@ fun BottomSheet(ride: Ride) {
                         .align(Alignment.CenterVertically),
                     contentDescription = stringResource(R.string.details_icon_description)
                 )
-                ride.arrivalLocation?.let {
+                ride.arrivalLocationName?.let {
                     Text(
                         it,
                         modifier = Modifier.align(Alignment.CenterVertically),
@@ -120,7 +126,7 @@ fun BottomSheet(ride: Ride) {
             )
 
             Text(
-                "${ride.dateOfTrip} @ ${ride.timeOfTrip}",
+                "${ride.datetime}",
                 modifier = Modifier.align(Alignment.CenterVertically),
                 style = TextStyle(color = Color.Black, fontSize = 18.sp)
             )

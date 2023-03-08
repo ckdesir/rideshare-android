@@ -66,7 +66,7 @@ fun RideCard(
                         contentDescription = stringResource(R.string.calendar_icon_description)
                     )
 
-                    ride.dateOfTrip?.let { date ->
+                    ride.datetime?.let { date ->
                         Text(
                             text = date,
                             modifier = Modifier.align(Alignment.CenterVertically),
@@ -86,9 +86,9 @@ fun RideCard(
                             .align(Alignment.CenterVertically),
                         contentDescription = stringResource(R.string.details_icon_description)
                     )
-                    ride.departureLocation?.let { departureLocation ->
+                    ride.departureLocationName?.let { departureLocationName ->
                         Text(
-                            departureLocation,
+                            departureLocationName,
                             modifier = Modifier.align(Alignment.CenterVertically),
                             style = TextStyle(color = Color.Black, fontSize = 18.sp),
                         )
@@ -119,9 +119,9 @@ fun RideCard(
                             .align(Alignment.CenterVertically),
                         contentDescription = stringResource(R.string.details_icon_description)
                     )
-                    ride.arrivalLocation?.let { arrivalLocation ->
+                    ride.arrivalLocationName?.let { arrivalLocationName ->
                         Text(
-                            arrivalLocation,
+                            arrivalLocationName,
                             modifier = Modifier.align(Alignment.CenterVertically),
                             style = TextStyle(color = Color.Black, fontSize = 18.sp)
                         )
