@@ -9,7 +9,9 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.NearMe
 import androidx.compose.material.icons.filled.Place
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
@@ -75,8 +77,8 @@ fun FirstPage(
                 proceedEnabled,
                 typeText,
                 modifier = Modifier.onFocusChanged {
-                    proceedEnabled.value = postScreenViewModel.ride.departureLocationName != null
-                            && postScreenViewModel.ride.arrivalLocationName != null
+                    proceedEnabled.value = postScreenViewModel.ride.departureLocationName != ""
+                            && postScreenViewModel.ride.arrivalLocationName != ""
                             && postScreenViewModel.ride.type != null
                     Log.d("type changes", (postScreenViewModel.ride.type != null).toString())
                 }
@@ -96,8 +98,8 @@ fun FirstPage(
                 onCityChanged = { name, placeId ->
                     postScreenViewModel.setDepartureName(name)
                     postScreenViewModel.setDeparturePlaceId(placeId)
-                    proceedEnabled.value = postScreenViewModel.ride.departureLocationName != null
-                            && postScreenViewModel.ride.arrivalLocationName != null
+                    proceedEnabled.value = postScreenViewModel.ride.departureLocationName != ""
+                            && postScreenViewModel.ride.arrivalLocationName != ""
                             && postScreenViewModel.ride.type != null
 //                    Log.d(
 //                        "departure not null",
@@ -156,7 +158,7 @@ fun FirstPage(
                     enabled = proceedEnabled.value,
                     onClick = {
                         // Updates trip state with details collected on FirstPage
-                        Log.d("Departure changes")
+                        Log.d("FirstPage", "Departure value: $departureText.value")
                         val ride = postScreenViewModel.ride
                         ride.type = when (typeText.value) {
                             "rideshare" -> RideType.RIDESHARE
@@ -239,8 +241,8 @@ fun TransportationSection(
                             postScreenViewModel.setType(type)
                             // selectedValue = stringToRideType(type)
                             proceedEnabled.value =
-                                postScreenViewModel.ride.departureLocationName != null
-                                        && postScreenViewModel.ride.arrivalLocationName != null
+                                postScreenViewModel.ride.departureLocationName != ""
+                                        && postScreenViewModel.ride.arrivalLocationName != ""
                                         && postScreenViewModel.ride.type != null
                             Log.d(
                                 "button clicked",
