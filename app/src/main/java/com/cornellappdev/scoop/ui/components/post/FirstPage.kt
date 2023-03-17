@@ -1,6 +1,5 @@
 package com.cornellappdev.scoop.ui.components.post
 
-import android.util.Log
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
@@ -77,7 +76,6 @@ fun FirstPage(
                 proceedEnabled,
                 modifier = Modifier.onFocusChanged {
                     updateProceedEnabled()
-//                    Log.d("type changes", (postScreenViewModel.ride.type != null).toString())
                 }
             )
             Spacer(
@@ -96,14 +94,6 @@ fun FirstPage(
                     postScreenViewModel.setDepartureName(name)
                     postScreenViewModel.setDeparturePlaceId(placeId)
                     updateProceedEnabled()
-//                    Log.d(
-//                        "departure not null",
-//                        (postScreenViewModel.ride.departureLocationName != null).toString()
-//                    )
-//                    Log.d(
-//                        "proceed next first page enabled",
-//                        proceedEnabled.toString()
-//                    )
                 }
             )
             Spacer(
@@ -122,14 +112,6 @@ fun FirstPage(
                     postScreenViewModel.setArrivalName(name)
                     postScreenViewModel.setArrivalPlaceId(placeId)
                     updateProceedEnabled()
-//                    Log.d(
-//                        "arrival not null",
-//                        (postScreenViewModel.ride.arrivalLocationName != null).toString()
-//                    )
-//                    Log.d(
-//                        "proceed next first page enabled",
-//                        proceedEnabled.toString()
-//                    )
                 }
             )
 
@@ -150,18 +132,6 @@ fun FirstPage(
                     shape = RoundedCornerShape(26.dp),
                     enabled = proceedEnabled.value,
                     onClick = {
-                        Log.d(
-                            "Posting Flow FirstPage",
-                            "Departure value: ${postScreenViewModel.ride.departureLocationName}"
-                        )
-                        Log.d(
-                            "Posting Flow FirstPage",
-                            "Arrival value: ${postScreenViewModel.ride.arrivalLocationName}"
-                        )
-                        Log.d(
-                            "Posting Flow FirstPage",
-                            "Type value: ${rideTypeToString(postScreenViewModel.ride.type)}"
-                        )
                         onProceedClicked()
                     },
                     contentPadding = PaddingValues(10.dp),
@@ -226,14 +196,6 @@ fun TransportationSection(
                         interactionSource = MutableInteractionSource(),
                         indication = null,
                         onClick = {
-//                            Log.d(
-//                                "button initial value",
-//                                postScreenViewModel.ride.type.toString()
-//                            )
-//                            Log.d(
-//                                "button initial value",
-//                                rideTypeToString(postScreenViewModel.ride.type)
-//                            )
                             val type = when (item) {
                                 "Student driver" -> "studentdriver"
                                 "Taxi" -> "rideshare"
@@ -242,18 +204,6 @@ fun TransportationSection(
                             postScreenViewModel.setType(type)
                             selectedValue.value = stringToRideType(type)
                             updateProceedEnabled()
-//                            Log.d(
-//                                "button clicked",
-//                                (postScreenViewModel.ride.type != null).toString()
-//                            )
-//                            Log.d(
-//                                "button ride type",
-//                                rideTypeToString(postScreenViewModel.ride.type)
-//                            )
-//                            Log.d(
-//                                "button item",
-//                                item
-//                            )
                         },
                         role = Role.RadioButton
                     )

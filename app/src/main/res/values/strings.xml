@@ -38,8 +38,8 @@
         <item>student driving</item>
         <item>shared taxi</item>
     </string-array>
-    <string name="title_activity_first_page">FirstPage</string>
     <string name="transportation_method">TRANSPORTATION METHOD</string>
     <string name="studentdriver">studentdriver</string>
     <string name="rideshare">rideshare</string>
+    <string name="find_trips">Find Trips</string>
 </resources>

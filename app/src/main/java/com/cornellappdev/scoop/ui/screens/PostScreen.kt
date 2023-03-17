@@ -50,7 +50,7 @@ fun PostScreen(
     onPostNewTrip: (Ride) -> Unit,
     postScreenViewModel: PostScreenViewModel = hiltViewModel()
 ) {
-    val pagerState = rememberPagerState(1)
+    val pagerState = rememberPagerState(0)
     val coroutineScope = rememberCoroutineScope()
     val rideState = remember {
         mutableStateOf(
@@ -85,16 +85,15 @@ fun PostScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     when (page) {
-                        0 -> {}
-                        1 -> FirstPage(
+                        0 -> FirstPage(
                             proceedToPageIndex(coroutineScope, page + 1, pagerState),
                             postScreenViewModel
                         )
-                        2 -> SecondPage(
+                        1 -> SecondPage(
                             proceedToPageIndex(coroutineScope, page + 1, pagerState),
                             postScreenViewModel
                         )
-                        3 -> ThirdPage(rideState.value)
+                        2 -> ThirdPage(rideState.value)
                     }
                 }
             }
@@ -145,11 +144,6 @@ fun PostScreen(
                 pagerState
             ).invoke()
             2 -> proceedToPageIndex(
-                coroutineScope,
-                pagerState.currentPage - 1,
-                pagerState
-            ).invoke()
-            3 -> proceedToPageIndex(
                 coroutineScope,
                 pagerState.currentPage - 1,
                 pagerState
