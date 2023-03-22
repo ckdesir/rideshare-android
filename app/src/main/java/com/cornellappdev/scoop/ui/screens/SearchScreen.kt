@@ -5,5 +5,5 @@ import com.cornellappdev.scoop.ui.components.search.SearchFirstPage
 
 @Composable
 fun SearchScreen() {
-    SearchFirstPage()
+    SearchFirstPage {}
 }

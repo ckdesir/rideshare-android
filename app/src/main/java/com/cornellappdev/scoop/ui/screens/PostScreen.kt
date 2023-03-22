@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
+import com.cornellappdev.scoop.data.models.RideRequestBody
 import com.cornellappdev.scoop.ui.components.post.FirstPage
 import com.cornellappdev.scoop.ui.components.post.SecondPage
 import com.cornellappdev.scoop.ui.components.post.ThirdPage
@@ -47,7 +48,7 @@ PostScreen to network and pass data back and forth.
 )
 @Composable
 fun PostScreen(
-    onPostNewTrip: (Ride) -> Unit,
+    onPostNewTrip: (RideRequestBody) -> Unit,
     postScreenViewModel: PostScreenViewModel = hiltViewModel()
 ) {
     val pagerState = rememberPagerState(0)
@@ -120,7 +121,7 @@ fun PostScreen(
         ) {
             Button(
                 shape = RoundedCornerShape(30.dp),
-                onClick = { onPostNewTrip(rideState.value) },
+                onClick = { onPostNewTrip(postScreenViewModel.ride) },
                 colors = ButtonDefaults.outlinedButtonColors(
                     backgroundColor = LightGray,
                     contentColor = Color.Black

@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * Allows users to select a city using Place API autocomplete.
+ * Allows users to select a date using datePickerDialog.
  *
  * @param dateState State that represents the current time selected by user
  * @param placeholder The placeholder to be displayed when the text field is in focus and the input text is empty
@@ -73,17 +73,10 @@ fun DatePicker(
     ) {
         Row(
             modifier = Modifier
-                .padding(start = 10.dp)
+                .padding(horizontal = 10.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Icon(
-                icon,
-                null,
-                modifier = Modifier
-                    .padding(vertical = 15.dp)
-            )
-            Spacer(
-                modifier = Modifier.width(5.dp)
-            )
             Column(
                 modifier = Modifier.fillMaxHeight(),
                 verticalArrangement = Arrangement.Center
@@ -105,6 +98,15 @@ fun DatePicker(
                     Divider(color = Color.Black, thickness = 2.dp)
                 }
             }
+            Spacer(
+                modifier = Modifier.width(5.dp)
+            )
+            Icon(
+                icon,
+                null,
+                modifier = Modifier
+                    .padding(vertical = 15.dp)
+            )
         }
     }
 }

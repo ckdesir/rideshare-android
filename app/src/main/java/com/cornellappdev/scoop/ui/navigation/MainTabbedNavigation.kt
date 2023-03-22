@@ -159,7 +159,7 @@ fun MainScreenNavigationConfigurations(
             setShowBottomBar(false)
             PostScreen(
                 onPostNewTrip = {
-                    Log.d("Trip", it.arrivalLocationName!!)
+                    Log.d("Trip posted", it.arrivalLocationName!!)
                 }
             )
         }
