@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.NearMe
+import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.NearMe
 import androidx.compose.material.icons.outlined.Place
@@ -105,15 +107,16 @@ fun SearchCard(
                                     align(Alignment.CenterVertically)
                                 }
                             },
+                            icon = Icons.Filled.NearMe,
                             placeholder = "", // CityPicker should never be empty.
                             enabled = isEditing.value,
                             disabledTextStyle = MaterialTheme.typography.subtitle1,
                             disableDivider = !isEditing.value
-                        ) {
+                        ) { it, _ ->
                             if (search.value.departureLocation != it) {
                                 search.value.departureLocation = it
 
-                                /** TODO: Networking for searching for rides should be inserted here and passed into callback. */
+                                // TODO: Networking for searching for rides should be inserted here and passed into callback.
                                 onSearchCompleted(listOf())
                             }
                         }
@@ -163,11 +166,12 @@ fun SearchCard(
                                 align(Alignment.CenterVertically)
                             }
                         },
+                        icon = Icons.Filled.Place,
                         placeholder = "",
                         enabled = isEditing.value,
                         disabledTextStyle = MaterialTheme.typography.subtitle1,
                         disableDivider = !isEditing.value
-                    ) {
+                    ) { it, _ ->
                         if (search.value.arrivalLocation != it) {
                             search.value.arrivalLocation = it
 

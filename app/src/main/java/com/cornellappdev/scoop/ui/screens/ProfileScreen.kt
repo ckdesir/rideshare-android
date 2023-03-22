@@ -20,6 +20,8 @@ import com.cornellappdev.scoop.data.models.User
 import com.cornellappdev.scoop.ui.components.profile.ProfileCard
 import com.cornellappdev.scoop.ui.theme.Green
 
+/** This composable creates the profile screen after having the user passed in (ideally we create
+ * a ViewModel for it). */
 @Composable
 @Preview
 fun ProfileScreen() {

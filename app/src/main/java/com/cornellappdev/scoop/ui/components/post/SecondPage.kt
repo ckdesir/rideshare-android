@@ -6,7 +6,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.CalendarToday
-import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -20,32 +19,45 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
-import com.cornellappdev.scoop.data.models.Ride
 import com.cornellappdev.scoop.ui.components.general.BuildMessage
+import com.cornellappdev.scoop.ui.components.general.DenseTextField
 import com.cornellappdev.scoop.ui.components.general.UnderlinedEditText
 import com.cornellappdev.scoop.ui.theme.Gray
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
+import com.cornellappdev.scoop.ui.viewmodel.PostScreenViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
+// TODO: Change SecondPage to high fidelity designs using DenseTextField
+/**
+ * This composable creates the second page of the posting a ride flow which handles date and time
+ * as well as minimum and maximum travelers.
+ */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
+fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenViewModel) {
     val dateFormatter =
-        SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
+        SimpleDateFormat(stringResource(R.string.date_format), Locale.getDefault())
     val timeFormatter =
-        SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
+        SimpleDateFormat(stringResource(R.string.time_format), Locale.getDefault())
     val dateAndTimeFormatter =
         SimpleDateFormat(stringResource(R.string.date_time_format), Locale.getDefault())
-    val (detailsText, setDetailsText) = rememberSaveable { mutableStateOf(rideState.value.description.orEmpty()) }
-    val min_travelers =
-        rememberSaveable { mutableStateOf((rideState.value.minTravelers ?: 1)) }
-    val higherRangeNumTravelers =
-        rememberSaveable { mutableStateOf((rideState.value.maxTravelers ?: 1)) }
-    val (dateText, setDateText) = rememberSaveable { mutableStateOf(rideState.value.dateOfTrip.orEmpty()) }
-    val (timeText, setTimeText) = rememberSaveable { mutableStateOf(rideState.value.timeOfTrip.orEmpty()) }
+    val (detailsText, setDetailsText) = rememberSaveable {
+        mutableStateOf(postScreenViewModel.ride.description.orEmpty())
+    }
+    val (minTravelers, setMinTravelers) =
+        rememberSaveable { mutableStateOf((postScreenViewModel.ride.minTravelers.toString())) }
+    val (maxTravelers, setMaxTravelers) =
+        rememberSaveable { mutableStateOf((postScreenViewModel.ride.maxTravelers.toString())) }
+    val (dateText, setDateText) = rememberSaveable {
+        mutableStateOf(postScreenViewModel.ride.datetime?.substringBefore(' ').orEmpty())
+    }
+    val (timeText, setTimeText) = rememberSaveable {
+        mutableStateOf(postScreenViewModel.ride.datetime?.substringAfter(' ').orEmpty())
+    }
+    // TODO: merge date and time and figure out how to separate if design wants that
     var showInvalidRangeMessage by rememberSaveable { mutableStateOf(false) }
     var showInvalidDateMessage by rememberSaveable { mutableStateOf(false) }
     var showInvalidTimeMessage by rememberSaveable { mutableStateOf(false) }
@@ -80,11 +92,13 @@ fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                 .wrapContentHeight()
                 .fillMaxWidth()
                 .padding(horizontal = 37.dp)
+                .padding(top = 50.dp)
         ) {
-
-            NumberOfTravelersSection(min_travelers, higherRangeNumTravelers)
             DateOfTripSection(dateText, setDateText, dateFormatter)
             TimeOfTripSection(timeText, setTimeText, timeFormatter)
+            NumberOfTravelersSection(
+                minTravelers, setMinTravelers, maxTravelers, setMaxTravelers
+            )
             OtherDetailsSection(detailsText, setDetailsText)
 
             Column(
@@ -99,8 +113,20 @@ fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                     shape = RoundedCornerShape(30.dp),
                     enabled = proceedEnabled,
                     onClick = {
+                        var numMinTravelers = 0
+                        var numMaxTravelers = 10
+                        try {
+                            numMinTravelers = Integer.valueOf(minTravelers)
+                            numMaxTravelers = Integer.valueOf(maxTravelers)
+                        } catch (nfe: NumberFormatException) {
+                            showInvalidRangeMessage = true
+                            proceedEnabled = false
+                            coroutineScope.launch {
+                                disableMessage()
+                            }
+                        }
                         when {
-                            min_travelers.value > higherRangeNumTravelers.value -> {
+                            numMinTravelers > numMaxTravelers -> {
                                 showInvalidRangeMessage = true
                                 proceedEnabled = false
                                 coroutineScope.launch {
@@ -124,14 +150,11 @@ fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
                                 }
                             }
                             else -> {
-                                // Updates trip state with details collected on SecondPage
-                                val trip = rideState.value
-                                trip.minTravelers = min_travelers.value
-                                trip.maxTravelers = higherRangeNumTravelers.value
-                                trip.dateOfTrip = dateText
-                                trip.timeOfTrip = timeText
-                                trip.description = detailsText
-                                rideState.value = trip
+                                // Updates view model with details collected on SecondPage
+                                postScreenViewModel.setMinTravelers(numMinTravelers)
+                                postScreenViewModel.setMaxTravelers(numMaxTravelers)
+                                postScreenViewModel.setDatetime("$dateText $timeText")
+                                postScreenViewModel.setDescription(detailsText)
                                 onProceedClicked()
                             }
                         }
@@ -160,38 +183,34 @@ fun SecondPage(onProceedClicked: () -> Unit, rideState: MutableState<Ride>) {
 
 @Composable
 fun NumberOfTravelersSection(
-    min_travelers: MutableState<Int>,
-    higherRangeNumTravelers: MutableState<Int>
+    minTravelers: String, setMinTravelers: (String) -> Unit,
+    maxTravelers: String, setMaxTravelers: (String) -> Unit
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(
             text = stringResource(R.string.num_of_travelers),
-            fontSize = 22.sp,
-            modifier = Modifier.padding(bottom = 12.dp)
+            style = MaterialTheme.typography.subtitle2,
+            modifier = Modifier.padding(bottom = 8.dp)
         )
         Row {
-            Icon(
-                Icons.Outlined.Group,
-                modifier = Modifier
-                    .size(32.dp)
-                    .align(Alignment.CenterVertically),
-                contentDescription = stringResource(R.string.travelers_icon_description)
+            DenseTextField(
+                value = if (minTravelers == "null") "" else minTravelers,
+                setValue = setMinTravelers,
+                placeholderText = "Minimum",
+                label = "Minimum",
+                singleLine = true,
+                modifier = Modifier.weight(1f)
             )
-            NumberPicker(
-                state = min_travelers,
-                modifier = Modifier.padding(start = 13.dp),
-                range = 1..10,
+            Spacer(
+                modifier = Modifier.width(15.dp)
             )
-            Text(
-                text = stringResource(R.string.to),
-                modifier = Modifier
-                    .padding(horizontal = 14.dp)
-                    .align(Alignment.Bottom),
-                fontSize = 22.sp
-            )
-            NumberPicker(
-                state = higherRangeNumTravelers,
-                range = 1..10,
+            DenseTextField(
+                value = if (maxTravelers == "null") "" else maxTravelers,
+                setValue = setMaxTravelers,
+                placeholderText = "Maximum",
+                label = "Maximum",
+                singleLine = true,
+                modifier = Modifier.weight(1f)
             )
         }
     }

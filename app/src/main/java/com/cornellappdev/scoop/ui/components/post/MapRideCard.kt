@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
+import com.cornellappdev.scoop.data.models.RideType
 import com.cornellappdev.scoop.data.models.User
 import com.cornellappdev.scoop.ui.theme.Green
 
@@ -105,8 +106,13 @@ fun MapRideCard(
                         .size(24.dp)
                         .align(CenterVertically)
                 )
+                val typeText = when (rideState.value.type) {
+                    RideType.RIDESHARE -> "rideshare"
+                    RideType.STUDENT -> "studentdriver"
+                    else -> ""
+                }
                 Text(
-                    text = rideState.value.type ?: "Driving",
+                    text = typeText,
                     style = MaterialTheme.typography.body1
                 )
             }
@@ -128,9 +134,9 @@ fun MapRideCard(
                         .align(CenterVertically),
                     contentDescription = stringResource(R.string.details_icon_description)
                 )
-                rideState.value.departureLocation?.let { departureLocation ->
+                rideState.value.departureLocationName?.let { departureLocationName ->
                     Text(
-                        departureLocation,
+                        departureLocationName,
                         modifier = Modifier.align(CenterVertically),
                         style = MaterialTheme.typography.body1,
                     )
@@ -161,9 +167,9 @@ fun MapRideCard(
                         .align(CenterVertically),
                     contentDescription = stringResource(R.string.details_icon_description)
                 )
-                rideState.value.arrivalLocation?.let { arrivalLocation ->
+                rideState.value.arrivalLocationName?.let { arrivalLocationName ->
                     Text(
-                        arrivalLocation,
+                        arrivalLocationName,
                         modifier = Modifier.align(CenterVertically),
                         style = MaterialTheme.typography.body1
                     )
@@ -192,17 +198,9 @@ fun MapRideCard(
                     contentDescription = stringResource(R.string.calendar_icon_description)
                 )
 
-                rideState.value.dateOfTrip?.let { date ->
+                rideState.value.datetime?.let { datetime ->
                     Text(
-                        text = date,
-                        modifier = Modifier.align(CenterVertically),
-                        style = MaterialTheme.typography.body1
-                    )
-                }
-
-                rideState.value.timeOfTrip?.let { time ->
-                    Text(
-                        text = "@$time",
+                        text = datetime,
                         modifier = Modifier.align(CenterVertically),
                         style = MaterialTheme.typography.body1
                     )
