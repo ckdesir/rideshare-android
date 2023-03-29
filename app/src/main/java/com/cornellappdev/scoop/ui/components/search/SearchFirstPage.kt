@@ -28,13 +28,15 @@ import com.cornellappdev.scoop.ui.components.general.DatePicker
 import com.cornellappdev.scoop.ui.theme.Green
 import com.cornellappdev.scoop.ui.theme.PlaceholderGray
 import com.cornellappdev.scoop.ui.theme.typography
+import com.cornellappdev.scoop.ui.viewmodel.SearchScreenViewModel
 
 /**
  * Displays the first page of search including departure location, arrival location, and date
  */
 @Composable
 fun SearchFirstPage(
-    onProceedClicked: () -> Unit
+    onProceedClicked: () -> Unit,
+    searchScreenViewModel: SearchScreenViewModel
 ) {
     val departureLocation = rememberSaveable { mutableStateOf("") }
     val arrivalLocation = rememberSaveable { mutableStateOf("") }
@@ -62,7 +64,10 @@ fun SearchFirstPage(
             placeholderColor = PlaceholderGray,
             icon = Icons.Filled.NearMe,
             disableDivider = true
-        )
+        ) { name, id ->
+            searchScreenViewModel.setDepartureName(name)
+            searchScreenViewModel.setDeparturePlaceId(id)
+        }
         Spacer(
             modifier = Modifier.height(24.dp)
         )
@@ -72,7 +77,10 @@ fun SearchFirstPage(
             placeholderColor = PlaceholderGray,
             icon = Icons.Filled.Place,
             disableDivider = true
-        )
+        ) { name, id ->
+            searchScreenViewModel.setArrivalName(name)
+            searchScreenViewModel.setArrivalPlaceId(id)
+        }
         Spacer(
             modifier = Modifier.height(24.dp)
         )
@@ -83,12 +91,13 @@ fun SearchFirstPage(
             disableDivider = true,
         ) {
             dateText.value = it
+            searchScreenViewModel.setDepartureDate(it)
         }
         Spacer(
             modifier = Modifier.height(71.dp)
         )
         TextButton(
-            onClick = { /*TODO*/ },
+            onClick = onProceedClicked,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)

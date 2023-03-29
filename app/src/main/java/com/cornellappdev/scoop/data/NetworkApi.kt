@@ -2,6 +2,7 @@ package com.cornellappdev.scoop.data
 
 import com.cornellappdev.scoop.data.models.Ride
 import com.cornellappdev.scoop.data.models.RideRequestBody
+import com.cornellappdev.scoop.data.models.Search
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -16,4 +17,7 @@ interface NetworkApi {
 
     @GET("/api/ride/{ride_id}")
     suspend fun getRide(@Path("ride_id") rideId: Int): Ride
+
+    @GET("/api/search/")
+    suspend fun searchForRides(@Body searchBody: Search): List<Ride>
 }
