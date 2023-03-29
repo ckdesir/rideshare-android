@@ -3,6 +3,7 @@ package com.cornellappdev.scoop.ui.components.search
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
@@ -42,6 +43,19 @@ fun SearchFirstPage(
     val arrivalLocation = rememberSaveable { mutableStateOf("") }
     val dateText = rememberSaveable { mutableStateOf("") }
 
+    val proceedEnabled = rememberSaveable {
+        mutableStateOf(
+            searchScreenViewModel.search.departureLocationName != null
+                    && searchScreenViewModel.search.arrivalLocationName != null
+                    && searchScreenViewModel.search.departureDate != null
+        )
+    }
+    val updateProceedEnabled = {
+        proceedEnabled.value = searchScreenViewModel.search.departureLocationName != null
+                && searchScreenViewModel.search.arrivalLocationName != null
+                && searchScreenViewModel.search.departureDate != null
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -67,6 +81,7 @@ fun SearchFirstPage(
         ) { name, id ->
             searchScreenViewModel.setDepartureName(name)
             searchScreenViewModel.setDeparturePlaceId(id)
+            updateProceedEnabled()
         }
         Spacer(
             modifier = Modifier.height(24.dp)
@@ -80,6 +95,7 @@ fun SearchFirstPage(
         ) { name, id ->
             searchScreenViewModel.setArrivalName(name)
             searchScreenViewModel.setArrivalPlaceId(id)
+            updateProceedEnabled()
         }
         Spacer(
             modifier = Modifier.height(24.dp)
@@ -92,6 +108,7 @@ fun SearchFirstPage(
         ) {
             dateText.value = it
             searchScreenViewModel.setDepartureDate(it)
+            updateProceedEnabled()
         }
         Spacer(
             modifier = Modifier.height(71.dp)
@@ -104,6 +121,11 @@ fun SearchFirstPage(
                 .padding(horizontal = 8.dp)
                 .background(Green, RoundedCornerShape(25.dp)),
             shape = RoundedCornerShape(25.dp),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Green,
+                disabledBackgroundColor = Color(0xFFDBE5DF)
+            ),
+            enabled = proceedEnabled.value
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
                 Text(

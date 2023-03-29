@@ -1,6 +1,5 @@
 package com.cornellappdev.scoop.ui.components.general
 
-import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -54,7 +53,7 @@ fun DatePicker(
 
     val datePickerDialog = createDatePickerDialog(
         LocalContext.current,
-        { Log.d("Date changed", it); onDateChanged(it) },
+        onDateChanged,
         dateFormatter
     )
 
