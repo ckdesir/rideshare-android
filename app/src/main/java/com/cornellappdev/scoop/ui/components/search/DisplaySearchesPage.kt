@@ -28,20 +28,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
-import com.cornellappdev.scoop.data.models.Search
 import com.cornellappdev.scoop.ui.components.general.FilterRow
 import com.cornellappdev.scoop.ui.components.general.RideCard
+import com.cornellappdev.scoop.ui.viewmodel.SearchScreenViewModel
 
 /**
  * This page allows users to look at their search, filter and view their results.
  *
  * Users also have the ability to edit their search.
  *
- * @param searchState State that represents the current search the user inputted
+ * @param searchScreenViewModel ViewModel that represents the current search the user inputted
  */
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun DisplaySearchesPage(searchState: MutableState<Search>) {
+fun DisplaySearchesPage(
+    searchScreenViewModel: SearchScreenViewModel
+) {
     val searchResults: MutableState<List<Ride>> = remember {
         mutableStateOf(listOf())
     }
@@ -81,7 +83,7 @@ fun DisplaySearchesPage(searchState: MutableState<Search>) {
     }) {
         Column(modifier = Modifier.padding(10.dp)) {
             SearchCard(
-                searchState,
+                searchScreenViewModel,
                 filter,
                 isEditing
             ) {

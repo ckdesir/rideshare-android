@@ -27,9 +27,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
-import com.cornellappdev.scoop.data.models.Search
 import com.cornellappdev.scoop.ui.components.general.CityPicker
 import com.cornellappdev.scoop.ui.components.post.createDatePickerDialog
+import com.cornellappdev.scoop.ui.viewmodel.SearchScreenViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -50,17 +50,20 @@ import java.util.*
  */
 @Composable
 fun SearchCard(
-    search: MutableState<Search>,
+    searchScreenViewModel: SearchScreenViewModel,
     filter: MutableState<String?>,
     isEditing: MutableState<Boolean>,
     onSearchCompleted: (List<Ride>) -> Unit,
 ) {
-    // CityPicker requires MutableStates for it's values but the Search model does
-    // not have MutableStates for it's fields, so we must convert them and update the
+    // CityPicker requires MutableStates for its values but the Search model does
+    // not have MutableStates for its fields, so we must convert them and update the
     // search state in the callback of CityPicker.
-    val departureLocation = remember { mutableStateOf(search.value.departureLocation!!) }
-    val arrivalLocation = remember { mutableStateOf(search.value.arrivalLocation!!) }
-    val departureDate = remember { mutableStateOf(search.value.departureDate!!) }
+    val departureLocationName =
+        remember { mutableStateOf(searchScreenViewModel.search.departureLocationName.orEmpty()) }
+    val arrivalLocationName =
+        remember { mutableStateOf(searchScreenViewModel.search.arrivalLocationName.orEmpty()) }
+    val departureDate =
+        remember { mutableStateOf(searchScreenViewModel.search.departureDate.orEmpty()) }
 
     val dateFormatter =
         SimpleDateFormat(stringResource(R.string.month_name_day_year_format), Locale.US)
@@ -68,7 +71,7 @@ fun SearchCard(
         LocalContext.current,
         { newDate ->
             if (departureDate.value != newDate) {
-                search.value.departureDate = newDate
+                searchScreenViewModel.search.departureDate = newDate
                 departureDate.value = newDate
 
                 // Query backend to get results with given date, filter if there's a filter
@@ -99,7 +102,7 @@ fun SearchCard(
                             contentDescription = stringResource(R.string.details_icon_description)
                         )
                         CityPicker(
-                            cityState = departureLocation,
+                            cityState = departureLocationName,
                             modifier = Modifier.apply {
                                 if (isEditing.value) {
                                     align(Alignment.Bottom)
@@ -112,9 +115,10 @@ fun SearchCard(
                             enabled = isEditing.value,
                             disabledTextStyle = MaterialTheme.typography.subtitle1,
                             disableDivider = !isEditing.value
-                        ) { it, _ ->
-                            if (search.value.departureLocation != it) {
-                                search.value.departureLocation = it
+                        ) { name, id ->
+                            if (searchScreenViewModel.search.departureLocationPlaceId != id) {
+                                searchScreenViewModel.setDepartureName(name)
+                                searchScreenViewModel.setDeparturePlaceId(id)
 
                                 // TODO: Networking for searching for rides should be inserted here and passed into callback.
                                 onSearchCompleted(listOf())
@@ -158,7 +162,7 @@ fun SearchCard(
                         contentDescription = stringResource(R.string.details_icon_description)
                     )
                     CityPicker(
-                        cityState = arrivalLocation,
+                        cityState = arrivalLocationName,
                         modifier = Modifier.apply {
                             if (isEditing.value) {
                                 align(Alignment.Bottom)
@@ -171,9 +175,10 @@ fun SearchCard(
                         enabled = isEditing.value,
                         disabledTextStyle = MaterialTheme.typography.subtitle1,
                         disableDivider = !isEditing.value
-                    ) { it, _ ->
-                        if (search.value.arrivalLocation != it) {
-                            search.value.arrivalLocation = it
+                    ) { name, id ->
+                        if (searchScreenViewModel.search.arrivalLocationPlaceId != id) {
+                            searchScreenViewModel.setArrivalName(name)
+                            searchScreenViewModel.setArrivalPlaceId(id)
 
                             /** TODO: Networking for searching for rides should be inserted here and passed into callback. */
                             onSearchCompleted(listOf())
