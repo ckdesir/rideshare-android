@@ -74,7 +74,9 @@ fun SearchCard(
                         .wrapContentHeight(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Icon(
                             Icons.Filled.NearMe,
                             modifier = Modifier
@@ -111,7 +113,10 @@ fun SearchCard(
                         strokeWidth = 3f
                     )
                 }
-                Row(modifier = Modifier.padding(top = if (isEditing.value) 17.dp else 0.dp)) {
+                Row(
+                    modifier = Modifier.padding(top = if (isEditing.value) 17.dp else 0.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Icon(
                         Icons.Filled.Place,
                         modifier = Modifier
@@ -128,7 +133,10 @@ fun SearchCard(
                 Spacer(
                     modifier = Modifier.height(10.dp)
                 )
-                Row(modifier = Modifier.padding(top = if (isEditing.value) 17.dp else 0.dp)) {
+                Row(
+                    modifier = Modifier.padding(top = if (isEditing.value) 17.dp else 0.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Icon(
                         Icons.Filled.CalendarToday,
                         modifier = Modifier
