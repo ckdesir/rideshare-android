@@ -49,7 +49,7 @@ fun DatePicker(
 ) {
 
     val dateFormatter =
-        SimpleDateFormat(stringResource(R.string.date_format), Locale.getDefault())
+        SimpleDateFormat(stringResource(R.string.month_name_day_year_format), Locale.getDefault())
 
     val datePickerDialog = createDatePickerDialog(
         LocalContext.current,
@@ -72,7 +72,7 @@ fun DatePicker(
     ) {
         Row(
             modifier = Modifier
-                .padding(horizontal = 10.dp)
+                .padding(horizontal = 15.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
