@@ -1,7 +1,15 @@
 package com.cornellappdev.scoop.ui.components.search
 
+import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -114,7 +122,21 @@ fun SearchFirstPage(
             modifier = Modifier.height(71.dp)
         )
         TextButton(
-            onClick = onProceedClicked,
+            onClick = {
+                Log.d(
+                    "Search Screen View Model",
+                    "departureText: ${searchScreenViewModel.search.departureLocationName}"
+                )
+                Log.d(
+                    "Search Screen View Model",
+                    "arrivalText: ${searchScreenViewModel.search.arrivalLocationName}"
+                )
+                Log.d(
+                    "Search Screen View Model",
+                    "dateText: ${searchScreenViewModel.search.departureDate}"
+                )
+                onProceedClicked()
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
