@@ -1,6 +1,5 @@
 package com.cornellappdev.scoop.ui.components.search
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -44,8 +43,8 @@ import com.cornellappdev.scoop.ui.viewmodel.SearchScreenViewModel
  */
 @Composable
 fun SearchFirstPage(
-    onProceedClicked: () -> Unit,
-    searchScreenViewModel: SearchScreenViewModel
+    searchScreenViewModel: SearchScreenViewModel,
+    onProceedClicked: () -> Unit
 ) {
     val departureLocation = rememberSaveable { mutableStateOf("") }
     val arrivalLocation = rememberSaveable { mutableStateOf("") }
@@ -123,18 +122,6 @@ fun SearchFirstPage(
         )
         TextButton(
             onClick = {
-                Log.d(
-                    "Search Screen View Model",
-                    "departureText: ${searchScreenViewModel.search.departureLocationName}"
-                )
-                Log.d(
-                    "Search Screen View Model",
-                    "arrivalText: ${searchScreenViewModel.search.arrivalLocationName}"
-                )
-                Log.d(
-                    "Search Screen View Model",
-                    "dateText: ${searchScreenViewModel.search.departureDate}"
-                )
                 onProceedClicked()
             },
             modifier = Modifier

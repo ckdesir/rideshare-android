@@ -29,11 +29,16 @@ fun SearchScreen(
     ) { page ->
         when (page) {
             0 -> SearchFirstPage(
-                proceedToPageIndex(coroutineScope, page + 1, pagerState),
-                searchScreenViewModel
+                searchScreenViewModel,
+                proceedToPageIndex(coroutineScope, page + 1, pagerState)
             )
             1 -> DisplaySearchesPage(
-                searchScreenViewModel
+                searchScreenViewModel,
+                proceedToPageIndex(
+                    coroutineScope,
+                    0,
+                    pagerState
+                )
             )
         }
     }
