@@ -47,7 +47,7 @@ import com.cornellappdev.scoop.ui.viewmodel.SearchScreenViewModel
  *
  * @param searchScreenViewModel State that represents the current state of search of the user
  * @param filter State that represents the current filter applied to the results of search
- * @param isEditing State that represents the current mode of the [SearchCard]
+ * @param onBack Function to return to editing Search
  * @param onSearchCompleted Callback that returns the results of the edited search back to the caller
  */
 @Composable
