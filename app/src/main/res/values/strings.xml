@@ -9,7 +9,7 @@
     <string name="other_details">Other details</string>
     <string name="details_icon_description">Details icon</string>
     <string name="enter_details">enter details…</string>
-    <string name="date_placeholder">mm/dd/yyyy</string>
+    <string name="date_placeholder">Departure Date</string>
     <string name="time_template">1:33 AM</string>
     <string name="clock_icon_description">Clock icon</string>
     <string name="calendar_icon_description">Calendar icon</string>

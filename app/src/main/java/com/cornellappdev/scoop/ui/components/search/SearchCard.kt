@@ -3,35 +3,37 @@ package com.cornellappdev.scoop.ui.components.search
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.NearMe
 import androidx.compose.material.icons.filled.Place
-import androidx.compose.material.icons.outlined.CalendarToday
-import androidx.compose.material.icons.outlined.NearMe
-import androidx.compose.material.icons.outlined.Place
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
-import com.cornellappdev.scoop.ui.components.general.CityPicker
-import com.cornellappdev.scoop.ui.components.post.createDatePickerDialog
 import com.cornellappdev.scoop.ui.viewmodel.SearchScreenViewModel
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * Composable that displays information about the current state of search of the user.
@@ -43,42 +45,22 @@ import java.util.*
  * on in the SearchCard, the manager of this composable is responsible for stopping it (this composable
  * has no icons to switch editing mode off).
  *
- * @param search State that represents the current state of search of the user
+ * @param searchScreenViewModel State that represents the current state of search of the user
  * @param filter State that represents the current filter applied to the results of search
- * @param isEditing State that represents the current mode of the [SearchCard]
+ * @param onBack Function to return to editing Search
  * @param onSearchCompleted Callback that returns the results of the edited search back to the caller
  */
 @Composable
 fun SearchCard(
     searchScreenViewModel: SearchScreenViewModel,
     filter: MutableState<String?>,
-    isEditing: MutableState<Boolean>,
+    onBack: () -> Unit,
     onSearchCompleted: (List<Ride>) -> Unit,
 ) {
     // CityPicker requires MutableStates for its values but the Search model does
     // not have MutableStates for its fields, so we must convert them and update the
     // search state in the callback of CityPicker.
-    val departureLocationName =
-        remember { mutableStateOf(searchScreenViewModel.search.departureLocationName.orEmpty()) }
-    val arrivalLocationName =
-        remember { mutableStateOf(searchScreenViewModel.search.arrivalLocationName.orEmpty()) }
-    val departureDate =
-        remember { mutableStateOf(searchScreenViewModel.search.departureDate.orEmpty()) }
 
-    val dateFormatter =
-        SimpleDateFormat(stringResource(R.string.month_name_day_year_format), Locale.US)
-    val datePickerDialog = createDatePickerDialog(
-        LocalContext.current,
-        { newDate ->
-            if (departureDate.value != newDate) {
-                searchScreenViewModel.search.departureDate = newDate
-                departureDate.value = newDate
-
-                // Query backend to get results with given date, filter if there's a filter
-                onSearchCompleted(listOf())
-            }
-        }, dateFormatter
-    )
     Column(modifier = Modifier.fillMaxWidth()) {
         Card(
             shape = RoundedCornerShape(10.dp),
@@ -94,137 +76,71 @@ fun SearchCard(
                 ) {
                     Row {
                         Icon(
-                            Icons.Outlined.NearMe,
+                            Icons.Filled.NearMe,
                             modifier = Modifier
                                 .padding(end = 12.dp)
                                 .size(32.dp)
                                 .align(Alignment.CenterVertically),
                             contentDescription = stringResource(R.string.details_icon_description)
                         )
-                        CityPicker(
-                            cityState = departureLocationName,
-                            modifier = Modifier.apply {
-                                if (isEditing.value) {
-                                    align(Alignment.Bottom)
-                                } else {
-                                    align(Alignment.CenterVertically)
-                                }
-                            },
-                            icon = Icons.Filled.NearMe,
-                            placeholder = "", // CityPicker should never be empty.
-                            enabled = isEditing.value,
-                            disabledTextStyle = MaterialTheme.typography.subtitle1,
-                            disableDivider = !isEditing.value
-                        ) { name, id ->
-                            if (searchScreenViewModel.search.departureLocationPlaceId != id) {
-                                searchScreenViewModel.setDepartureName(name)
-                                searchScreenViewModel.setDeparturePlaceId(id)
-
-                                // TODO: Networking for searching for rides should be inserted here and passed into callback.
-                                onSearchCompleted(listOf())
-                            }
-                        }
+                        Text(
+                            text = searchScreenViewModel.search.departureLocationName ?: "null",
+                            style = MaterialTheme.typography.subtitle1
+                        )
                     }
 
                     Icon(
                         painterResource(R.drawable.ic_details_icon),
                         modifier = Modifier
-                            .size(32.dp)
-                            .clickable { isEditing.value = !isEditing.value }
+                            .size(26.dp)
+                            .clickable { onBack() }
                             .align(Alignment.CenterVertically),
                         contentDescription = stringResource(R.string.details_icon_description)
                     )
                 }
-
-                if (!isEditing.value) {
-                    Canvas(
-                        Modifier
-                            .padding(start = 16.dp)
-                            .height(17.dp)
-                    ) {
-                        drawLine(
-                            color = Color.Black,
-                            start = Offset(0f, 0f),
-                            end = Offset(0f, size.height),
-                            pathEffect = PathEffect.dashPathEffect(floatArrayOf(8f, 8f), 0f),
-                            strokeWidth = 3f
-                        )
-                    }
+                Canvas(
+                    Modifier
+                        .padding(start = 16.dp)
+                        .height(10.dp)
+                ) {
+                    drawLine(
+                        color = Color.Black,
+                        start = Offset(0f, 0f),
+                        end = Offset(0f, size.height),
+                        pathEffect = PathEffect.dashPathEffect(floatArrayOf(8f, 8f), 0f),
+                        strokeWidth = 3f
+                    )
                 }
-
-                Row(modifier = Modifier.padding(top = if (isEditing.value) 17.dp else 0.dp)) {
+                Row {
                     Icon(
-                        Icons.Outlined.Place,
+                        Icons.Filled.Place,
                         modifier = Modifier
                             .padding(end = 12.dp)
                             .size(32.dp)
                             .align(Alignment.CenterVertically),
                         contentDescription = stringResource(R.string.details_icon_description)
                     )
-                    CityPicker(
-                        cityState = arrivalLocationName,
-                        modifier = Modifier.apply {
-                            if (isEditing.value) {
-                                align(Alignment.Bottom)
-                            } else {
-                                align(Alignment.CenterVertically)
-                            }
-                        },
-                        icon = Icons.Filled.Place,
-                        placeholder = "",
-                        enabled = isEditing.value,
-                        disabledTextStyle = MaterialTheme.typography.subtitle1,
-                        disableDivider = !isEditing.value
-                    ) { name, id ->
-                        if (searchScreenViewModel.search.arrivalLocationPlaceId != id) {
-                            searchScreenViewModel.setArrivalName(name)
-                            searchScreenViewModel.setArrivalPlaceId(id)
-
-                            /** TODO: Networking for searching for rides should be inserted here and passed into callback. */
-                            onSearchCompleted(listOf())
-                        }
-                    }
+                    Text(
+                        text = searchScreenViewModel.search.arrivalLocationName ?: "null",
+                        style = MaterialTheme.typography.subtitle1
+                    )
                 }
-
-                Row(modifier = Modifier.padding(top = if (isEditing.value) 17.dp else 0.dp)) {
+                Spacer(
+                    modifier = Modifier.height(10.dp)
+                )
+                Row {
                     Icon(
-                        Icons.Outlined.CalendarToday,
+                        Icons.Filled.CalendarToday,
                         modifier = Modifier
                             .padding(end = 12.dp)
                             .size(32.dp)
                             .align(Alignment.CenterVertically),
                         contentDescription = stringResource(R.string.calendar_icon_description)
                     )
-                    TextButton(
-                        enabled = isEditing.value,
-                        modifier = Modifier.apply {
-                            if (isEditing.value) {
-                                align(Alignment.Bottom)
-                            } else {
-                                align(Alignment.CenterVertically)
-                            }
-                        },
-                        contentPadding = PaddingValues(
-                            all = 0.dp
-                        ),
-                        onClick = {
-                            /** TODO: Change with custom calendar view if made eventually. */
-                            datePickerDialog.show()
-                        }) {
-                        Column {
-                            Text(
-                                departureDate.value,
-                                style = if (isEditing.value) MaterialTheme.typography.h5 else MaterialTheme.typography.subtitle1
-                            )
-                            if (isEditing.value) {
-                                Divider(
-                                    modifier = Modifier.padding(top = 4.dp),
-                                    color = Color.Black,
-                                    thickness = 2.dp
-                                )
-                            }
-                        }
-                    }
+                    Text(
+                        text = searchScreenViewModel.search.departureDate ?: "null",
+                        style = MaterialTheme.typography.subtitle1
+                    )
                 }
             }
         }
