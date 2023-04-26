@@ -1,6 +1,5 @@
 package com.cornellappdev.scoop.components
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -19,11 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.ui.theme.DarkGray
 import com.cornellappdev.scoop.ui.theme.Gray
 import com.cornellappdev.scoop.ui.theme.Green
-import com.google.accompanist.pager.PagerState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterialApi::class, com.google.accompanist.pager.ExperimentalPagerApi::class)
 @Composable
@@ -41,7 +36,6 @@ fun RightArrow(
         enabled = isComplete,
         backgroundColor = if (isComplete) Green else Gray,
         onClick = {
-            Log.d("PAGERSTATE", "button Clicked")
             scope.launch {
                 nextFunction()
             }
