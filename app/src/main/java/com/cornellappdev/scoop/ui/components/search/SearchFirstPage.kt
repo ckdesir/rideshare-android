@@ -43,8 +43,8 @@ import com.cornellappdev.scoop.ui.viewmodel.SearchScreenViewModel
  */
 @Composable
 fun SearchFirstPage(
-    onProceedClicked: () -> Unit,
-    searchScreenViewModel: SearchScreenViewModel
+    searchScreenViewModel: SearchScreenViewModel,
+    onProceedClicked: () -> Unit
 ) {
     val departureLocation = rememberSaveable { mutableStateOf("") }
     val arrivalLocation = rememberSaveable { mutableStateOf("") }

@@ -42,7 +42,8 @@ import com.cornellappdev.scoop.ui.viewmodel.SearchScreenViewModel
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun DisplaySearchesPage(
-    searchScreenViewModel: SearchScreenViewModel
+    searchScreenViewModel: SearchScreenViewModel,
+    onBack: () -> Unit
 ) {
     val searchResults: MutableState<List<Ride>> = remember {
         mutableStateOf(listOf())
@@ -85,7 +86,7 @@ fun DisplaySearchesPage(
             SearchCard(
                 searchScreenViewModel,
                 filter,
-                isEditing
+                onBack
             ) {
                 // To save computation time, try adding/replacing only what's new, etc.
                 searchResults.value = it

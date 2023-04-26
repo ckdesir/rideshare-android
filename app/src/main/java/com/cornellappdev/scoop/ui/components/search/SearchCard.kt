@@ -47,14 +47,14 @@ import com.cornellappdev.scoop.ui.viewmodel.SearchScreenViewModel
  *
  * @param searchScreenViewModel State that represents the current state of search of the user
  * @param filter State that represents the current filter applied to the results of search
- * @param isEditing State that represents the current mode of the [SearchCard]
+ * @param onBack Function to return to editing Search
  * @param onSearchCompleted Callback that returns the results of the edited search back to the caller
  */
 @Composable
 fun SearchCard(
     searchScreenViewModel: SearchScreenViewModel,
     filter: MutableState<String?>,
-    isEditing: MutableState<Boolean>,
+    onBack: () -> Unit,
     onSearchCompleted: (List<Ride>) -> Unit,
 ) {
     // CityPicker requires MutableStates for its values but the Search model does
@@ -94,8 +94,8 @@ fun SearchCard(
                     Icon(
                         painterResource(R.drawable.ic_details_icon),
                         modifier = Modifier
-                            .size(32.dp)
-                            .clickable { isEditing.value = !isEditing.value }
+                            .size(26.dp)
+                            .clickable { onBack() }
                             .align(Alignment.CenterVertically),
                         contentDescription = stringResource(R.string.details_icon_description)
                     )
@@ -113,10 +113,7 @@ fun SearchCard(
                         strokeWidth = 3f
                     )
                 }
-                Row(
-                    modifier = Modifier.padding(top = if (isEditing.value) 17.dp else 0.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                Row {
                     Icon(
                         Icons.Filled.Place,
                         modifier = Modifier
@@ -133,10 +130,7 @@ fun SearchCard(
                 Spacer(
                     modifier = Modifier.height(10.dp)
                 )
-                Row(
-                    modifier = Modifier.padding(top = if (isEditing.value) 17.dp else 0.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                Row {
                     Icon(
                         Icons.Filled.CalendarToday,
                         modifier = Modifier
