@@ -8,11 +8,14 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.ui.theme.Green
@@ -67,4 +70,11 @@ fun DenseTextField(
         singleLine = singleLine,
         keyboardOptions = KeyboardOptions(keyboardType = if (phoneNumber) KeyboardType.Phone else KeyboardType.Text)
     )
+}
+
+@Preview
+@Composable
+fun ExampleDenseTextField() {
+    val (exampleText, setExampleText) = rememberSaveable { mutableStateOf("") }
+    DenseTextField(value = "The Text", setValue = setExampleText, label = "The Label", placeholderText = "Example")
 }

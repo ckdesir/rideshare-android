@@ -1,9 +1,12 @@
 package com.cornellappdev.scoop.ui.components.post
 
+import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.Schedule
@@ -16,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
@@ -226,48 +230,31 @@ fun DateOfTripSection(
     val datePickerDialog = createDatePickerDialog(LocalContext.current, setDateText, dateFormatter)
     Column(
         modifier = Modifier
-            .width(200.dp)
             .padding(top = 30.dp)
     ) {
-        Text(
-            text = stringResource(R.string.date_of_trip),
-            fontSize = 22.sp,
-            modifier = Modifier.padding(bottom = 12.dp)
-        )
-        Row {
+
+        // Box stacking a clickable Calendar icon on top of a DenseTextField
+        Box (modifier = Modifier.fillMaxWidth()) {
+            Box(Modifier.fillMaxWidth()) {
+                DenseTextField(
+                    value = if (dateText == "null") "" else dateText,
+                    setValue = setDateText,
+                    placeholderText = stringResource(R.string.date_placeholder),
+                    singleLine = true,
+                    label = "Departure Date",
+                    phoneNumber = true
+                )
+            }
             Icon(
-                Icons.Outlined.CalendarToday,
+                Icons.Filled.CalendarToday,
                 modifier = Modifier
-                    .padding(end = 12.dp)
-                    .size(32.dp)
-                    .align(Alignment.CenterVertically),
+                    .padding(end = 12.dp, top = 4.dp)
+                    .size(28.dp)
+                    .align(Alignment.CenterEnd).clickable(enabled = true, onClick =
+                    {
+                        datePickerDialog.show() }),
                 contentDescription = stringResource(R.string.calendar_icon_description)
             )
-            TextButton(
-                modifier = Modifier.align(Alignment.Bottom),
-                contentPadding = PaddingValues(
-                    all = 0.dp
-                ),
-                onClick = { datePickerDialog.show() }) {
-                Column {
-                    if (dateText.isBlank()) {
-                        Text(
-                            stringResource(R.string.date_placeholder),
-                            style = TextStyle(color = PlaceholderGray, fontSize = 22.sp),
-                        )
-                    } else {
-                        Text(
-                            dateText, style = TextStyle(color = Color.Black, fontSize = 22.sp),
-                        )
-                    }
-
-                    Divider(
-                        modifier = Modifier.padding(top = 4.dp),
-                        color = Color.Black,
-                        thickness = 2.dp
-                    )
-                }
-            }
         }
     }
 }
@@ -282,9 +269,32 @@ fun TimeOfTripSection(
 
     Column(
         modifier = Modifier
-            .width(200.dp)
             .padding(top = 30.dp)
     ) {
+        // Box stacking a clickable Clock icon on top of a DenseTextField
+        Box (modifier = Modifier.fillMaxWidth()) {
+            Box(Modifier.fillMaxWidth()) {
+                DenseTextField(
+                    value = if (timeText == "null") "" else timeText,
+                    setValue = setTimeText,
+                    placeholderText = stringResource(R.string.time_template),
+                    singleLine = true,
+                    label = "Time of trip",
+                )
+            }
+            Icon(
+                Icons.Outlined.Schedule,
+                modifier = Modifier
+                    .padding(end = 12.dp, top = 4.dp)
+                    .size(28.dp)
+                    .align(Alignment.CenterEnd).clickable(enabled = true, onClick =
+                    {
+                        timePickerDialog.show() }),
+                contentDescription = stringResource(R.string.clock_icon_description)
+            )
+        }
+
+        /*
         Text(
             text = stringResource(R.string.time_of_trip),
             fontSize = 22.sp,
@@ -325,6 +335,8 @@ fun TimeOfTripSection(
                 }
             }
         }
+
+         */
     }
 }
 
