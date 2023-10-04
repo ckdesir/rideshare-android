@@ -121,9 +121,7 @@ fun SearchFirstPage(
             modifier = Modifier.height(71.dp)
         )
         TextButton(
-            onClick = {
-                onProceedClicked()
-            },
+            onClick = onProceedClicked,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)

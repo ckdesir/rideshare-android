@@ -1,6 +1,5 @@
 package com.cornellappdev.scoop.ui.screens
 
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -163,7 +162,6 @@ fun proceedToPageIndex(
     pagerState: PagerState
 ): () -> Unit {
     return {
-        Log.d("pagerTest", pageIndex.toString())
         coroutineScope.launch {
             pagerState.scrollToPage(pageIndex)
         }

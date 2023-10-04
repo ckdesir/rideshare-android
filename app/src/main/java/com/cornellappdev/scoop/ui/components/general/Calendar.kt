@@ -1,7 +1,6 @@
 package com.cornellappdev.scoop.ui.components.general
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -38,7 +37,6 @@ fun CalendarScreen(
 ) {
     val calendarViewModel: CalendarViewModel = viewModel()
     val calendarYear = calendarViewModel.calendarYear
-    Log.d("selected", calendarViewModel.datesSelected.toString())
     CalendarContent(
         selectedDates = calendarViewModel.datesSelected.toString(),
         calendarYear = calendarYear,
@@ -277,8 +275,7 @@ private fun DayStatusContainer(
 ) {
     if (status.isMarked()) {
         Box {
-            val color = Color(0xFF60BFA0)
-            Circle(color = color)
+            Circle(color = Green)
             if (status == DaySelectedStatus.FirstDay) {
                 SemiRect(color = Color.Transparent, lookingLeft = false)
             } else if (status == DaySelectedStatus.LastDay) {

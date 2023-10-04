@@ -1,7 +1,6 @@
 package com.cornellappdev.scoop.ui.components.calendar
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import kotlinx.datetime.Month
 import java.util.*
@@ -16,7 +15,7 @@ class DatesLocalDataSource @Inject constructor() {
 
     private fun getMonthLength(month: Month, year: Int): Int {
 
-        var leap = if (year % 4 == 0) {
+        val leap = if (year % 4 == 0) {
             if (year % 100 == 0) {
                 // year is divisible by 400, hence the year is a leap year
                 year % 400 == 0
@@ -25,7 +24,7 @@ class DatesLocalDataSource @Inject constructor() {
         } else
             false
 
-        return month.length(leap);
+        return month.length(leap)
     }
 
     private fun getStartDayOfWeek(month: Int, year: Int): DayOfWeek {
@@ -46,17 +45,17 @@ class DatesLocalDataSource @Inject constructor() {
         }
     }
 
-    var currentYear: CalendarYear;
+    var currentYear: CalendarYear
 
-    private val tempMonthList: MutableList<CalendarMonth> = mutableListOf();
+    private val tempMonthList: MutableList<CalendarMonth> = mutableListOf()
 
     init {
 
-        val currentDate: Date = Date();
+        val currentDate = Date()
 
-        var currMonth = currentDate.month;
+        var currMonth = currentDate.month
 
-        var currYear = currentDate.year + 1900;
+        var currYear = currentDate.year + 1900
 
         for (i in 0..5) {
 
@@ -68,8 +67,6 @@ class DatesLocalDataSource @Inject constructor() {
             } else {
                 currMonth += 1
             }
-
-            Log.d("MonthAdd", "$currMonth $currYear");
 
             tempMonthList.add(
 
@@ -83,7 +80,7 @@ class DatesLocalDataSource @Inject constructor() {
             )
         }
 
-        currentYear = tempMonthList;
+        currentYear = tempMonthList
     }
 }
 

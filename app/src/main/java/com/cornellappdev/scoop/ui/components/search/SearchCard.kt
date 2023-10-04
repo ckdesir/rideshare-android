@@ -74,7 +74,9 @@ fun SearchCard(
                         .wrapContentHeight(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Row {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Icon(
                             Icons.Filled.NearMe,
                             modifier = Modifier
