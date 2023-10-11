@@ -69,7 +69,7 @@ fun FirstPage(
                 .wrapContentHeight()
                 .fillMaxWidth()
                 .padding(horizontal = 37.dp)
-                .padding(top = 240.dp)
+                .padding(top = 140.dp)
         ) {
             TransportationSection(
                 postScreenViewModel,
@@ -120,7 +120,8 @@ fun FirstPage(
                     .align(Alignment.End)
                     .wrapContentSize()
                     .fillMaxWidth()
-                    .fillMaxHeight(),
+                    .fillMaxHeight()
+                    .weight(1f),
                 verticalArrangement = Arrangement.Bottom
             ) {
                 Button(

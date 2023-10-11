@@ -9,18 +9,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
+import com.cornellappdev.scoop.data.models.RideRequestBody
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ThirdPage(ride: Ride) {
-    BottomSheetScaffold(
-        sheetPeekHeight = 200.dp,
-        sheetShape = RoundedCornerShape(25.dp),
-        sheetContent = { BottomSheet(ride) }
-    ) {
-        Image(
-            painter = painterResource(R.drawable.ic_fake_map),
-            contentDescription = "Map showing departure to arrival locations"
-        )
-    }
+fun ThirdPage(ride: RideRequestBody) {
+    BottomSheet(ride)
 }

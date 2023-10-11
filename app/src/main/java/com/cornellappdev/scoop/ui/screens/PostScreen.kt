@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -16,9 +17,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -53,33 +56,26 @@ fun PostScreen(
 ) {
     val pagerState = rememberPagerState(0)
     val coroutineScope = rememberCoroutineScope()
-    val rideState = remember {
-        mutableStateOf(
-            Ride()
-        )
-    }
 
     Box {
         Column {
+            AnimatedVisibility(visible = pagerState.currentPage == 0 || pagerState.currentPage == 1) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 40.dp),
+                    verticalArrangement = Arrangement.Bottom,
+                    horizontalAlignment = Alignment.End
+                ) {
+                    Image(painter = painterResource(R.drawable.header), contentDescription = "Header")
+                }
+            }
             HorizontalPager(
                 count = 3, state = pagerState,
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f), userScrollEnabled = false
             ) { page ->
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 40.dp),
-                    verticalArrangement = Arrangement.Top,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = stringResource(R.string.trip_details),
-                        style = TextStyle(color = Color.Black, fontSize = 24.sp),
-                        textAlign = TextAlign.Center
-                    )
-                }
 
                 Column(
                     verticalArrangement = Arrangement.Center,
@@ -94,12 +90,22 @@ fun PostScreen(
                             proceedToPageIndex(coroutineScope, page + 1, pagerState),
                             postScreenViewModel
                         )
-                        2 -> ThirdPage(rideState.value)
+                        2 -> ThirdPage(postScreenViewModel.ride)
                     }
                 }
             }
+            AnimatedVisibility(visible = pagerState.currentPage == 0 || pagerState.currentPage == 1) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 5.dp),
+                    verticalArrangement = Arrangement.Bottom,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Image(painter = painterResource(R.drawable.loading_car), contentDescription = "Footer")
+                }
+            }
         }
-
         AnimatedVisibility(
             visible = pagerState.currentPage == 0 || pagerState.currentPage == 1,
             modifier = Modifier
@@ -135,6 +141,7 @@ fun PostScreen(
                 )
             }
         }
+
     }
 
     BackHandler(enabled = pagerState.currentPage == 1 || pagerState.currentPage == 2) {
