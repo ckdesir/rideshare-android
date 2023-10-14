@@ -98,7 +98,7 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                 .wrapContentHeight()
                 .fillMaxWidth()
                 .padding(horizontal = 37.dp)
-                .padding(top = 50.dp)
+                .padding(top = 30.dp)
         ) {
 
             DateOfTripSection(dateText, setDateText, dateFormatter)
@@ -117,7 +117,7 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                 Button(
                     modifier = Modifier
                         .align(Alignment.End)
-                        .padding(bottom = 100.dp)
+                        .padding(bottom = 50.dp)
                         .width(86.dp)
                         .height(51.dp),
                     shape = RoundedCornerShape(26.dp),

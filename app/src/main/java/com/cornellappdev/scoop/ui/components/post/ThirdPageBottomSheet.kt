@@ -37,7 +37,7 @@ fun BottomSheet(ride: RideRequestBody) {
         )
 
         Text(
-            "Organizer: @lia",
+            "Organizer: ${ride.creator}",
             style = TextStyle(color = Color.Black, fontSize = 12.sp),
             modifier = Modifier.padding(bottom = 30.dp)
         )

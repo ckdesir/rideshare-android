@@ -69,7 +69,7 @@ fun FirstPage(
                 .wrapContentHeight()
                 .fillMaxWidth()
                 .padding(horizontal = 37.dp)
-                .padding(top = 140.dp)
+                .padding(top = 60.dp)
         ) {
             TransportationSection(
                 postScreenViewModel,
