@@ -67,14 +67,18 @@ fun PostScreen(
                     verticalArrangement = Arrangement.Bottom,
                     horizontalAlignment = Alignment.End
                 ) {
-                    Image(painter = painterResource(R.drawable.header), contentDescription = "Header")
+                    Image(
+                        painter = painterResource(R.drawable.header),
+                        contentDescription = "Header"
+                    )
                 }
             }
             HorizontalPager(
                 count = 3, state = pagerState,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f), userScrollEnabled = false
+                    .weight(1f),
+                userScrollEnabled = false
             ) { page ->
 
                 Column(
@@ -86,10 +90,12 @@ fun PostScreen(
                             proceedToPageIndex(coroutineScope, page + 1, pagerState),
                             postScreenViewModel
                         )
+
                         1 -> SecondPage(
                             proceedToPageIndex(coroutineScope, page + 1, pagerState),
                             postScreenViewModel
                         )
+
                         2 -> ThirdPage(postScreenViewModel.ride)
                     }
                 }
@@ -102,7 +108,10 @@ fun PostScreen(
                     verticalArrangement = Arrangement.Bottom,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Image(painter = painterResource(R.drawable.loading_car), contentDescription = "Footer")
+                    Image(
+                        painter = painterResource(R.drawable.loading_car),
+                        contentDescription = "Footer"
+                    )
                 }
             }
         }
@@ -151,6 +160,7 @@ fun PostScreen(
                 0,
                 pagerState
             ).invoke()
+
             2 -> proceedToPageIndex(
                 coroutineScope,
                 pagerState.currentPage - 1,

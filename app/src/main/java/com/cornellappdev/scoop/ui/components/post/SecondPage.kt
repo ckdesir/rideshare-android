@@ -174,10 +174,10 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = Color(0xFFCEE9DC),
                         disabledBackgroundColor = Color(0xFFDBE5DF)
-                    )
+                    ),
                 ) {
                     Text(
-                        "Next",
+                        text= "Next",
                         style = MaterialTheme.typography.body1,
                         color = (if (proceedEnabled) Color.Black else Color(0xFF001E2D)),
                         fontWeight = FontWeight.Bold
@@ -251,16 +251,14 @@ fun DateOfTripSection(
 
         //DenseTextField and Icon with transparent clickable Box on top
         Box (modifier = Modifier.fillMaxWidth()) {
-            Box(Modifier.fillMaxWidth()) {
-                DenseTextField(
-                    value = if (dateText == "null") "" else dateText,
-                    setValue = setDateText,
-                    placeholderText = stringResource(R.string.date_placeholder),
-                    singleLine = true,
-                    label = "Departure Date",
-                    phoneNumber = true,
-                )
-            }
+            DenseTextField(
+                value = if (dateText == "null") "" else dateText,
+                setValue = setDateText,
+                placeholderText = stringResource(R.string.date_placeholder),
+                singleLine = true,
+                label = "Departure Date",
+                phoneNumber = true,
+            )
             Icon(
                 Icons.Filled.CalendarToday,
                 modifier = Modifier
@@ -293,15 +291,13 @@ fun TimeOfTripSection(
     ) {
         // Box stacking a clickable Clock icon on top of a DenseTextField
         Box (modifier = Modifier.fillMaxWidth()) {
-            Box(Modifier.fillMaxWidth()) {
-                DenseTextField(
-                    value = if (timeText == "null") "" else timeText,
-                    setValue = setTimeText,
-                    placeholderText = stringResource(R.string.time_template),
-                    singleLine = true,
-                    label = "Time of trip",
-                )
-            }
+            DenseTextField(
+                value = if (timeText == "null") "" else timeText,
+                setValue = setTimeText,
+                placeholderText = stringResource(R.string.time_template),
+                singleLine = true,
+                label = "Time of trip",
+            )
             Icon(
                 Icons.Outlined.Schedule,
                 modifier = Modifier

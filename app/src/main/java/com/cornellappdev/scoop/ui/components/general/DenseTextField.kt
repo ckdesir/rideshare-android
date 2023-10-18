@@ -85,10 +85,3 @@ fun DenseTextField(
         maxLines = maxLines
     )
 }
-
-@Preview
-@Composable
-fun ExampleDenseTextField() {
-    val (exampleText, setExampleText) = rememberSaveable { mutableStateOf("") }
-    DenseTextField(value = "The Text", setValue = setExampleText, label = "The Label", placeholderText = "Example")
-}

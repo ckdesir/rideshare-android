@@ -37,14 +37,14 @@ fun BottomSheet(ride: RideRequestBody) {
         )
 
         Text(
-            "Organizer: ${ride.creator}",
+            text= "Organizer: ${ride.creator}",
             style = TextStyle(color = Color.Black, fontSize = 12.sp),
             modifier = Modifier.padding(bottom = 30.dp)
         )
 
         Column(modifier = Modifier.padding(bottom = 15.dp)){
             Text(
-                "TRANSPORTATION METHOD",
+                text= "TRANSPORTATION METHOD",
                 style = TextStyle(color = Color.Black, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
             )
             Row(modifier = Modifier.padding(bottom = 15.dp)) {
