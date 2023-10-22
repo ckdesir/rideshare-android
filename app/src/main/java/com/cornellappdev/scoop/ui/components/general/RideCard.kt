@@ -8,6 +8,9 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.icons.filled.NearMe
+import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.NearMe
 import androidx.compose.material.icons.outlined.Place
@@ -58,28 +61,20 @@ fun RideCard(
 
                 Row(modifier = Modifier.wrapContentSize()) {
                     Icon(
-                        Icons.Outlined.CalendarToday,
+                        Icons.Filled.CalendarToday,
                         modifier = Modifier
                             .padding(end = 8.dp)
                             .size(29.dp)
                             .align(Alignment.CenterVertically),
                         contentDescription = stringResource(R.string.calendar_icon_description)
                     )
-
-                    ride.datetime?.let { date ->
-                        Text(
-                            text = date,
-                            modifier = Modifier.align(Alignment.CenterVertically),
-                            style = TextStyle(color = Color.Black, fontSize = 16.sp)
-                        )
-                    }
                 }
             }
 
             Column(modifier = Modifier.padding(top = 8.dp)) {
                 Row {
                     Icon(
-                        Icons.Outlined.NearMe,
+                        Icons.Filled.NearMe,
                         modifier = Modifier
                             .padding(end = 15.dp)
                             .size(32.dp)
@@ -97,7 +92,7 @@ fun RideCard(
 
                 Canvas(
                     Modifier
-                        .height(30.dp)
+                        .height(24.dp)
                         .wrapContentWidth()
                         .padding(top = 5.dp, bottom = 5.dp, start = 16.dp)
                 ) {
@@ -112,7 +107,7 @@ fun RideCard(
 
                 Row {
                     Icon(
-                        Icons.Outlined.Place,
+                        Icons.Filled.Place,
                         modifier = Modifier
                             .padding(end = 15.dp)
                             .size(32.dp)

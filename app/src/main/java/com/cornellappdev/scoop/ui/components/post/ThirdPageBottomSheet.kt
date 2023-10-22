@@ -63,7 +63,7 @@ fun BottomSheet(ride: RideRequestBody) {
                 }
                 ride.type?.let {
                     Text(
-                        typeText,
+                        text = typeText,
                         modifier = Modifier.align(Alignment.CenterVertically),
                         style = TextStyle(color = Color.Black, fontSize = 18.sp),
                     )
@@ -73,7 +73,7 @@ fun BottomSheet(ride: RideRequestBody) {
 
         Column(modifier = Modifier.padding(bottom = 15.dp)) {
             Text(
-                "LOCATIONS",
+                text = "LOCATIONS",
                 style = TextStyle(color = Color.Black, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
             )
 
@@ -148,7 +148,7 @@ fun BottomSheet(ride: RideRequestBody) {
 
         Column(modifier = Modifier.padding(bottom = 15.dp)) {
             Text(
-                "NUMBER OF TRAVELLERS",
+                text = "NUMBER OF TRAVELLERS",
                 style = TextStyle(color = Color.Black, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
             )
             Row(modifier = Modifier.padding(bottom = 15.dp)) {
@@ -163,7 +163,7 @@ fun BottomSheet(ride: RideRequestBody) {
 
 
                 Text(
-                    "${ride.minTravelers} to ${ride.maxTravelers} people",
+                    text = "${ride.minTravelers} to ${ride.maxTravelers} people",
                     modifier = Modifier.align(Alignment.CenterVertically),
                     style = TextStyle(color = Color.Black, fontSize = 18.sp)
                 )
@@ -173,7 +173,7 @@ fun BottomSheet(ride: RideRequestBody) {
         if (ride.description?.isNotBlank() == true) {
             Column {
                 Text(
-                    "DETAILS",
+                    text = "DETAILS",
                     style = TextStyle(color = Color.Black, fontSize = 18.sp, fontWeight = FontWeight.SemiBold),
                 )
                 Text(
