@@ -1,18 +1,28 @@
 package com.cornellappdev.scoop.ui.components.general
 
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation.Companion.None
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.ui.theme.Green
@@ -43,7 +53,10 @@ fun DenseTextField(
         color = Color.Black,
         fontSize = 22.sp,
         textAlign = TextAlign.Start
-    )
+    ),
+    visualTransformation : VisualTransformation = None,
+    wrapText : Boolean = false,
+    maxLines : Int = 1
 ) {
     OutlinedTextField(
         colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -59,12 +72,16 @@ fun DenseTextField(
                 color = PlaceholderGray
             )
         },
-        modifier = modifier
-            .height(65.dp)
-            .fillMaxWidth(),
+        modifier = if (wrapText)
+            modifier.heightIn(min = 65.dp).
+            fillMaxWidth() else
+            modifier.height(65.dp).
+                fillMaxWidth(),
         textStyle = TextStyle(color = Color.Black, fontSize = 17.sp),
         label = { Text(text = label) },
         singleLine = singleLine,
-        keyboardOptions = KeyboardOptions(keyboardType = if (phoneNumber) KeyboardType.Phone else KeyboardType.Text)
+        keyboardOptions = KeyboardOptions(keyboardType = if (phoneNumber) KeyboardType.Phone else KeyboardType.Text),
+        visualTransformation = visualTransformation,
+        maxLines = maxLines
     )
 }

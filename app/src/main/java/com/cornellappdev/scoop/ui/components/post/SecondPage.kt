@@ -1,9 +1,13 @@
 package com.cornellappdev.scoop.ui.components.post
 
+import android.util.Log
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.Schedule
@@ -11,11 +15,14 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
@@ -30,7 +37,6 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-// TODO: Change SecondPage to high fidelity designs using DenseTextField
 /**
  * This composable creates the second page of the posting a ride flow which handles date and time
  * as well as minimum and maximum travelers.
@@ -92,8 +98,9 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                 .wrapContentHeight()
                 .fillMaxWidth()
                 .padding(horizontal = 37.dp)
-                .padding(top = 50.dp)
+                .padding(top = 30.dp)
         ) {
+
             DateOfTripSection(dateText, setDateText, dateFormatter)
             TimeOfTripSection(timeText, setTimeText, timeFormatter)
             NumberOfTravelersSection(
@@ -104,14 +111,18 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
             Column(
                 modifier = Modifier
                     .align(Alignment.End)
-                    .padding(top = 38.dp)
-                    .wrapContentSize()
+                    .padding(top = 18.dp)
+                    .wrapContentSize().weight(1f)
             ) {
                 Button(
                     modifier = Modifier
-                        .size(56.dp),
-                    shape = RoundedCornerShape(30.dp),
+                        .align(Alignment.End)
+                        .padding(bottom = 50.dp)
+                        .width(86.dp)
+                        .height(51.dp),
+                    shape = RoundedCornerShape(26.dp),
                     enabled = proceedEnabled,
+
                     onClick = {
                         var numMinTravelers = 0
                         var numMaxTravelers = 10
@@ -160,11 +171,16 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                         }
                     },
                     contentPadding = PaddingValues(10.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Gray)
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color(0xFFCEE9DC),
+                        disabledBackgroundColor = Color(0xFFDBE5DF)
+                    ),
                 ) {
-                    Icon(
-                        Icons.Outlined.ArrowForward,
-                        contentDescription = stringResource(R.string.arrow_forward_description)
+                    Text(
+                        text= "Next",
+                        style = MaterialTheme.typography.body1,
+                        color = (if (proceedEnabled) Color.Black else Color(0xFF001E2D)),
+                        fontWeight = FontWeight.Bold
                     )
                 }
             }
@@ -186,7 +202,9 @@ fun NumberOfTravelersSection(
     minTravelers: String, setMinTravelers: (String) -> Unit,
     maxTravelers: String, setMaxTravelers: (String) -> Unit
 ) {
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(top = 30.dp)) {
         Text(
             text = stringResource(R.string.num_of_travelers),
             style = MaterialTheme.typography.subtitle2,
@@ -199,7 +217,8 @@ fun NumberOfTravelersSection(
                 placeholderText = "Minimum",
                 label = "Minimum",
                 singleLine = true,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                phoneNumber = true
             )
             Spacer(
                 modifier = Modifier.width(15.dp)
@@ -210,7 +229,8 @@ fun NumberOfTravelersSection(
                 placeholderText = "Maximum",
                 label = "Maximum",
                 singleLine = true,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                phoneNumber = true
             )
         }
     }
@@ -226,48 +246,33 @@ fun DateOfTripSection(
     val datePickerDialog = createDatePickerDialog(LocalContext.current, setDateText, dateFormatter)
     Column(
         modifier = Modifier
-            .width(200.dp)
             .padding(top = 30.dp)
     ) {
-        Text(
-            text = stringResource(R.string.date_of_trip),
-            fontSize = 22.sp,
-            modifier = Modifier.padding(bottom = 12.dp)
-        )
-        Row {
+
+        //DenseTextField and Icon with transparent clickable Box on top
+        Box (modifier = Modifier.fillMaxWidth()) {
+            DenseTextField(
+                value = if (dateText == "null") "" else dateText,
+                setValue = setDateText,
+                placeholderText = stringResource(R.string.date_placeholder),
+                singleLine = true,
+                label = "Departure Date",
+                phoneNumber = true,
+            )
             Icon(
-                Icons.Outlined.CalendarToday,
+                Icons.Filled.CalendarToday,
                 modifier = Modifier
-                    .padding(end = 12.dp)
-                    .size(32.dp)
-                    .align(Alignment.CenterVertically),
+                    .padding(end = 12.dp, top = 4.dp)
+                    .size(28.dp)
+                    .align(Alignment.CenterEnd),
                 contentDescription = stringResource(R.string.calendar_icon_description)
             )
-            TextButton(
-                modifier = Modifier.align(Alignment.Bottom),
-                contentPadding = PaddingValues(
-                    all = 0.dp
-                ),
-                onClick = { datePickerDialog.show() }) {
-                Column {
-                    if (dateText.isBlank()) {
-                        Text(
-                            stringResource(R.string.date_placeholder),
-                            style = TextStyle(color = PlaceholderGray, fontSize = 22.sp),
-                        )
-                    } else {
-                        Text(
-                            dateText, style = TextStyle(color = Color.Black, fontSize = 22.sp),
-                        )
-                    }
-
-                    Divider(
-                        modifier = Modifier.padding(top = 4.dp),
-                        color = Color.Black,
-                        thickness = 2.dp
-                    )
-                }
-            }
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .alpha(0f)
+                    .clickable(onClick = { datePickerDialog.show()} ),
+            )
         }
     }
 }
@@ -282,48 +287,31 @@ fun TimeOfTripSection(
 
     Column(
         modifier = Modifier
-            .width(200.dp)
             .padding(top = 30.dp)
     ) {
-        Text(
-            text = stringResource(R.string.time_of_trip),
-            fontSize = 22.sp,
-            modifier = Modifier.padding(bottom = 12.dp)
-        )
-        Row {
+        // Box stacking a clickable Clock icon on top of a DenseTextField
+        Box (modifier = Modifier.fillMaxWidth()) {
+            DenseTextField(
+                value = if (timeText == "null") "" else timeText,
+                setValue = setTimeText,
+                placeholderText = stringResource(R.string.time_template),
+                singleLine = true,
+                label = "Time of trip",
+            )
             Icon(
                 Icons.Outlined.Schedule,
                 modifier = Modifier
-                    .padding(end = 12.dp)
-                    .size(32.dp)
-                    .align(Alignment.CenterVertically),
+                    .padding(end = 12.dp, top = 4.dp)
+                    .size(28.dp)
+                    .align(Alignment.CenterEnd),
                 contentDescription = stringResource(R.string.clock_icon_description)
             )
-            TextButton(
-                modifier = Modifier.align(Alignment.Bottom),
-                contentPadding = PaddingValues(
-                    all = 0.dp
-                ),
-                onClick = { timePickerDialog.show() }) {
-                Column {
-                    if (timeText.isBlank()) {
-                        Text(
-                            stringResource(R.string.time_template),
-                            style = TextStyle(color = PlaceholderGray, fontSize = 22.sp),
-                        )
-                    } else {
-                        Text(
-                            timeText, style = TextStyle(color = Color.Black, fontSize = 22.sp),
-                        )
-                    }
-
-                    Divider(
-                        modifier = Modifier.padding(top = 4.dp),
-                        color = Color.Black,
-                        thickness = 2.dp
-                    )
-                }
-            }
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .alpha(0f)
+                    .clickable(onClick = { timePickerDialog.show()} ),
+            )
         }
     }
 }
@@ -339,28 +327,14 @@ fun OtherDetailsSection(
             .fillMaxWidth()
             .padding(top = 30.dp)
     ) {
-        Text(
-            text = stringResource(R.string.other_details),
-            fontSize = 22.sp,
-            modifier = Modifier.padding(bottom = 12.dp)
+        DenseTextField(
+            value = if (detailsText == "null") "" else detailsText,
+            setValue = setDetailsText,
+            placeholderText = stringResource(R.string.other_details),
+            singleLine = false,
+            label = "Details",
+            wrapText = true,
+            maxLines = 3
         )
-        Row {
-            Icon(
-                painterResource(R.drawable.ic_details_icon),
-                modifier = Modifier
-                    .padding(end = 12.dp)
-                    .size(32.dp)
-                    .align(Alignment.CenterVertically),
-                contentDescription = stringResource(R.string.details_icon_description)
-            )
-            UnderlinedEditText(
-                value = detailsText,
-                setValue = setDetailsText,
-                placeholderText = stringResource(R.string.enter_details),
-                modifier = Modifier
-                    .align(Alignment.Bottom)
-                    .fillMaxWidth()
-            )
-        }
     }
 }

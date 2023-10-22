@@ -26,7 +26,7 @@ fun OnboardingView5(pagerState: PagerState) {
 
     var isComplete = stopText != "" && songText != "" && snackText != ""
 
-            Column(
+    Column(
         Modifier.background(Color.White)
     ) { NavHeader(backFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage - 1) }, title = "Profile", hasBackArrow = false)
 
