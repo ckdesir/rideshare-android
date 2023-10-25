@@ -4,7 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cornellappdev.scoop.data.models.RideRequestBody
+import com.cornellappdev.scoop.data.models.Ride
 import com.cornellappdev.scoop.data.models.stringToRideType
 import com.cornellappdev.scoop.data.repositories.RideRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,9 +18,10 @@ import javax.inject.Inject
 class PostScreenViewModel @Inject constructor(private val rideRepository: RideRepository) :
     ViewModel() {
 
-    private val _ride: RideRequestBody by mutableStateOf(RideRequestBody())
-    val ride: RideRequestBody = _ride
+    private val _ride: Ride by mutableStateOf(Ride())
+    val ride: Ride = _ride
 
+    /*
     fun createARide() = viewModelScope.launch {
         if (assertReadyToPost()) {
             rideRepository.createRide(
@@ -37,6 +38,8 @@ class PostScreenViewModel @Inject constructor(private val rideRepository: RideRe
             )
         }
     }
+
+     */
 
     private fun assertReadyToPost(): Boolean {
         return ride.type != null

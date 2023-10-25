@@ -50,7 +50,7 @@ PostScreen to network and pass data back and forth.
 )
 @Composable
 fun PostScreen(
-    onPostNewTrip: (RideRequestBody) -> Unit,
+    onPostNewTrip: (Ride) -> Unit,
     postScreenViewModel: PostScreenViewModel = hiltViewModel()
 ) {
     val pagerState = rememberPagerState(0)

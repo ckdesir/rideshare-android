@@ -28,7 +28,7 @@ import com.cornellappdev.scoop.data.models.RideRequestBody
 import com.cornellappdev.scoop.data.models.RideType
 
 @Composable
-fun BottomSheet(ride: RideRequestBody) {
+fun BottomSheet(ride: Ride) {
     Column(modifier = Modifier.padding(top = 28.dp, start = 40.dp, end = 40.dp)) {
         Text(
             text = "Trip to ${ride.arrivalLocationName}",

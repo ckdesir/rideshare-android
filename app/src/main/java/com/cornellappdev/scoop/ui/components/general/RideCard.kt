@@ -17,6 +17,8 @@ import androidx.compose.material.icons.outlined.Place
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
@@ -41,7 +43,8 @@ fun RideCard(
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier
             .fillMaxWidth(),
-        border = BorderStroke(1.dp, color = BorderGray)
+        border = BorderStroke(1.dp, color = BorderGray),
+        elevation = 2.dp
     ) {
         Column(modifier = Modifier.padding(10.dp)) {
             Row(
@@ -60,6 +63,7 @@ fun RideCard(
                 }
 
                 Row(modifier = Modifier.wrapContentSize()) {
+
                     Icon(
                         Icons.Filled.CalendarToday,
                         modifier = Modifier
@@ -68,6 +72,13 @@ fun RideCard(
                             .align(Alignment.CenterVertically),
                         contentDescription = stringResource(R.string.calendar_icon_description)
                     )
+
+                    ride.datetime?.let { time ->
+                        Text(
+                            text = time,
+                            style = TextStyle(color = Color.Black, fontSize = 22.sp)
+                        )
+                    }
                 }
             }
 

@@ -13,6 +13,6 @@ import com.cornellappdev.scoop.data.models.RideRequestBody
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ThirdPage(ride: RideRequestBody) {
+fun ThirdPage(ride: Ride) {
     BottomSheet(ride)
 }
