@@ -3,9 +3,10 @@ package com.cornellappdev.scoop.data.models
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.squareup.moshi.Json
+import java.time.LocalDate
 import java.time.LocalDateTime
 
-// TODO: fix this so that it actually makes sense and correlates with backend haha
+// TODO: Convert all dates from Strings to LocalDateTime
 
 data class Ride(
     var id: Int? = null,

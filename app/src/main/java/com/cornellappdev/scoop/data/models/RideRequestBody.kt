@@ -2,6 +2,7 @@ package com.cornellappdev.scoop.data.models
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.time.LocalDateTime
 
 @JsonClass(generateAdapter = true)
 data class RideRequestBody(
