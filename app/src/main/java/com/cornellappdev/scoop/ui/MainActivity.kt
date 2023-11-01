@@ -18,8 +18,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProvideWindowInsets {
                 ScoopTheme {
-                    MainScreen()
-                    //OnboardingHolderView()
+                    //MainScreen()
+                    OnboardingHolderView()
                 }
             }
         }
