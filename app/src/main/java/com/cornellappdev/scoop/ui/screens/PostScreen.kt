@@ -10,8 +10,6 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,19 +18,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
-import com.cornellappdev.scoop.data.models.RideRequestBody
+import com.cornellappdev.scoop.ui.components.general.MovingCarFooter
 import com.cornellappdev.scoop.ui.components.post.FirstPage
 import com.cornellappdev.scoop.ui.components.post.SecondPage
 import com.cornellappdev.scoop.ui.components.post.ThirdPage
-import com.cornellappdev.scoop.ui.theme.DarkGray
 import com.cornellappdev.scoop.ui.theme.Green
-import com.cornellappdev.scoop.ui.theme.LightGray
 import com.cornellappdev.scoop.ui.viewmodel.PostScreenViewModel
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.CoroutineScope
@@ -108,10 +103,14 @@ fun PostScreen(
                     verticalArrangement = Arrangement.Bottom,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    MovingCarFooter(pagerState.currentPage, 3)
+                    /*
                     Image(
                         painter = painterResource(R.drawable.loading_car),
                         contentDescription = "Footer"
                     )
+
+                     */
                 }
             }
         }

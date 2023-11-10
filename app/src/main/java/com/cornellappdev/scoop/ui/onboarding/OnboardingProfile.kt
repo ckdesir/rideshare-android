@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.R
-import com.cornellappdev.scoop.onboarding.OnboardingFooter
+import com.cornellappdev.scoop.ui.components.general.MovingCarFooter
 import com.cornellappdev.scoop.ui.screens.NavHeader
 import com.cornellappdev.scoop.ui.theme.DarkGreen
 import com.cornellappdev.scoop.ui.theme.Gray
@@ -101,7 +101,7 @@ fun OnboardingProfile(pagerState: PagerState) {
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.Center,
             ) {
-                OnboardingFooter(carIndex = pagerState.currentPage)
+                MovingCarFooter(carIndex = pagerState.currentPage, 6)
             }
         }
     }

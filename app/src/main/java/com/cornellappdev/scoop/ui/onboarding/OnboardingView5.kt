@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
 import com.cornellappdev.scoop.ui.components.general.DenseTextField
+import com.cornellappdev.scoop.ui.components.general.MovingCarFooter
 import com.cornellappdev.scoop.ui.screens.NavHeader
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
@@ -94,7 +95,7 @@ fun OnboardingView5(pagerState: PagerState) {
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.Center,
             ) {
-                OnboardingFooter(carIndex = pagerState.currentPage)
+                MovingCarFooter(carIndex = pagerState.currentPage, 6)
             }
         }
     }

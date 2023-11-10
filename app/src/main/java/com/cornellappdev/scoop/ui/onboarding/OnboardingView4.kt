@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
+import com.cornellappdev.scoop.ui.components.general.MovingCarFooter
 import com.cornellappdev.scoop.ui.screens.NavHeader
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
@@ -86,7 +87,7 @@ fun OnboardingView4(
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.Center,
             ) {
-                OnboardingFooter(carIndex = pagerState.currentPage)
+                MovingCarFooter(carIndex = pagerState.currentPage, 6)
             }
         }
     }

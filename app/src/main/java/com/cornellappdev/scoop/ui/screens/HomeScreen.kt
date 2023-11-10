@@ -24,6 +24,7 @@ import com.cornellappdev.scoop.ui.components.home.TripPostedConfirmation
 import com.cornellappdev.scoop.ui.theme.Gray
 import com.cornellappdev.scoop.ui.viewmodel.ApiResponse
 import com.cornellappdev.scoop.ui.viewmodel.HomeScreenViewModel
+import com.cornellappdev.scoop.ui.viewmodel.LoginViewModel
 import kotlinx.coroutines.delay
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -32,14 +33,14 @@ fun HomeScreen(
     onTripClick: (String) -> Unit,
     onPostNewRide: () -> Unit,
     showTripPosted: Boolean = false,
-    homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
+    homeScreenViewModel: HomeScreenViewModel = hiltViewModel(),
 ) {
     var tripPostedMessageShown by rememberSaveable { mutableStateOf(showTripPosted) }
 
     // Collect flow of rides through API
     val rideApiResponse = homeScreenViewModel.rideFlow.collectAsState().value
 
-    val testData = listOf(Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"))
+    //val testData = listOf(Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"))
 
     // Stops displaying the given trip posted message to the user after a delay.
     suspend fun stopDisplayingTripPosted() {
@@ -76,12 +77,14 @@ fun HomeScreen(
         ) {
 
             when (rideApiResponse) {
-                is ApiResponse.Error -> items(emptyList<Ride>()) {
-                    item -> RideCard(item)
+                is ApiResponse.Error -> items(emptyList<Ride>()) { item ->
+                    RideCard(item)
                 }
-                is ApiResponse.Pending -> items(emptyList<Ride>()) {
-                        item -> RideCard(item)
+
+                is ApiResponse.Pending -> items(emptyList<Ride>()) { item ->
+                    RideCard(item)
                 }
+
                 is ApiResponse.Success -> items(rideApiResponse.data) { item ->
                     RideCard(item)
                 }

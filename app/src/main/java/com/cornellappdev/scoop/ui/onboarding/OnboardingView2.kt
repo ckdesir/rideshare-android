@@ -1,6 +1,5 @@
 package com.cornellappdev.scoop.ui.onboarding
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -12,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
-import com.cornellappdev.scoop.onboarding.OnboardingFooter
+import com.cornellappdev.scoop.ui.components.general.MovingCarFooter
 import com.cornellappdev.scoop.ui.components.general.DenseTextField
 import com.cornellappdev.scoop.ui.screens.NavHeader
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -110,7 +109,7 @@ fun OnboardingView2(pagerState: PagerState) {
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.Center,
             ) {
-                OnboardingFooter(carIndex = pagerState.currentPage)
+                MovingCarFooter(carIndex = pagerState.currentPage, 6)
             }
         }
     }
