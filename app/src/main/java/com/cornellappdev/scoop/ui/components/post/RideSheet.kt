@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -24,25 +23,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
-import com.cornellappdev.scoop.data.models.RideRequestBody
 import com.cornellappdev.scoop.data.models.RideType
 
 @Composable
-fun BottomSheet(ride: RideRequestBody) {
+fun RideSheet(ride: Ride) {
     Column(modifier = Modifier.padding(top = 28.dp, start = 40.dp, end = 40.dp)) {
-        Text(
-            text = "Trip to ${ride.arrivalLocationName}",
-            style = TextStyle(color = Color.Black, fontSize = 25.sp),
-            modifier = Modifier.padding(bottom = 5.dp)
-        )
+        ride.creator?.let { ShortProfileCard(it) }
 
-        Text(
-            text= "Organizer: ${ride.creator}",
-            style = TextStyle(color = Color.Black, fontSize = 12.sp),
-            modifier = Modifier.padding(bottom = 30.dp)
-        )
-
-        Column(modifier = Modifier.padding(bottom = 15.dp)){
+        Column(modifier = Modifier.padding(top = 20.dp, bottom = 15.dp)){
             Text(
                 text= "TRANSPORTATION METHOD",
                 style = TextStyle(color = Color.Black, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)

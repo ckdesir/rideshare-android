@@ -4,6 +4,7 @@ import com.cornellappdev.scoop.data.NetworkApi
 import com.cornellappdev.scoop.data.models.Ride
 import com.cornellappdev.scoop.data.models.RideRequestBody
 import com.cornellappdev.scoop.data.models.RideType
+import com.cornellappdev.scoop.data.models.User
 import javax.inject.Inject
 import javax.inject.Singleton
 

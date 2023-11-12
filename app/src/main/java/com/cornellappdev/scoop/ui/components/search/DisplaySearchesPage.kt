@@ -52,6 +52,8 @@ fun DisplaySearchesPage(
     val filter = rememberSaveable { mutableStateOf<String?>(null) }
     val isEditing = rememberSaveable { mutableStateOf(false) }
 
+    val testData = listOf(Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"))
+
     Scaffold(topBar = {
         Box(
             modifier = Modifier
@@ -111,7 +113,7 @@ fun DisplaySearchesPage(
                     state = state,
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    items(searchResults.value) { item ->
+                    items(testData) { item ->
                         RideCard(item)
                     }
                 }

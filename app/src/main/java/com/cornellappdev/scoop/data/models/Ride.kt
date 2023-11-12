@@ -1,8 +1,12 @@
 package com.cornellappdev.scoop.data.models
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.squareup.moshi.Json
+import java.time.LocalDate
+import java.time.LocalDateTime
 
-// TODO: fix this so that it actually makes sense and correlates with backend haha
+// TODO: Convert all dates from Strings to LocalDateTime
 
 data class Ride(
     var id: Int? = null,
@@ -19,3 +23,25 @@ data class Ride(
     var creator: User? = null,
     var path: Path? = null
 )
+
+/*
+ * Backward compatibility functions for Dates
+ */
+
+/**
+ * Convert a String to Kotlin LocalDateTime
+ */
+@RequiresApi(Build.VERSION_CODES.O)
+fun stringToDate(dateString : String) : LocalDateTime {
+    var splitString = dateString.split(" ")
+    var dateList = splitString[0].split("/")
+    var timeList = splitString[1].split(":")
+    var pm = splitString[2] == "PM"
+    var hour = if(pm) Integer.parseInt(timeList[0]) + 12 else Integer.parseInt(timeList[0])
+    // Year, Month, Day, Hour, Minute
+    return LocalDateTime.of(Integer.parseInt(dateList[2]), Integer.parseInt(dateList[0]), Integer.parseInt(dateList[1]), hour, Integer.parseInt(timeList[1]))
+}
+
+
+
+

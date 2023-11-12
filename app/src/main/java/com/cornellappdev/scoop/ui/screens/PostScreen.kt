@@ -31,6 +31,7 @@ import com.cornellappdev.scoop.ui.components.post.FirstPage
 import com.cornellappdev.scoop.ui.components.post.SecondPage
 import com.cornellappdev.scoop.ui.components.post.ThirdPage
 import com.cornellappdev.scoop.ui.theme.DarkGray
+import com.cornellappdev.scoop.ui.theme.Green
 import com.cornellappdev.scoop.ui.theme.LightGray
 import com.cornellappdev.scoop.ui.viewmodel.PostScreenViewModel
 import com.google.accompanist.pager.*
@@ -50,7 +51,7 @@ PostScreen to network and pass data back and forth.
 )
 @Composable
 fun PostScreen(
-    onPostNewTrip: (RideRequestBody) -> Unit,
+    onPostNewTrip: (Ride) -> Unit,
     postScreenViewModel: PostScreenViewModel = hiltViewModel()
 ) {
     val pagerState = rememberPagerState(0)
@@ -114,38 +115,27 @@ fun PostScreen(
                 }
             }
         }
-        AnimatedVisibility(
-            visible = pagerState.currentPage == 0 || pagerState.currentPage == 1,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(40.dp)
-        ) {
-            HorizontalPagerIndicator(
-                pagerState = pagerState,
-                activeColor = DarkGray
-            )
-        }
 
         AnimatedVisibility(
-            visible = pagerState.currentPage == 3,
+            visible = pagerState.currentPage == 2,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 40.dp)
-                .width(175.dp)
+                .width(275.dp)
         ) {
             Button(
                 shape = RoundedCornerShape(30.dp),
                 onClick = { onPostNewTrip(postScreenViewModel.ride) },
                 colors = ButtonDefaults.outlinedButtonColors(
-                    backgroundColor = LightGray,
-                    contentColor = Color.Black
+                    backgroundColor = Green,
+                    contentColor = Color.White
                 )
             ) {
                 Text(
                     text = stringResource(R.string.post_trip),
-                    modifier = Modifier.padding(12.dp),
+                    modifier = Modifier.padding(6.dp),
                     textAlign = TextAlign.Center,
-                    style = TextStyle(color = Color.Black, fontSize = 20.sp),
+                    style = TextStyle(color = Color.White, fontSize = 20.sp),
                 )
             }
         }
