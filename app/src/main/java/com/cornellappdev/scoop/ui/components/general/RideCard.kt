@@ -1,5 +1,7 @@
 package com.cornellappdev.scoop.ui.components.general
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
@@ -28,13 +30,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
+import com.cornellappdev.scoop.data.models.rideTypeToString
 import com.cornellappdev.scoop.ui.theme.BorderGray
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 /**
  * Composable that displays information about the [ride] passed in.
  *
  * @param ride The ride to be turned into a [RideCard]
  */
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun RideCard(
     ride: Ride
@@ -54,11 +60,17 @@ fun RideCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Column(modifier = Modifier.align(alignment = Alignment.CenterVertically)) {
-                    ride.type?.let { transportation ->
-                        Text(
-                            text = "Michelle's $transportation",
-                            style = TextStyle(color = Color.Black, fontSize = 22.sp)
-                        )
+
+                    ride.creator?.firstName.let{ name ->
+                        ride.type?.let { transportation ->
+
+                            val rideType = rideTypeToString(transportation)
+
+                            Text(
+                                text = "$name's $rideType",
+                                style = TextStyle(color = Color.Black, fontSize = 18.sp)
+                            )
+                        }
                     }
                 }
 
@@ -74,9 +86,14 @@ fun RideCard(
                     )
 
                     ride.datetime?.let { time ->
+
+                        val isoDate = LocalDate.parse(time, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+                        val month = isoDate.monthValue
+                        val year = isoDate.year
+
                         Text(
-                            text = time,
-                            style = TextStyle(color = Color.Black, fontSize = 22.sp)
+                            text = month.toString() + " " + year.toString(),
+                            style = TextStyle(color = Color.Black, fontSize = 18.sp)
                         )
                     }
                 }
@@ -92,11 +109,11 @@ fun RideCard(
                             .align(Alignment.CenterVertically),
                         contentDescription = stringResource(R.string.details_icon_description)
                     )
-                    ride.departureLocationName?.let { departureLocationName ->
+                    ride.path?.departureLocationName?.let { departureLocationName ->
                         Text(
                             departureLocationName,
                             modifier = Modifier.align(Alignment.CenterVertically),
-                            style = TextStyle(color = Color.Black, fontSize = 18.sp),
+                            style = TextStyle(color = Color.Black, fontSize = 14.sp),
                         )
                     }
                 }
@@ -125,11 +142,11 @@ fun RideCard(
                             .align(Alignment.CenterVertically),
                         contentDescription = stringResource(R.string.details_icon_description)
                     )
-                    ride.arrivalLocationName?.let { arrivalLocationName ->
+                    ride.path?.arrivalLocationName?.let { arrivalLocationName ->
                         Text(
                             arrivalLocationName,
                             modifier = Modifier.align(Alignment.CenterVertically),
-                            style = TextStyle(color = Color.Black, fontSize = 18.sp)
+                            style = TextStyle(color = Color.Black, fontSize = 14.sp)
                         )
                     }
                 }

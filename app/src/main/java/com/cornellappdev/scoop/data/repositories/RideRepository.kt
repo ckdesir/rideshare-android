@@ -1,5 +1,6 @@
 package com.cornellappdev.scoop.data.repositories
 
+import android.util.Log
 import com.cornellappdev.scoop.data.NetworkApi
 import com.cornellappdev.scoop.data.models.Ride
 import com.cornellappdev.scoop.data.models.RideRequestBody
@@ -44,7 +45,7 @@ class RideRepository @Inject constructor(private val networkApi: NetworkApi) {
             )
         )
 
-    suspend fun getAllRides(): List<Ride> = networkApi.getAllRides()
+    suspend fun getAllRides(): List<Ride> = networkApi.getAllRides(LoginRepository.headers)
 
     private val _rideFlow: MutableStateFlow<ApiResponse<List<Ride>>> =
         MutableStateFlow(ApiResponse.Pending)
@@ -65,8 +66,11 @@ class RideRepository @Inject constructor(private val networkApi: NetworkApi) {
             try {
                 val rides = getAllRides()
                 _rideFlow.value = ApiResponse.Success(rides)
-            } catch (_: Exception) {
+                Log.d("Rides", "Success")
+            } catch (e : Exception) {
+                e.message?.let { Log.e("Rides", it) }
                 _rideFlow.value = ApiResponse.Error
+                Log.d("Rides", "Error")
             }
         }
     }

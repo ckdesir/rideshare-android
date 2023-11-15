@@ -1,6 +1,7 @@
 package com.cornellappdev.scoop.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.cornellappdev.scoop.data.repositories.LoginRepository
 import com.cornellappdev.scoop.data.repositories.RideRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -11,5 +12,9 @@ class HomeScreenViewModel @Inject constructor(
 ) : ViewModel() {
 
     val rideFlow = rideRepository.rideFlow
+
+    suspend fun getRides() {
+        rideRepository.getAllRides()
+    }
 
 }

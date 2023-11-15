@@ -7,7 +7,6 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,37 +16,44 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.cornellappdev.scoop.R
-import com.cornellappdev.scoop.ui.components.general.MovingCarFooter
+import com.cornellappdev.scoop.data.repositories.LoginRepository
+import com.cornellappdev.scoop.data.repositories.SignedInUser
 import com.cornellappdev.scoop.ui.navigation.MainScreen
 import com.cornellappdev.scoop.ui.theme.Green
-import com.cornellappdev.scoop.ui.viewmodel.LoginViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.tasks.Task
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Response
+import org.json.JSONObject
+import java.io.IOException
+
 
 @Composable
-fun AuthFlow(loginViewModel: LoginViewModel){
+fun AuthFlow(signInClient: GoogleSignInClient) {
 
     val navController = rememberNavController()
 
     // Set up the NavHost with the navigation graph
     NavHost(navController = navController, startDestination = "AUTH") {
         composable("AUTH") {
-            AuthScreen(loginViewModel, navController)
+            AuthScreen(signInClient, navController)
         }
         composable("HOME") {
             MainScreen()
@@ -59,7 +65,7 @@ fun AuthFlow(loginViewModel: LoginViewModel){
 
 
 @Composable
-fun AuthScreen(loginViewModel: LoginViewModel, navController : NavHostController) {
+fun AuthScreen(signInClient: GoogleSignInClient, navController: NavHostController) {
 
     val startForResult =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -68,10 +74,52 @@ fun AuthScreen(loginViewModel: LoginViewModel, navController : NavHostController
                 if (result.data != null) {
                     val task: Task<GoogleSignInAccount> =
                         GoogleSignIn.getSignedInAccountFromIntent(intent)
-                    loginViewModel.handleSignInResult(task)
 
-                    //After login, navigate to home
-                    navController.navigate("HOME")
+                    task.addOnCompleteListener { res ->
+                        if (res.isSuccessful) {
+                            val account = res.result
+                            // Successful sign in
+                            val res =
+                                SignedInUser(
+                                    firstName = account.givenName!!,
+                                    lastName = account.familyName!!, id = account.id!!,
+                                    idToken = account.idToken!!, email = account.email!!
+                                )
+
+                            LoginRepository.retrieveAccessToken(res).enqueue(object : Callback {
+
+                                override fun onFailure(call: Call, e: IOException) {
+                                    Log.d("Signin", "Sign in error")
+                                }
+
+                                override fun onResponse(call: Call, response: Response) {
+
+                                    // Parse response
+                                    val responseJson = JSONObject(response.body!!.string())
+
+                                    var accessToken = responseJson.getString("access_token")
+
+                                    response.close()
+                                    Log.d("Signin", "Successfully authenticated $accessToken")
+
+                                    LoginRepository.headers["Authorization"] = "Token $accessToken"
+
+                                    CoroutineScope(Dispatchers.Main).launch {
+                                        navController.navigate("HOME")
+                                    }
+
+                                }
+                            })
+
+                            Log.d("Signin", "Signed in successfully")
+                        } else {
+                            // Handle sign-in failure, e.g., show an error message or retry sign-in
+                            val exception = res.exception
+                            if (exception != null) {
+                                exception.message?.let { Log.d("Signin", it) }
+                            }
+                        }
+                    }
 
                 }
             } else {
@@ -100,7 +148,7 @@ fun AuthScreen(loginViewModel: LoginViewModel, navController : NavHostController
         ) {
             Button(
                 onClick = {
-                    startForResult.launch(loginViewModel.client.signInIntent)
+                    startForResult.launch(signInClient.signInIntent)
                 },
                 modifier = Modifier
                     .fillMaxWidth()

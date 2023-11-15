@@ -1,6 +1,9 @@
 package com.cornellappdev.scoop.ui.screens
 
 import android.annotation.SuppressLint
+import android.os.Build
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -19,14 +22,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.cornellappdev.scoop.R
 import com.cornellappdev.scoop.data.models.Ride
+import com.cornellappdev.scoop.data.repositories.LoginRepository
 import com.cornellappdev.scoop.ui.components.general.RideCard
 import com.cornellappdev.scoop.ui.components.home.TripPostedConfirmation
 import com.cornellappdev.scoop.ui.theme.Gray
 import com.cornellappdev.scoop.ui.viewmodel.ApiResponse
 import com.cornellappdev.scoop.ui.viewmodel.HomeScreenViewModel
-import com.cornellappdev.scoop.ui.viewmodel.LoginViewModel
 import kotlinx.coroutines.delay
 
+@RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
@@ -40,7 +44,6 @@ fun HomeScreen(
     // Collect flow of rides through API
     val rideApiResponse = homeScreenViewModel.rideFlow.collectAsState().value
 
-    //val testData = listOf(Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"))
 
     // Stops displaying the given trip posted message to the user after a delay.
     suspend fun stopDisplayingTripPosted() {

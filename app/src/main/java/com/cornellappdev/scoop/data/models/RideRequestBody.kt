@@ -20,25 +20,25 @@ data class RideRequestBody(
 )
 
 enum class RideType {
-    @Json(name = "rideshare")
+    @Json(name = "Shared Taxi")
     RIDESHARE,
 
-    @Json(name = "studentdriver")
+    @Json(name = "Student Driver")
     STUDENT
 }
 
 fun rideTypeToString(type: RideType?): String {
     return when (type) {
-        RideType.RIDESHARE -> "rideshare"
-        RideType.STUDENT -> "studentdriver"
+        RideType.RIDESHARE -> "Shared Taxi"
+        RideType.STUDENT -> "Student Driver"
         else -> "null"
     }
 }
 
 fun stringToRideType(string: String): RideType? {
     return when (string) {
-        "rideshare" -> RideType.RIDESHARE
-        "studentdriver" -> RideType.STUDENT
+        "Shared Taxi" -> RideType.RIDESHARE
+        "Student Driver" -> RideType.STUDENT
         else -> null
     }
 }

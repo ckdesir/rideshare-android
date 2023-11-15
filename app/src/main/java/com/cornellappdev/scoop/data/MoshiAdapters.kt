@@ -8,6 +8,7 @@ import com.squareup.moshi.ToJson
 import java.time.LocalDateTime
 
 class TimeAdapter {
+
     @ToJson
     fun toJson(time : LocalDateTime) : String {
         //TODO: Make sure this matches with how backend stores dates

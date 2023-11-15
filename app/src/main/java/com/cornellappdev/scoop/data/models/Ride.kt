@@ -21,7 +21,7 @@ data class Ride(
     var description: String? = null,
     @Json(name = "is_flexible") var isFlexible: Boolean? = null,
     var creator: User? = null,
-    var path: Path? = null
+    @Json(name= "path") var path: Path? = null
 )
 
 /*
