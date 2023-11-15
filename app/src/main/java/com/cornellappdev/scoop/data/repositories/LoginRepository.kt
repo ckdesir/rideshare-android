@@ -56,31 +56,6 @@ object LoginRepository {
 
     var headers: MutableMap<String, String> = mutableMapOf()
 
-    fun handleSignInResult(task: Task<GoogleSignInAccount>) {
-        task.addOnCompleteListener { result ->
-            if (result.isSuccessful) {
-                val account = result.result
-                // Successful sign in
-                val res =
-                    SignedInUser(
-                        firstName = account.givenName!!,
-                        lastName = account.familyName!!, id = account.id!!,
-                        idToken = account.idToken!!, email = account.email!!
-                    )
-
-                retrieveAccessToken(res)
-
-                Log.d("Signin", "Signed in successfully")
-            } else {
-                // Handle sign-in failure, e.g., show an error message or retry sign-in
-                val exception = result.exception
-                if (exception != null) {
-                    exception.message?.let { Log.d("Signin", it) }
-                }
-            }
-        }
-    }
-
     /**
      * Get access token from backend
      */
