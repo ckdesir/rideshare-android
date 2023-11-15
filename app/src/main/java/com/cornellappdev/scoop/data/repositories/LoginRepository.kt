@@ -57,7 +57,7 @@ object LoginRepository {
     var headers: MutableMap<String, String> = mutableMapOf()
 
     /**
-     * Get access token from backend
+     * Get access token from backend (OkHTTP call with callback)
      */
     fun retrieveAccessToken(signedInUser: SignedInUser): Call {
         val client = OkHttpClient()
