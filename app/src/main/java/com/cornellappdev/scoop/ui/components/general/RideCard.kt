@@ -61,7 +61,7 @@ fun RideCard(
             ) {
                 Column(modifier = Modifier.align(alignment = Alignment.CenterVertically)) {
 
-                    ride.creator?.firstName.let{ name ->
+                    ride.creator?.firstName.let { name ->
                         ride.type?.let { transportation ->
 
                             val rideType = rideTypeToString(transportation)

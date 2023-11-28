@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun RightArrow(
     nextFunction: suspend () -> Unit,
-    isComplete : Boolean = false,
+    isComplete: Boolean = false,
 ) {
     val scope = rememberCoroutineScope()
 

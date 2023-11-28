@@ -37,7 +37,6 @@ import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
@@ -45,8 +44,11 @@ import org.json.JSONObject
 import java.io.IOException
 
 
+/**
+ * Composable for handling sign in and navigating to home screen after signing in
+ */
 @Composable
-fun AuthFlow(signInClient: GoogleSignInClient) {
+fun AuthNav(signInClient: GoogleSignInClient) {
 
     val navController = rememberNavController()
 
@@ -63,7 +65,9 @@ fun AuthFlow(signInClient: GoogleSignInClient) {
 
 }
 
-
+/**
+ * Sign in screen
+ */
 @Composable
 fun AuthScreen(signInClient: GoogleSignInClient, navController: NavHostController) {
 
@@ -89,6 +93,7 @@ fun AuthScreen(signInClient: GoogleSignInClient, navController: NavHostControlle
                             LoginRepository.retrieveAccessToken(res).enqueue(object : Callback {
 
                                 override fun onFailure(call: Call, e: IOException) {
+                                    //TODO: Action when sign in fails
                                     Log.d("Signin", "Sign in error")
                                 }
 
@@ -100,7 +105,6 @@ fun AuthScreen(signInClient: GoogleSignInClient, navController: NavHostControlle
                                     var accessToken = responseJson.getString("access_token")
 
                                     response.close()
-                                    Log.d("Signin", "Successfully authenticated $accessToken")
 
                                     LoginRepository.headers["Authorization"] = "Token $accessToken"
 

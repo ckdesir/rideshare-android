@@ -1,4 +1,4 @@
- package com.cornellappdev.scoop.ui.screens
+package com.cornellappdev.scoop.ui.screens
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,6 +32,7 @@ fun SearchScreen(
                 searchScreenViewModel,
                 proceedToPageIndex(coroutineScope, page + 1, pagerState)
             )
+
             1 -> DisplaySearchesPage(
                 searchScreenViewModel,
                 proceedToPageIndex(

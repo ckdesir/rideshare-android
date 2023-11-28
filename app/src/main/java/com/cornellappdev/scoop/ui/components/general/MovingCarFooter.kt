@@ -56,7 +56,7 @@ fun FooterImage(
 @OptIn(ExperimentalPagerApi::class, androidx.compose.material.ExperimentalMaterialApi::class)
 @Composable
 fun MovingCarFooter(
-    carIndex: Int, maxIndex : Int
+    carIndex: Int, maxIndex: Int
 ) {
 
     LazyRow(

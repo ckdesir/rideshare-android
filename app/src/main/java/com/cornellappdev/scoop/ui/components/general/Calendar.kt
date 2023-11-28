@@ -77,7 +77,8 @@ fun CalendarContent(
 @Composable
 fun SelectDateButton() {
     val calendarViewModel: CalendarViewModel = viewModel()
-    val buttonColor : Color = if (calendarViewModel.datesSelected.toString().isBlank()) Green else DarkGreen
+    val buttonColor: Color =
+        if (calendarViewModel.datesSelected.toString().isBlank()) Green else DarkGreen
     Button(
         shape = RoundedCornerShape(5.dp),
         onClick = { /* ... */ },

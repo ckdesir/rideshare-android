@@ -30,10 +30,14 @@ fun RideSheet(ride: Ride) {
     Column(modifier = Modifier.padding(top = 28.dp, start = 40.dp, end = 40.dp)) {
         ride.creator?.let { ShortProfileCard(it) }
 
-        Column(modifier = Modifier.padding(top = 20.dp, bottom = 15.dp)){
+        Column(modifier = Modifier.padding(top = 20.dp, bottom = 15.dp)) {
             Text(
-                text= "TRANSPORTATION METHOD",
-                style = TextStyle(color = Color.Black, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+                text = "TRANSPORTATION METHOD",
+                style = TextStyle(
+                    color = Color.Black,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
             )
             Row(modifier = Modifier.padding(bottom = 15.dp)) {
                 Icon(
@@ -62,7 +66,11 @@ fun RideSheet(ride: Ride) {
         Column(modifier = Modifier.padding(bottom = 15.dp)) {
             Text(
                 text = "LOCATIONS",
-                style = TextStyle(color = Color.Black, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+                style = TextStyle(
+                    color = Color.Black,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
             )
 
             Row {
@@ -137,7 +145,11 @@ fun RideSheet(ride: Ride) {
         Column(modifier = Modifier.padding(bottom = 15.dp)) {
             Text(
                 text = "NUMBER OF TRAVELLERS",
-                style = TextStyle(color = Color.Black, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+                style = TextStyle(
+                    color = Color.Black,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
             )
             Row(modifier = Modifier.padding(bottom = 15.dp)) {
                 Icon(
@@ -162,7 +174,11 @@ fun RideSheet(ride: Ride) {
             Column {
                 Text(
                     text = "DETAILS",
-                    style = TextStyle(color = Color.Black, fontSize = 18.sp, fontWeight = FontWeight.SemiBold),
+                    style = TextStyle(
+                        color = Color.Black,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.SemiBold
+                    ),
                 )
                 Text(
                     ride.description.orEmpty(),

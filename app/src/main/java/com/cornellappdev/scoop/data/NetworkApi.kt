@@ -16,7 +16,7 @@ interface NetworkApi {
     suspend fun createRide(@Body rideRequestBody: RideRequestBody): Ride
 
     @GET("/api/rides/")
-    suspend fun getAllRides(@HeaderMap headers : Map<String, String>): List<Ride>
+    suspend fun getAllRides(@HeaderMap headers: Map<String, String>): List<Ride>
 
     @GET("/api/ride/{ride_id}")
     suspend fun getRide(@Path("ride_id") rideId: Int): Ride

@@ -197,13 +197,8 @@ fun TransportationSection(
                         interactionSource = MutableInteractionSource(),
                         indication = null,
                         onClick = {
-                            val type = when (item) {
-                                "Student Driver" -> "Student Driver"
-                                "Shared Taxi" -> "Shared Taxi"
-                                else -> ""
-                            }
-                            postScreenViewModel.setType(type)
-                            selectedValue.value = stringToRideType(type)
+                            postScreenViewModel.setType(item)
+                            selectedValue.value = stringToRideType(item)
                             updateProceedEnabled()
                         },
                         role = Role.RadioButton

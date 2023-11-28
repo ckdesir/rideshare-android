@@ -22,6 +22,9 @@ import com.cornellappdev.scoop.ui.screens.NavHeader
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
+/**
+ * The third page of the onboarding flow
+ */
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingView3(pagerState: PagerState) {
@@ -29,7 +32,11 @@ fun OnboardingView3(pagerState: PagerState) {
     Column(
         Modifier.background(Color.White)
     ) {
-        NavHeader(backFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage - 1) }, title = "Profile", hasBackArrow = false)
+        NavHeader(
+            backFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage - 1) },
+            title = "Profile",
+            hasBackArrow = false
+        )
 
         Column(
             modifier = Modifier
@@ -56,10 +63,13 @@ fun OnboardingView3(pagerState: PagerState) {
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement  =  Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 BackArrow(pagerState)
-                RightArrow(suspend { pagerState.animateScrollToPage(pagerState.currentPage + 1) }, true)
+                RightArrow(
+                    suspend { pagerState.animateScrollToPage(pagerState.currentPage + 1) },
+                    true
+                )
             }
             Spacer(modifier = Modifier.height(40.dp))
             Row(
@@ -125,14 +135,14 @@ fun MethodButtons() {
             )
         }
 
-        if(selected == "phone"){
+        if (selected == "phone") {
 
             Row(
                 modifier =
-                    Modifier.padding(20.dp, 0.dp, 0.dp, 0.dp)
+                Modifier.padding(20.dp, 0.dp, 0.dp, 0.dp)
             ) {
                 DenseTextField(
-                    label="Phone",
+                    label = "Phone",
                     value = phoneText,
                     setValue = setPhoneText,
                     placeholderText = "000-000-0000",

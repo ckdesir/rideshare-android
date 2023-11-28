@@ -34,7 +34,8 @@ fun NavHeader(
     val scope = rememberCoroutineScope()
 
     Column(
-        Modifier.fillMaxWidth()
+        Modifier
+            .fillMaxWidth()
             .padding(0.dp, 20.dp, 0.dp, 0.dp),
     ) {
         Row(
@@ -43,7 +44,7 @@ fun NavHeader(
             horizontalArrangement = Arrangement.Center,
         ) {
 
-            if(hasBackArrow){
+            if (hasBackArrow) {
                 Button(
                     onClick = {
                         scope.launch {

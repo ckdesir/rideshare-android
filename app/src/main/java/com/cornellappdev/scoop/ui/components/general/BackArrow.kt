@@ -36,7 +36,7 @@ fun BackArrow(
         border = BorderStroke(1.dp, color = Color.Black),
         onClick = {
             scope.launch {
-                pagerState.animateScrollToPage(if(pagerState.currentPage == 0) 0 else pagerState.currentPage - 1)
+                pagerState.animateScrollToPage(if (pagerState.currentPage == 0) 0 else pagerState.currentPage - 1)
             }
         }
     ) {

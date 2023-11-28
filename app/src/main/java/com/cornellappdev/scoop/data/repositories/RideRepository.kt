@@ -50,6 +50,9 @@ class RideRepository @Inject constructor(private val networkApi: NetworkApi) {
     private val _rideFlow: MutableStateFlow<ApiResponse<List<Ride>>> =
         MutableStateFlow(ApiResponse.Pending)
 
+    /**
+     * A StateFlow holding a list of all rides
+     */
     val rideFlow = _rideFlow.asStateFlow()
 
 
@@ -66,11 +69,8 @@ class RideRepository @Inject constructor(private val networkApi: NetworkApi) {
             try {
                 val rides = getAllRides()
                 _rideFlow.value = ApiResponse.Success(rides)
-                Log.d("Rides", "Success")
-            } catch (e : Exception) {
-                e.message?.let { Log.e("Rides", it) }
+            } catch (e: Exception) {
                 _rideFlow.value = ApiResponse.Error
-                Log.d("Rides", "Error")
             }
         }
     }

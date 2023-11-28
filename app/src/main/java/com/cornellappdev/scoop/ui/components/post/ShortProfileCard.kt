@@ -45,7 +45,7 @@ import com.cornellappdev.scoop.data.models.User
 import com.cornellappdev.scoop.ui.theme.BorderGray
 
 @Composable
-fun ShortProfileCard(user : User) {
+fun ShortProfileCard(user: User) {
     Card(
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier

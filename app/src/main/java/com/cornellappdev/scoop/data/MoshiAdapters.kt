@@ -10,14 +10,14 @@ import java.time.LocalDateTime
 class TimeAdapter {
 
     @ToJson
-    fun toJson(time : LocalDateTime) : String {
+    fun toJson(time: LocalDateTime): String {
         //TODO: Make sure this matches with how backend stores dates
         return time.toString()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     @FromJson
-    fun fromJson(time : String) : LocalDateTime {
+    fun fromJson(time: String): LocalDateTime {
         return stringToDate(time)
     }
 }

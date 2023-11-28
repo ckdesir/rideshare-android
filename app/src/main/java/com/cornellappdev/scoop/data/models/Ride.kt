@@ -21,7 +21,7 @@ data class Ride(
     var description: String? = null,
     @Json(name = "is_flexible") var isFlexible: Boolean? = null,
     var creator: User? = null,
-    @Json(name= "path") var path: Path? = null
+    @Json(name = "path") var path: Path? = null
 )
 
 /*
@@ -32,14 +32,20 @@ data class Ride(
  * Convert a String to Kotlin LocalDateTime
  */
 @RequiresApi(Build.VERSION_CODES.O)
-fun stringToDate(dateString : String) : LocalDateTime {
+fun stringToDate(dateString: String): LocalDateTime {
     var splitString = dateString.split(" ")
     var dateList = splitString[0].split("/")
     var timeList = splitString[1].split(":")
     var pm = splitString[2] == "PM"
-    var hour = if(pm) Integer.parseInt(timeList[0]) + 12 else Integer.parseInt(timeList[0])
+    var hour = if (pm) Integer.parseInt(timeList[0]) + 12 else Integer.parseInt(timeList[0])
     // Year, Month, Day, Hour, Minute
-    return LocalDateTime.of(Integer.parseInt(dateList[2]), Integer.parseInt(dateList[0]), Integer.parseInt(dateList[1]), hour, Integer.parseInt(timeList[1]))
+    return LocalDateTime.of(
+        Integer.parseInt(dateList[2]),
+        Integer.parseInt(dateList[0]),
+        Integer.parseInt(dateList[1]),
+        hour,
+        Integer.parseInt(timeList[1])
+    )
 }
 
 
