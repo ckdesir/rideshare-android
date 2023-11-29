@@ -56,4 +56,8 @@ class SearchScreenViewModel @Inject constructor(private val searchRepository: Se
     fun setDepartureDate(date: String) {
         _search.departureDate = date
     }
+
+    fun filterRide() {
+
+    }
 }

@@ -52,8 +52,6 @@ fun DisplaySearchesPage(
     val filter = rememberSaveable { mutableStateOf<String?>(null) }
     val isEditing = rememberSaveable { mutableStateOf(false) }
 
-    val testData = listOf(Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"), Ride(departureLocationName = "Ithaca", arrivalLocationName = "Syracuse", datetime = "Nov 13"))
-
     Scaffold(topBar = {
         Box(
             modifier = Modifier
@@ -113,9 +111,7 @@ fun DisplaySearchesPage(
                     state = state,
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    items(testData) { item ->
-                        RideCard(item)
-                    }
+                    //TODO
                 }
 
                 // Gradient overlay to the bottom of the Search results LazyColumn

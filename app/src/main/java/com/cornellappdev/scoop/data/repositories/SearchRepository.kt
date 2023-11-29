@@ -26,5 +26,5 @@ class SearchRepository @Inject constructor(private val networkApi: NetworkApi) {
             )
         )
 
-    suspend fun getAllRides(): List<Ride> = networkApi.getAllRides()
+    suspend fun getAllRides(): List<Ride> = networkApi.getAllRides(LoginRepository.headers)
 }

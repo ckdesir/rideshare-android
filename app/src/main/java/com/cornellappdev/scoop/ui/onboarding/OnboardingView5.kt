@@ -11,11 +11,14 @@ import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
 import com.cornellappdev.scoop.ui.components.general.DenseTextField
+import com.cornellappdev.scoop.ui.components.general.MovingCarFooter
 import com.cornellappdev.scoop.ui.screens.NavHeader
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
-
+/**
+ * The fifth page of the onboarding flow
+ */
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingView5(pagerState: PagerState) {
@@ -28,7 +31,12 @@ fun OnboardingView5(pagerState: PagerState) {
 
     Column(
         Modifier.background(Color.White)
-    ) { NavHeader(backFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage - 1) }, title = "Profile", hasBackArrow = false)
+    ) {
+        NavHeader(
+            backFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage - 1) },
+            title = "Profile",
+            hasBackArrow = false
+        )
 
         Column(
             modifier = Modifier
@@ -50,7 +58,7 @@ fun OnboardingView5(pagerState: PagerState) {
                 Box() {
                     Column(Modifier.fillMaxWidth()) {
                         DenseTextField(
-                            label="Roadtrip Snack",
+                            label = "Roadtrip Snack",
                             value = snackText,
                             setValue = setSnackText,
                             placeholderText = "enter snack"
@@ -61,7 +69,7 @@ fun OnboardingView5(pagerState: PagerState) {
                 Box(Modifier.fillMaxWidth()) {
                     Column() {
                         DenseTextField(
-                            label="Roadtrip Song",
+                            label = "Roadtrip Song",
                             value = songText,
                             setValue = setSongText,
                             placeholderText = "enter song"
@@ -73,7 +81,7 @@ fun OnboardingView5(pagerState: PagerState) {
 
                     Column() {
                         DenseTextField(
-                            label="Stop",
+                            label = "Stop",
                             value = stopText,
                             setValue = setStopText,
                             placeholderText = "enter stop"
@@ -83,10 +91,11 @@ fun OnboardingView5(pagerState: PagerState) {
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement  =  Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 BackArrow(pagerState)
-                RightArrow( nextFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                RightArrow(nextFunction = suspend {
+                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
                 }, isComplete)
             }
             Spacer(modifier = Modifier.height(40.dp))
@@ -94,7 +103,7 @@ fun OnboardingView5(pagerState: PagerState) {
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.Center,
             ) {
-                OnboardingFooter(carIndex = pagerState.currentPage)
+                MovingCarFooter(carIndex = pagerState.currentPage, 6)
             }
         }
     }

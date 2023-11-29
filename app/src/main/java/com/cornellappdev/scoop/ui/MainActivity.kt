@@ -3,10 +3,13 @@ package com.cornellappdev.scoop.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.cornellappdev.scoop.ui.navigation.MainScreen
-import com.cornellappdev.scoop.ui.onboarding.OnboardingHolderView
+import com.cornellappdev.scoop.R
+import com.cornellappdev.scoop.ui.login.AuthNav
 import com.cornellappdev.scoop.ui.theme.ScoopTheme
 import com.google.accompanist.insets.ProvideWindowInsets
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,11 +21,22 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProvideWindowInsets {
                 ScoopTheme {
-                    MainScreen()
+                    //MainScreen()
                     //OnboardingHolderView()
+                    AuthNav(initSignInClient())
                 }
             }
         }
+    }
+
+    private fun initSignInClient(): GoogleSignInClient {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .requestIdToken(getString(R.string.gcp_id))
+            .requestId()
+            .requestProfile()
+            .build()
+        return GoogleSignIn.getClient(this, gso)
     }
 }
 

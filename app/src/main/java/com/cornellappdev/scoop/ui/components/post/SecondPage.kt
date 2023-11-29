@@ -78,10 +78,12 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                 showInvalidRangeMessage = false
                 proceedEnabled = true
             }
+
             showInvalidDateMessage -> {
                 showInvalidDateMessage = false
                 proceedEnabled = true
             }
+
             showInvalidTimeMessage -> {
                 showInvalidTimeMessage = false
                 proceedEnabled = true
@@ -112,7 +114,8 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                 modifier = Modifier
                     .align(Alignment.End)
                     .padding(top = 18.dp)
-                    .wrapContentSize().weight(1f)
+                    .wrapContentSize()
+                    .weight(1f)
             ) {
                 Button(
                     modifier = Modifier
@@ -144,6 +147,7 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                                     disableMessage()
                                 }
                             }
+
                             dateText.isEmpty() -> {
                                 showInvalidDateMessage = true
                                 proceedEnabled = false
@@ -151,6 +155,7 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                                     disableMessage()
                                 }
                             }
+
                             timeText.isEmpty() || dateAndTimeFormatter.parse("$dateText $timeText")
                                 ?.before(Date()) == true
                             -> {
@@ -160,6 +165,7 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                                     disableMessage()
                                 }
                             }
+
                             else -> {
                                 // Updates view model with details collected on SecondPage
                                 postScreenViewModel.setMinTravelers(numMinTravelers)
@@ -177,7 +183,7 @@ fun SecondPage(onProceedClicked: () -> Unit, postScreenViewModel: PostScreenView
                     ),
                 ) {
                     Text(
-                        text= "Next",
+                        text = "Next",
                         style = MaterialTheme.typography.body1,
                         color = (if (proceedEnabled) Color.Black else Color(0xFF001E2D)),
                         fontWeight = FontWeight.Bold
@@ -202,9 +208,11 @@ fun NumberOfTravelersSection(
     minTravelers: String, setMinTravelers: (String) -> Unit,
     maxTravelers: String, setMaxTravelers: (String) -> Unit
 ) {
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .padding(top = 30.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 30.dp)
+    ) {
         Text(
             text = stringResource(R.string.num_of_travelers),
             style = MaterialTheme.typography.subtitle2,
@@ -250,7 +258,7 @@ fun DateOfTripSection(
     ) {
 
         //DenseTextField and Icon with transparent clickable Box on top
-        Box (modifier = Modifier.fillMaxWidth()) {
+        Box(modifier = Modifier.fillMaxWidth()) {
             DenseTextField(
                 value = if (dateText == "null") "" else dateText,
                 setValue = setDateText,
@@ -271,7 +279,7 @@ fun DateOfTripSection(
                 modifier = Modifier
                     .matchParentSize()
                     .alpha(0f)
-                    .clickable(onClick = { datePickerDialog.show()} ),
+                    .clickable(onClick = { datePickerDialog.show() }),
             )
         }
     }
@@ -290,7 +298,7 @@ fun TimeOfTripSection(
             .padding(top = 30.dp)
     ) {
         // Box stacking a clickable Clock icon on top of a DenseTextField
-        Box (modifier = Modifier.fillMaxWidth()) {
+        Box(modifier = Modifier.fillMaxWidth()) {
             DenseTextField(
                 value = if (timeText == "null") "" else timeText,
                 setValue = setTimeText,
@@ -310,7 +318,7 @@ fun TimeOfTripSection(
                 modifier = Modifier
                     .matchParentSize()
                     .alpha(0f)
-                    .clickable(onClick = { timePickerDialog.show()} ),
+                    .clickable(onClick = { timePickerDialog.show() }),
             )
         }
     }

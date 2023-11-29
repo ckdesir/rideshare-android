@@ -54,9 +54,9 @@ fun DenseTextField(
         fontSize = 22.sp,
         textAlign = TextAlign.Start
     ),
-    visualTransformation : VisualTransformation = None,
-    wrapText : Boolean = false,
-    maxLines : Int = 1
+    visualTransformation: VisualTransformation = None,
+    wrapText: Boolean = false,
+    maxLines: Int = 1
 ) {
     OutlinedTextField(
         colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -73,10 +73,12 @@ fun DenseTextField(
             )
         },
         modifier = if (wrapText)
-            modifier.heightIn(min = 65.dp).
-            fillMaxWidth() else
-            modifier.height(65.dp).
-                fillMaxWidth(),
+            modifier
+                .heightIn(min = 65.dp)
+                .fillMaxWidth() else
+            modifier
+                .height(65.dp)
+                .fillMaxWidth(),
         textStyle = TextStyle(color = Color.Black, fontSize = 17.sp),
         label = { Text(text = label) },
         singleLine = singleLine,

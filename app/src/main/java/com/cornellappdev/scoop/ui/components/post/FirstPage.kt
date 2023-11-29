@@ -159,7 +159,7 @@ fun TransportationSection(
     proceedEnabled: MutableState<Boolean>,
     modifier: Modifier = Modifier
 ) {
-    val items = listOf("Student driver", "Taxi")
+    val items = listOf("Student Driver", "Shared Taxi")
     val selectedValue = rememberSaveable {
         mutableStateOf(
             postScreenViewModel.ride.type
@@ -167,8 +167,8 @@ fun TransportationSection(
     }
     val isSelectedItem: (String) -> Boolean = {
         rideTypeToString(selectedValue.value) == when (it) {
-            "Student driver" -> "studentdriver"
-            "Taxi" -> "rideshare"
+            "Student Driver" -> "Student Driver"
+            "Shared Taxi" -> "Shared Taxi"
             else -> "asdf"
         }
     }
@@ -197,13 +197,8 @@ fun TransportationSection(
                         interactionSource = MutableInteractionSource(),
                         indication = null,
                         onClick = {
-                            val type = when (item) {
-                                "Student driver" -> "studentdriver"
-                                "Taxi" -> "rideshare"
-                                else -> ""
-                            }
-                            postScreenViewModel.setType(type)
-                            selectedValue.value = stringToRideType(type)
+                            postScreenViewModel.setType(item)
+                            selectedValue.value = stringToRideType(item)
                             updateProceedEnabled()
                         },
                         role = Role.RadioButton

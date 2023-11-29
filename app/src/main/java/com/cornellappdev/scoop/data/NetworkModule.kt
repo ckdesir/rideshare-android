@@ -2,6 +2,8 @@ package com.cornellappdev.scoop.data
 
 import android.util.Log
 import com.cornellappdev.scoop.BuildConfig
+import com.cornellappdev.scoop.data.repositories.LoginRepository
+import com.cornellappdev.scoop.ui.viewmodel.ApiResponse
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -41,7 +43,7 @@ object NetworkModule {
     @Provides
     fun provideMoshi(): Moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
-        .add(TimeAdapter())
+        //.add(TimeAdapter())
         .build()
 
     @Singleton

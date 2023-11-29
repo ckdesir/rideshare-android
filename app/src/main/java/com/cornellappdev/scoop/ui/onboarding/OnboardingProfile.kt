@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.R
-import com.cornellappdev.scoop.onboarding.OnboardingFooter
+import com.cornellappdev.scoop.ui.components.general.MovingCarFooter
 import com.cornellappdev.scoop.ui.screens.NavHeader
 import com.cornellappdev.scoop.ui.theme.DarkGreen
 import com.cornellappdev.scoop.ui.theme.Gray
@@ -42,7 +42,11 @@ fun OnboardingProfile(pagerState: PagerState) {
         Modifier.background(Color.White)
     ) {
 
-        NavHeader(backFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage - 1) }, title = "Profile", hasBackArrow = false)
+        NavHeader(
+            backFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage - 1) },
+            title = "Profile",
+            hasBackArrow = false
+        )
 
         Column(
             modifier = Modifier
@@ -64,7 +68,7 @@ fun OnboardingProfile(pagerState: PagerState) {
                 verticalArrangement = Arrangement.Center
             ) {
                 ProfileImage()
-                
+
                 Spacer(modifier = Modifier.height(40.dp))
 
                 Column(
@@ -85,7 +89,11 @@ fun OnboardingProfile(pagerState: PagerState) {
                         colors = ButtonDefaults.buttonColors(backgroundColor = DarkGreen)
                     )
                     {
-                        Text(text = "Upload A Photo", color = Color.White, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = "Upload A Photo",
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                     Spacer(modifier = Modifier.height(20.dp))
                     Text(
@@ -94,14 +102,14 @@ fun OnboardingProfile(pagerState: PagerState) {
                         fontWeight = FontWeight.Bold,
                         style = TextStyle(textDecoration = TextDecoration.Underline),
 
-                    )
+                        )
                 }
             }
             Row(
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.Center,
             ) {
-                OnboardingFooter(carIndex = pagerState.currentPage)
+                MovingCarFooter(carIndex = pagerState.currentPage, 6)
             }
         }
     }

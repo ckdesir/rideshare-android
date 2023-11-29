@@ -1,4 +1,4 @@
-package com.cornellappdev.scoop.onboarding
+package com.cornellappdev.scoop.ui.components.general
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -48,18 +48,23 @@ fun FooterImage(
     }
 }
 
+/**
+ * Footer based on page index.
+ *
+ * Requires: [maxIndex] >= 2
+ */
 @OptIn(ExperimentalPagerApi::class, androidx.compose.material.ExperimentalMaterialApi::class)
 @Composable
-fun OnboardingFooter(
-    carIndex: Int,
+fun MovingCarFooter(
+    carIndex: Int, maxIndex: Int
 ) {
 
     LazyRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(15.dp),
     ) {
-        items(6) { index ->
-            if (index <= 4) {
+        items(maxIndex) { index ->
+            if (index <= maxIndex - 2) {
                 FooterImage(currIndex = index, carIndex = carIndex)
             } else {
                 Image(

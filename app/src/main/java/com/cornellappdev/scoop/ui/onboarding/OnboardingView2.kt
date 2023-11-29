@@ -1,6 +1,5 @@
 package com.cornellappdev.scoop.ui.onboarding
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -12,12 +11,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
-import com.cornellappdev.scoop.onboarding.OnboardingFooter
+import com.cornellappdev.scoop.ui.components.general.MovingCarFooter
 import com.cornellappdev.scoop.ui.components.general.DenseTextField
 import com.cornellappdev.scoop.ui.screens.NavHeader
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
+/**
+ * The second page of the Onboarding flow
+ */
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingView2(pagerState: PagerState) {
@@ -32,7 +34,11 @@ fun OnboardingView2(pagerState: PagerState) {
     Column(
         Modifier.background(Color.White)
     ) {
-        NavHeader(backFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage - 1) }, title = "Profile", hasBackArrow = false)
+        NavHeader(
+            backFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage - 1) },
+            title = "Profile",
+            hasBackArrow = false
+        )
 
         Column(
             modifier = Modifier
@@ -53,7 +59,7 @@ fun OnboardingView2(pagerState: PagerState) {
                 Box() {
                     Column(Modifier.fillMaxWidth()) {
                         DenseTextField(
-                            label="Name",
+                            label = "Name",
                             value = nameText,
                             setValue = setNameText,
                             placeholderText = "Enter Name"
@@ -64,7 +70,7 @@ fun OnboardingView2(pagerState: PagerState) {
                 Box(Modifier.fillMaxWidth()) {
                     Column() {
                         DenseTextField(
-                            label="Pronouns",
+                            label = "Pronouns",
                             value = pronounsText,
                             setValue = setPronounsText,
                             placeholderText = "Enter Pronouns"
@@ -75,7 +81,7 @@ fun OnboardingView2(pagerState: PagerState) {
                 Box(Modifier.fillMaxWidth()) {
                     Column() {
                         DenseTextField(
-                            label="Hometown",
+                            label = "Hometown",
                             value = hometownText,
                             setValue = setHometownText,
                             placeholderText = "Enter Hometown"
@@ -89,7 +95,7 @@ fun OnboardingView2(pagerState: PagerState) {
                             modifier = Modifier.padding(
                                 bottom = 10.dp
                             ),
-                            label="Year",
+                            label = "Year",
                             value = yearText,
                             setValue = setYearText,
                             placeholderText = "Enter Class Year"
@@ -99,10 +105,11 @@ fun OnboardingView2(pagerState: PagerState) {
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement  =  Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 BackArrow(pagerState)
-                RightArrow( suspend { pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                RightArrow(suspend {
+                    pagerState.animateScrollToPage(pagerState.currentPage + 1)
                 }, isComplete)
             }
             Spacer(modifier = Modifier.height(40.dp))
@@ -110,7 +117,7 @@ fun OnboardingView2(pagerState: PagerState) {
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.Center,
             ) {
-                OnboardingFooter(carIndex = pagerState.currentPage)
+                MovingCarFooter(carIndex = pagerState.currentPage, 6)
             }
         }
     }

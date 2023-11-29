@@ -17,10 +17,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cornellappdev.scoop.components.BackArrow
 import com.cornellappdev.scoop.components.RightArrow
+import com.cornellappdev.scoop.ui.components.general.MovingCarFooter
 import com.cornellappdev.scoop.ui.screens.NavHeader
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
+/**
+ * The fourth page of the onboarding flow
+ */
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnboardingView4(
@@ -31,7 +35,11 @@ fun OnboardingView4(
         Modifier.background(Color.White)
     ) {
 
-        NavHeader(backFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage - 1) }, title = "Profile", hasBackArrow = false)
+        NavHeader(
+            backFunction = suspend { pagerState.animateScrollToPage(pagerState.currentPage - 1) },
+            title = "Profile",
+            hasBackArrow = false
+        )
 
         Column(
             modifier = Modifier
@@ -56,7 +64,7 @@ fun OnboardingView4(
                     text = "HOW TALKTATIVE ARE YOU?",
                     fontSize = 15.sp,
                 )
-                
+
                 Spacer(modifier = Modifier.height(10.dp))
                 OnboardingSlider(
                     values = listOf("Quiet", " ", " ", "Talkative"),
@@ -76,17 +84,20 @@ fun OnboardingView4(
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement  =  Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 BackArrow(pagerState)
-                RightArrow(suspend { pagerState.animateScrollToPage(pagerState.currentPage + 1) }, true)
+                RightArrow(
+                    suspend { pagerState.animateScrollToPage(pagerState.currentPage + 1) },
+                    true
+                )
             }
             Spacer(modifier = Modifier.height(40.dp))
             Row(
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.Center,
             ) {
-                OnboardingFooter(carIndex = pagerState.currentPage)
+                MovingCarFooter(carIndex = pagerState.currentPage, 6)
             }
         }
     }
